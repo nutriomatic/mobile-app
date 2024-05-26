@@ -5,15 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="32dp"
     android:background="@color/md_theme_surfaceContainerLowest"
-    tools:context=".presentation.auth.login.LoginActivity">
+    tools:context=".presentation.auth.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="260dp" />
+        app:layout_constraintGuide_percent="0.34" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icon"
@@ -41,7 +42,7 @@
         android:id="@+id/til_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="48dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +67,7 @@
         app:layout_constraintEnd_toEndOf="@id/til_email"
         app:layout_constraintStart_toStartOf="@id/til_email"
         app:layout_constraintTop_toBottomOf="@id/til_email"
+        app:passwordToggleEnabled="true"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -79,14 +81,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
-        android:layout_width="200dp"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+        app:layout_constraintTop_toBottomOf="@+id/til_password"
+        app:layout_constraintVertical_bias="0.127" />
 
     <TextView
         android:id="@+id/tv_dont_have_account"

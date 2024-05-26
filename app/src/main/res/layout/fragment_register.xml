@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="32dp"
     android:background="@color/md_theme_surfaceContainerLowest">
 
     <androidx.constraintlayout.widget.Guideline
@@ -12,13 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="260dp" />
+        app:layout_constraintGuide_begin="220dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:layout_marginBottom="64dp"
         android:src="@drawable/icon_green"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -39,7 +39,7 @@
         android:id="@+id/til_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="8dp"
         android:hint="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +81,7 @@
         app:layout_constraintEnd_toEndOf="@id/til_name"
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_email"
+        app:passwordToggleEnabled="true"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -101,6 +102,7 @@
         app:layout_constraintEnd_toEndOf="@id/til_name"
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_password"
+        app:passwordToggleEnabled="true"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -115,13 +117,17 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
-        android:layout_width="200dp"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_confirmation_password"
+        app:layout_constraintVertical_bias="1.0"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
 
     <TextView

@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_surfaceContainerLowest"
-    tools:context=".presentation.auth.login.LoginActivity">
+    android:background="@color/md_theme_surfaceContainerLowest">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -129,8 +128,7 @@
         android:id="@+id/tv_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Have account?"
+        android:text="Have account? "
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@id/tv_redirect_login"
@@ -142,8 +140,7 @@
         android:id="@+id/tv_redirect_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="Login"
+        android:text="Login "
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"

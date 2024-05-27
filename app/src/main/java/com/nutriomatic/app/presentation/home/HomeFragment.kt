@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -46,6 +49,15 @@ class HomeFragment : Fragment() {
 
                     false
                 }
+
+            rvProduct.adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
+//                val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+                val navDirections =
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.id.toString())
+                Navigation.findNavController(view).navigate(navDirections)
+            }
+            rvProduct.layoutManager = GridLayoutManager(activity, 2)
+//            rvProduct.layoutManager = LinearLayoutManager(activity)
         }
     }
 

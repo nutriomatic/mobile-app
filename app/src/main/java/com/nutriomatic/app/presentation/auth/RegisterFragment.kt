@@ -7,19 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.nutriomatic.app.R
+import com.nutriomatic.app.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
-        view.findViewById<View>(R.id.tv_redirect_login).setOnClickListener {
-            Navigation.findNavController(view)
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding.tvRedirectLogin.setOnClickListener {
+            Navigation.findNavController(binding.root)
                 .navigate(R.id.action_registerFragment_to_loginFragment)
         }
-        return view
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

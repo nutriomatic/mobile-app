@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="32dp"
     android:background="@color/md_theme_surfaceContainerLowest"
-    tools:context=".presentation.auth.MainActivity">
+    tools:context=".presentation.auth.AuthActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="0dp"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:scaleType="centerCrop"
             android:src="@drawable/cendol"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +43,12 @@
             android:textColor="@color/md_theme_surfaceContainerLow"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/item_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/img_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_icon" />
+            app:layout_constraintTop_toTopOf="@+id/img_label" />
 
         <ImageView
-            android:id="@+id/item_icon"
+            android:id="@+id/img_label"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/labela"

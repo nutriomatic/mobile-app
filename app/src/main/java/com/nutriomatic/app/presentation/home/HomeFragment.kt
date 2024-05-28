@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHomeBinding
+import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -50,14 +51,20 @@ class HomeFragment : Fragment() {
                     false
                 }
 
-            rvProduct.adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
-//                val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+            val adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
                 val navDirections =
                     HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.id.toString())
                 Navigation.findNavController(view).navigate(navDirections)
             }
+            rvProduct.adapter = adapter
             rvProduct.layoutManager = GridLayoutManager(activity, 2)
-//            rvProduct.layoutManager = LinearLayoutManager(activity)
+            rvProduct.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2,
+                    resources.getDimensionPixelSize(R.dimen.grid_item_offset),
+                    false
+                )
+            )
         }
     }
 

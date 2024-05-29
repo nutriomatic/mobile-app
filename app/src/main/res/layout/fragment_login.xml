@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="32dp"
     android:background="@color/md_theme_surfaceContainerLowest"
+    android:paddingHorizontal="32dp"
     tools:context=".presentation.auth.AuthActivity">
 
     <androidx.constraintlayout.widget.Guideline

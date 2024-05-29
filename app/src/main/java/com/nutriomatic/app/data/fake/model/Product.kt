@@ -5,7 +5,7 @@ import java.util.UUID
 data class Product(
     val id: UUID,
     val name: String,
-    val price: Float,
+    val price: Int,
     val description: String,
     val isShown: Boolean,
     val fatGrams: Float,

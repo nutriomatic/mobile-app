@@ -8,18 +8,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
 import com.nutriomatic.app.databinding.BottomSheetLayoutBinding
-import kotlin.random.Random
+import java.util.UUID
 
 class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailsBinding
-    val args: ProductDetailsActivityArgs by navArgs()
+    private val args: ProductDetailsActivityArgs by navArgs()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -52,21 +51,18 @@ class ProductDetailsActivity : AppCompatActivity() {
         supportActionBar?.title = "Detail Product"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val product = FakeDataSource.getProductById(UUID.fromString(args.productId))
+
         with(binding) {
-//            Glide.with(this@ProductDetailsActivity)
-//                .load()
-//            itemDescription.text = args.productId
-
             Glide.with(this@ProductDetailsActivity)
-                .load("https://picsum.photos/seed/${Random.nextInt(1, 6)}/200/300")
-                .transform(CenterCrop(), RoundedCorners(20))
+                .load(product?.photoUrl)
                 .into(itemImage)
-
+            itemTitle.text = product?.name
+            itemPrice.text = product?.price.toString()
             imgLabel.setOnClickListener {
                 showBottomSheetDialog()
             }
         }
-
     }
 
     private fun showBottomSheetDialog() {

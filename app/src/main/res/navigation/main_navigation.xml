@@ -28,7 +28,11 @@
         android:id="@+id/historyFragment"
         android:name="com.nutriomatic.app.presentation.history.HistoryFragment"
         android:label="History"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_scanResultActivity"
+            app:destination="@id/scanResultActivity" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.nutriomatic.app.presentation.profile.ProfileFragment"
@@ -40,6 +44,15 @@
         android:label="ProductDetailsActivity" >
         <argument
             android:name="product_id"
+            app:argType="string" />
+    </activity>
+    <activity
+        android:id="@+id/scanResultActivity"
+        android:name="com.nutriomatic.app.presentation.result.ScanResultActivity"
+        android:label="activity_scan_result"
+        tools:layout="@layout/activity_scan_result" >
+        <argument
+            android:name="scanId"
             app:argType="string" />
     </activity>
 </navigation>

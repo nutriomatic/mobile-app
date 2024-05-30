@@ -80,16 +80,18 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="Okay"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/btn_save"
         app:layout_constraintEnd_toStartOf="@id/btn_save"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_save" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

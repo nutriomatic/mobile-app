@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHistoryBinding
+import com.nutriomatic.app.presentation.helper.DefaultItemDecoration
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
@@ -35,6 +38,19 @@ class HistoryFragment : Fragment() {
             rvScanHistory.adapter = adapter
             rvScanHistory.layoutManager =
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            rvScanHistory.addItemDecoration(DefaultItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_offset)))
+
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_filter -> {
+                        Toast.makeText(requireContext(), "Filter clicked", Toast.LENGTH_SHORT)
+                            .show()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
         }
     }
 }

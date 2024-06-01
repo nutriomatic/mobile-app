@@ -1,9 +1,11 @@
 package com.nutriomatic.app.presentation.result
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.ActivityScanResultBinding
 import java.util.UUID
@@ -16,6 +18,7 @@ class ScanResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScanResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         val nutritionScan = FakeDataSource.getScanById(UUID.fromString(args.scanId))
 
@@ -28,7 +31,19 @@ class ScanResultActivity : AppCompatActivity() {
             edtScanName.setText(nutritionScan?.name)
             btnOkay.setOnClickListener { finish() }
             btnSave.setOnClickListener { finish() }
-        }
 
+            topAppBar.setNavigationOnClickListener { onBackPressed() }
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_edit -> {
+                        Toast.makeText(this@ScanResultActivity, "Edit clicked", Toast.LENGTH_SHORT)
+                            .show()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.nutriomatic.app.presentation.scan
 
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -19,6 +22,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
+import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.FragmentScanBinding
 import com.nutriomatic.app.presentation.helper.createCustomTempFile
 
@@ -28,6 +33,7 @@ class ScanFragment : Fragment() {
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
+    private var currentImageUri: Uri? = null
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(requireContext()) {
@@ -57,8 +63,25 @@ class ScanFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolbar = binding.root.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+
+//        toolbar.inflateMenu(R.menu.scan_menu)
+
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_gallery -> {
+                    startGallery()
+                    true
+                }
+
+                else -> false
+            }
+        }
         binding.btnSwitch.setOnClickListener {
             cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
                 CameraSelector.DEFAULT_FRONT_CAMERA
@@ -71,6 +94,32 @@ class ScanFragment : Fragment() {
         binding.btnCapture.setOnClickListener {
             takePhoto()
         }
+    }
+
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            showImage()
+        }
+    }
+
+    private fun showImage() {
+        currentImageUri?.let {
+            val navDirections =
+                ScanFragmentDirections.actionScanFragmentToPreviewActivity(it.toString())
+            findNavController().navigate(navDirections)
+        }
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressed()
     }
 
     override fun onDestroyView() {
@@ -104,9 +153,7 @@ class ScanFragment : Fragment() {
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also {
+            val preview = Preview.Builder().build().also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
 
@@ -127,8 +174,7 @@ class ScanFragment : Fragment() {
         val photoFile = createCustomTempFile(requireContext())
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        imageCapture.takePicture(
-            outputOptions,
+        imageCapture.takePicture(outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
@@ -139,19 +185,15 @@ class ScanFragment : Fragment() {
 
                 override fun onError(exception: ImageCaptureException) {
                     Toast.makeText(
-                        requireContext(),
-                        "Failed to take photo",
-                        Toast.LENGTH_SHORT
+                        requireContext(), "Failed to take photo", Toast.LENGTH_SHORT
                     ).show()
                     Log.e(TAG, "onError: ${exception.message}")
                 }
-            }
-        )
+            })
     }
 
     private fun hideSystemUI() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requireActivity().window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             requireActivity().window.setFlags(
@@ -162,8 +204,7 @@ class ScanFragment : Fragment() {
     }
 
     private fun showSystemUI() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requireActivity().window.insetsController?.show(WindowInsets.Type.statusBars())
         } else {
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)

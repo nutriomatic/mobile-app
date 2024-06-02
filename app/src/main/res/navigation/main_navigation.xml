@@ -18,7 +18,11 @@
         android:id="@+id/storeFragment"
         android:name="com.nutriomatic.app.presentation.store.StoreFragment"
         android:label="My Store"
-        tools:layout="@layout/fragment_store" />
+        tools:layout="@layout/fragment_store" >
+        <action
+            android:id="@+id/action_storeFragment_to_addProductActivity"
+            app:destination="@id/addProductActivity" />
+    </fragment>
     <fragment
         android:id="@+id/scanFragment"
         android:name="com.nutriomatic.app.presentation.scan.ScanFragment"
@@ -67,5 +71,15 @@
         <argument
             android:name="imageUriString"
             app:argType="string" />
+    </activity>
+    <activity
+        android:id="@+id/addProductActivity"
+        android:name="com.nutriomatic.app.presentation.product.AddProductActivity"
+        android:label="activity_add_product"
+        tools:layout="@layout/activity_add_product" >
+        <argument
+            android:name="productId"
+            app:argType="string"
+            app:nullable="true" />
     </activity>
 </navigation>

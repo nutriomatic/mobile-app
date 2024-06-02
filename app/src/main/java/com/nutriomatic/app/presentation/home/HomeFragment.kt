@@ -29,15 +29,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_filter -> {
-                    Toast.makeText(activity, "Filter clicked", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            true
-        }
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -50,6 +41,16 @@ class HomeFragment : Fragment() {
 
                     false
                 }
+
+            searchBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_filter -> {
+                        Toast.makeText(activity, "Filter clicked", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                true
+            }
 
             val adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
                 val navDirections =

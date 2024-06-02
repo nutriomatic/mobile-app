@@ -43,8 +43,4 @@ class ListScanHistoryAdapter(
     override fun getItemCount(): Int {
         return nutritionScans.size
     }
-
-    interface ClickListener {
-        fun onClick(nutritionScan: NutritionScan)
-    }
 }

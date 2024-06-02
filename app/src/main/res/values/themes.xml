@@ -68,7 +68,11 @@
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Medium</item>
     </style>
 
-    <style name="SecondaryButton" parent="Widget.Material3.Button.OutlinedButton">
+    <style name="OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Medium</item>
+    </style>
+
+    <style name="SecondaryButton" parent="Widget.Material3.Button.TonalButton">
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Medium</item>
     </style>
 

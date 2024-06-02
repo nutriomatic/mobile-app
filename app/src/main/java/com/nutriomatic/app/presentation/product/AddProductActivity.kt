@@ -1,25 +1,22 @@
 package com.nutriomatic.app.presentation.product
 
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.nutriomatic.app.R
+import androidx.navigation.navArgs
+import com.bumptech.glide.Glide
+import com.nutriomatic.app.data.fake.FakeDataSource
+import com.nutriomatic.app.data.fake.model.Product
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
-import com.nutriomatic.app.databinding.ActivityScanResultBinding
+import java.util.UUID
 
 class AddProductActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductBinding
     private var currentImageUri: Uri? = null
+    private val args: AddProductActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +30,23 @@ class AddProductActivity : AppCompatActivity() {
 
             productImage.setOnClickListener {
                 startGallery()
+            }
+
+            args.productId?.let { id ->
+                val product: Product? = FakeDataSource.getProductById(UUID.fromString(id))
+                product?.let {
+                    Glide.with(this@AddProductActivity)
+                        .load(it.photoUrl)
+                        .into(productImage)
+                    txtNameInput.setText(it.name)
+                    selectType.setText(it.type)
+                    txtProductDescInput.setText(it.description)
+                    txtServingSizePerContInput.setText(it.servingSizePerContainer.toString())
+                    txtFatInput.setText(it.fatGrams.toString())
+                    txtCarboInput.setText(it.carbohydratesGrams.toString())
+                    txtProteinInput.setText(it.proteinGrams.toString())
+                    txtSodiumInput.setText(it.sodiumMilliGrams.toString())
+                }
             }
         }
     }

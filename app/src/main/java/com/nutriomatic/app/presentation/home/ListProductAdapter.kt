@@ -1,6 +1,7 @@
 package com.nutriomatic.app.presentation.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -9,6 +10,8 @@ import com.nutriomatic.app.databinding.ItemProductBinding
 
 class ListProductAdapter(
     private val listProduct: List<Product>,
+    private val showEdit: Boolean = false,
+    private val onIconClick: ((Product) -> Unit)? = null,
     private val onItemClick: ((Product) -> Unit)? = null,
 ) :
     RecyclerView.Adapter<ListProductAdapter.ViewHolder>() {
@@ -22,6 +25,10 @@ class ListProductAdapter(
             with(binding) {
                 tvName.text = item.name
                 tvPrice.text = item.price.toString()
+                ivEdit.visibility = if (showEdit) View.VISIBLE else View.GONE
+                ivEdit.setOnClickListener {
+                    onIconClick?.invoke(item)
+                }
             }
 
             itemView.setOnClickListener {
@@ -42,9 +49,5 @@ class ListProductAdapter(
 
     override fun getItemCount(): Int {
         return listProduct.size
-    }
-
-    interface ClickListener {
-        fun onClick(product: Product)
     }
 }

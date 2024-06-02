@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_surfaceContainerLowest"
+    android:padding="16dp"
     tools:context=".presentation.preview.PreviewActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_photo_preview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
-        android:layout_marginTop="8dp"
         android:src="@drawable/cendol"
-        android:layout_marginHorizontal="8dp"
         app:layout_constraintBottom_toTopOf="@id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +26,9 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_retake"
-        style="@style/SecondaryButton"
+        style="@style/OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="4dp"
         android:text="Retake"
         app:layout_constraintBottom_toBottomOf="@id/btn_submit"
@@ -43,8 +42,6 @@
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

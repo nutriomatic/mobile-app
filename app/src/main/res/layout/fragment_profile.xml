@@ -9,15 +9,15 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/profil_menu"
-            app:title="Profil" />
+            android:layout_height="38dp"
+            android:background="@android:color/transparent"
+            app:menu="@menu/profil_menu"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:padding="16dp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"

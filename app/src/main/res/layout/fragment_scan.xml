@@ -10,17 +10,19 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="38dp"
+
+            android:background="@android:color/transparent"
             app:menu="@menu/scan_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Scan The Nutrition Label"
-            app:titleTextColor="@android:color/white" />
+            app:title="Scanner"
+            app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

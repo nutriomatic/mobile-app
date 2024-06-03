@@ -9,15 +9,16 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/my_store_menu"
-            app:title="My Store" />
+            android:layout_height="38dp"
+            android:background="@android:color/transparent"
+            app:menu="@menu/my_store_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -42,8 +42,8 @@ class HistoryFragment : Fragment() {
 
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.menu_filter -> {
-                        Toast.makeText(requireContext(), "Filter clicked", Toast.LENGTH_SHORT)
+                    R.id.menu_sort -> {
+                        Toast.makeText(requireContext(), "Sort clicked", Toast.LENGTH_SHORT)
                             .show()
                         true
                     }

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_edit"
-        android:icon="@drawable/baseline_edit_square_24"
+        android:icon="@drawable/edit"
         android:title="Edit"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_logout"
-        android:icon="@drawable/baseline_logout_24"
+        android:icon="@drawable/sign_out_squre"
         android:title="Logout"
         app:showAsAction="always" />
 </menu>

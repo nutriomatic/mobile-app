@@ -69,7 +69,8 @@
             android:layout_height="wrap_content"
             android:hint="Pencarian"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:menu="@menu/home_menu" />
+            app:menu="@menu/home_menu"
+            app:navigationIcon="@drawable/search" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.search.SearchView

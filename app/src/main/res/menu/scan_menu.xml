@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_gallery"
-        android:icon="@drawable/baseline_image_24"
+        android:icon="@drawable/img_box"
         android:title="Gallery"
         app:showAsAction="always" />
 </menu>

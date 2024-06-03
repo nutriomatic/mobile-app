@@ -39,7 +39,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email"
+        android:id="@+id/til_email_log"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -47,10 +47,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/message">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_email"
+            android:id="@+id/edt_email_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -64,13 +65,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Password"
-        app:layout_constraintEnd_toEndOf="@id/til_email"
-        app:layout_constraintStart_toStartOf="@id/til_email"
-        app:layout_constraintTop_toBottomOf="@id/til_email"
+        app:layout_constraintEnd_toEndOf="@id/til_email_log"
+        app:layout_constraintStart_toStartOf="@id/til_email_log"
+        app:layout_constraintTop_toBottomOf="@id/til_email_log"
         app:passwordToggleEnabled="true"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/lock">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,9 +81,8 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <com.nutriomatic.app.presentation.customview.CustomButton
         android:id="@+id/btn_login"
-        style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"

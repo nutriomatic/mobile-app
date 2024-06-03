@@ -2,6 +2,8 @@ package com.nutriomatic.app.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +43,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         factory = activity?.let { ViewModelFactory.getInstance(it) }!!
+
         setupAction()
+//        setupInput()
     }
 
     private fun setupAction() {
@@ -56,7 +60,7 @@ class LoginFragment : Fragment() {
 //                activity?.finish() // Close AuthActivity
 //            }
 
-            val email = binding.edtEmail.text.toString()
+            val email = binding.edtEmailLog.text.toString()
             val password = binding.edtPassword.text.toString()
 
             viewModel.login(email, password)
@@ -103,6 +107,37 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+//
+//    private fun setupInput() {
+//        setMyButtonEnable()
+//
+//        binding.edtPassword.setTextInputLayout(binding.tilPassword)
+//        binding.edtPassword.setButton(binding.btnLogin)
+//
+//        binding.edtEmailLog.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+//                if (!s.toString().trim().matches(Regex(emailPattern))) {
+//                    binding.tilEmailLog.error = "Emalil not valid"
+//                } else {
+//                    binding.tilEmailLog.error = null
+//                    binding.tilEmailLog.isErrorEnabled = false
+//                    setMyButtonEnable()
+//                }
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {}
+//        })
+//    }
+//
+//    private fun setMyButtonEnable() {
+//        val isEmailValid = binding.tilEmailLog.error == null
+//        val isPasswordValid = binding.edtPassword.getButtonIsValid()
+//        binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

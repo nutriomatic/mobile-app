@@ -61,7 +61,8 @@
         app:layout_constraintEnd_toEndOf="@id/til_name"
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_name"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/message">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_email"
@@ -82,9 +83,10 @@
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_email"
         app:passwordToggleEnabled="true"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/lock">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,9 +105,10 @@
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_password"
         app:passwordToggleEnabled="true"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/lock">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
             android:id="@+id/edt_confirmation_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,19 +118,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.button.MaterialButton
+    <com.nutriomatic.app.presentation.customview.CustomButton
         android:id="@+id/btn_register"
-        style="@style/PrimaryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_confirmation_password"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.318"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
 
     <TextView

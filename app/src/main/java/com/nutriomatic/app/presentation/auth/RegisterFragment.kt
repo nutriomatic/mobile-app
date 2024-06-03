@@ -1,6 +1,8 @@
 package com.nutriomatic.app.presentation.auth
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,53 +44,82 @@ class RegisterFragment : Fragment() {
 
 //        setupView()
         setupAction()
-//        setupInput()
+        setupInput()
 
     }
 
-//    private fun setupInput() {
-//        setMyButtonEnable()
-//
-//        binding.passwordEditText.setTextInputLayout(binding.passwordEditTextLayout)
-//        binding.passwordEditText.setButton(binding.signupButton)
-//
-//
-//        binding.emailEditText.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-//                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-//                if (!s.toString().trim().matches(Regex(emailPattern))) {
-//                    binding.emailEditTextLayout.error = getString(R.string.error_email)
-//                } else {
-//                    binding.emailEditTextLayout.error = null
-//                    setMyButtonEnable()
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable) {}
-//        })
-//
-//        setMyButtonEnable()
-//    }
-//
-//    private fun setMyButtonEnable() {
-//        val passValid = binding.passwordEditText.getButtonIsValid()
-//        val isEmailValid = binding.emailEditTextLayout.error == null
-//        binding.signupButton.isEnabled = isEmailValid && passValid
-//    }
+    private fun setupInput() {
+        setMyButtonEnable()
 
-//    private fun setupView() {
-//        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.insetsController?.hide(WindowInsets.Type.statusBars())
-//        } else {
-//            window.setFlags(
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN
-//            )
-//        }
-//        supportActionBar?.hide()
-//    }
+        binding.edtPassword.setTextInputLayout(binding.tilPassword)
+        binding.edtPassword.setButton(binding.btnRegister)
+
+        binding.edtConfirmationPassword.setTextInputLayout(binding.tilConfirmationPassword)
+        binding.edtConfirmationPassword.setButton(binding.btnRegister)
+
+        binding.edtName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val nameText = s.toString().trim()
+                if (nameText.length < 3) {
+                    binding.tilName.error = "Name must be than 3 character"
+                } else {
+                    binding.tilName.error = null
+                    binding.tilName.isErrorEnabled = false
+                    setMyButtonEnable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        binding.edtEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+                if (!s.toString().trim().matches(Regex(emailPattern))) {
+                    binding.tilEmail.error = "Emalil not valid"
+                } else {
+                    binding.tilEmail.error = null
+                    binding.tilEmail.isErrorEnabled = false
+                    setMyButtonEnable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        binding.edtConfirmationPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val confirmationPassword = s.toString()
+                val password = binding.edtPassword.getPassword()
+
+                if (password != confirmationPassword) {
+                    binding.tilConfirmationPassword.error = "Password not same"
+                } else {
+                    binding.tilConfirmationPassword.error = null
+                    binding.tilEmail.isErrorEnabled = false
+                    setMyButtonEnable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+    }
+
+    private fun setMyButtonEnable() {
+        val nameValid = binding.tilName.error == null
+        val passValid = binding.edtPassword.getButtonIsValid()
+        val confirmPassValid = binding.tilConfirmationPassword.error == null
+        val isEmailValid = binding.tilEmail.error == null
+
+        binding.btnRegister.isEnabled = nameValid && isEmailValid && passValid && confirmPassValid
+    }
+
 
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
@@ -96,7 +127,6 @@ class RegisterFragment : Fragment() {
             val username = binding.edtName.text.toString()
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
-            val confirmPassword = binding.edtConfirmationPassword.text.toString()
 
             viewModel.register(username, email, password)
 

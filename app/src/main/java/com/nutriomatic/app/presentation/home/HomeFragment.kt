@@ -6,16 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHomeBinding
+import com.nutriomatic.app.presentation.auth.AuthViewModel
+import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: AuthViewModel by viewModels {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +36,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeLiveData()
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -66,6 +74,12 @@ class HomeFragment : Fragment() {
                     false
                 )
             )
+        }
+    }
+
+    private fun observeLiveData() {
+        viewModel.getSession().observe(viewLifecycleOwner) {
+            binding.tvGreetUser.text = getString(R.string.greet_user, it.email)
         }
     }
 

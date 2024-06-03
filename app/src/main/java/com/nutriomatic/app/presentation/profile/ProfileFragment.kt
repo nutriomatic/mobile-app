@@ -43,6 +43,8 @@ class ProfileFragment : Fragment() {
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
 
+        observeLiveData()
+
         with(binding) {
             txtBirthdayLayout.setEndIconOnClickListener {
                 datePicker.show(childFragmentManager, "date_picker")
@@ -50,16 +52,6 @@ class ProfileFragment : Fragment() {
 
             datePicker.addOnPositiveButtonClickListener {
                 txtBirthdayInput.setText(datePicker.headerText)
-            }
-
-            txtBirthdayLayout.addOnEditTextAttachedListener {
-                // If any specific changes should be done when the edit text is attached (and
-                // thus when the trailing icon is added to it), set an
-                // OnEditTextAttachedListener.
-
-                // Example: The clear text icon's visibility behavior depends on whether the
-                // EditText has input present. Therefore, an OnEditTextAttachedListener is set
-                // so things like editText.getText() can be called.
             }
 
             topAppBar.setOnMenuItemClickListener { menuItem ->
@@ -79,6 +71,13 @@ class ProfileFragment : Fragment() {
                     else -> false
                 }
             }
+        }
+    }
+
+    private fun observeLiveData() {
+        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+            binding.txtNameInput.setText(user.token)
+            binding.txtEmailInput.setText(user.email)
         }
     }
 

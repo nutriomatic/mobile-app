@@ -49,13 +49,13 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupInput() {
-        setMyButtonEnable()
+//        setMyButtonEnable()
 
         binding.edtPassword.setTextInputLayout(binding.tilPassword)
-        binding.edtPassword.setButton(binding.btnRegister)
+//        binding.edtPassword.setButton(binding.btnRegister)
 
-        binding.edtConfirmationPassword.setTextInputLayout(binding.tilConfirmationPassword)
-        binding.edtConfirmationPassword.setButton(binding.btnRegister)
+//        binding.edtConfirmationPassword.setTextInputLayout(binding.tilConfirmationPassword)
+//        binding.edtConfirmationPassword.setButton(binding.btnRegister)
 
         binding.edtName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -64,10 +64,11 @@ class RegisterFragment : Fragment() {
                 val nameText = s.toString().trim()
                 if (nameText.length < 3) {
                     binding.tilName.error = "Name must be than 3 character"
+//                    setMyButtonEnable()
                 } else {
                     binding.tilName.error = null
                     binding.tilName.isErrorEnabled = false
-                    setMyButtonEnable()
+//                    setMyButtonEnable()
                 }
             }
 
@@ -81,10 +82,11 @@ class RegisterFragment : Fragment() {
                 val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
                 if (!s.toString().trim().matches(Regex(emailPattern))) {
                     binding.tilEmail.error = "Emalil not valid"
+//                    setMyButtonEnable()
                 } else {
                     binding.tilEmail.error = null
                     binding.tilEmail.isErrorEnabled = false
-                    setMyButtonEnable()
+//                    setMyButtonEnable()
                 }
             }
 
@@ -100,10 +102,11 @@ class RegisterFragment : Fragment() {
 
                 if (password != confirmationPassword) {
                     binding.tilConfirmationPassword.error = "Password not same"
+//                    setMyButtonEnable()
                 } else {
                     binding.tilConfirmationPassword.error = null
                     binding.tilEmail.isErrorEnabled = false
-                    setMyButtonEnable()
+//                    setMyButtonEnable()
                 }
             }
 
@@ -111,14 +114,14 @@ class RegisterFragment : Fragment() {
         })
     }
 
-    private fun setMyButtonEnable() {
-        val nameValid = binding.tilName.error == null
-        val passValid = binding.edtPassword.getButtonIsValid()
-        val confirmPassValid = binding.tilConfirmationPassword.error == null
-        val isEmailValid = binding.tilEmail.error == null
-
-        binding.btnRegister.isEnabled = nameValid && isEmailValid && passValid && confirmPassValid
-    }
+//    private fun setMyButtonEnable() {
+//        val nameValid = binding.tilName.error == null
+//        val passValid = binding.edtPassword.getButtonIsValid()
+//        val confirmPassValid = binding.tilConfirmationPassword.error == null
+//        val isEmailValid = binding.tilEmail.error == null
+//
+//        binding.btnRegister.isEnabled = nameValid && isEmailValid && passValid && confirmPassValid
+//    }
 
 
     private fun setupAction() {

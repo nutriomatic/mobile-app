@@ -21,6 +21,8 @@ import com.nutriomatic.app.presentation.factory.ViewModelFactory
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val emailValid = false
+    private var passValid = false
 
     private lateinit var factory: ViewModelFactory
     private val viewModel: LoginViewModel by viewModels {
@@ -45,7 +47,7 @@ class LoginFragment : Fragment() {
         factory = activity?.let { ViewModelFactory.getInstance(it) }!!
 
         setupAction()
-//        setupInput()
+        setupInput()
     }
 
     private fun setupAction() {
@@ -108,36 +110,39 @@ class LoginFragment : Fragment() {
         }
     }
 
-//
-//    private fun setupInput() {
+
+    private fun setupInput() {
 //        setMyButtonEnable()
-//
-//        binding.edtPassword.setTextInputLayout(binding.tilPassword)
+
+        binding.edtPassword.setTextInputLayout(binding.tilPassword)
 //        binding.edtPassword.setButton(binding.btnLogin)
-//
-//        binding.edtEmailLog.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-//                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-//                if (!s.toString().trim().matches(Regex(emailPattern))) {
-//                    binding.tilEmailLog.error = "Emalil not valid"
-//                } else {
-//                    binding.tilEmailLog.error = null
-//                    binding.tilEmailLog.isErrorEnabled = false
+
+        binding.edtEmailLog.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+                if (!s.toString().trim().matches(Regex(emailPattern))) {
+                    binding.tilEmailLog.error = "Emalil not valid"
 //                    setMyButtonEnable()
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable) {}
-//        })
-//    }
-//
+                } else {
+                    binding.tilEmailLog.error = null
+                    binding.tilEmailLog.isErrorEnabled = false
+//                    setMyButtonEnable()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+    }
+
 //    private fun setMyButtonEnable() {
 //        val isEmailValid = binding.tilEmailLog.error == null
 //        val isPasswordValid = binding.edtPassword.getButtonIsValid()
 //        binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
 //    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -72,7 +72,7 @@
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
         app:startIconDrawable="@drawable/lock">
 
-        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPasswordLogin
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.nutriomatic.app.presentation.customview.CustomButton
+    <com.nutriomatic.app.presentation.customview.CustomButtonLogin
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

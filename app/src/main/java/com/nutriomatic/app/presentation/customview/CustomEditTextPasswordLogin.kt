@@ -1,6 +1,5 @@
 package com.nutriomatic.app.presentation.customview
 
-
 import android.content.Context
 import android.graphics.Canvas
 import android.text.Editable
@@ -11,7 +10,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class CustomEditTextPassword @JvmOverloads constructor(
+class CustomEditTextPasswordLogin @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : AppCompatEditText(context, attrs), View.OnTouchListener {
@@ -19,9 +18,8 @@ class CustomEditTextPassword @JvmOverloads constructor(
     private var textInputLayout: TextInputLayout? = null
 
     //    private var textInputLayoutConfirmationPw: TextInputLayout? = null
-//    private var customButton: CustomButton? = null
+//    private var customButton: CustomButtonLogin? = null
     private var isValid: Boolean = false
-    private var password = ""
 
     init {
 //        customButton?.isEnabled = false
@@ -31,7 +29,6 @@ class CustomEditTextPassword @JvmOverloads constructor(
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validatePassword(s?.toString() ?: "")
-                password = s?.toString() ?: ""
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -59,13 +56,10 @@ class CustomEditTextPassword @JvmOverloads constructor(
         return this.isValid
     }
 
-    fun setButton(button: CustomButton) {
+    fun setButton(button: CustomButtonLogin) {
 //        this.customButton = button
     }
 
-    fun getPassword(): String {
-        return this.password
-    }
 
     fun validatePassword(password: String) {
         if (password.length < 8) {

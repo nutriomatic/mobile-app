@@ -1,12 +1,12 @@
 package com.nutriomatic.app.presentation.details
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
@@ -39,10 +39,11 @@ class ProductDetailsActivity : AppCompatActivity() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_share -> {
-                        Toast.makeText(
+                        Snackbar.make(
                             this@ProductDetailsActivity,
+                            binding.root,
                             "Share: ${product!!.name}",
-                            Toast.LENGTH_SHORT
+                            Snackbar.LENGTH_SHORT
                         ).show()
                         true
                     }

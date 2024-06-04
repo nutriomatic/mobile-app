@@ -2,7 +2,6 @@ package com.nutriomatic.app.presentation.product
 
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -68,9 +67,5 @@ class AddProductActivity : AppCompatActivity() {
         currentImageUri?.let {
             binding.productImage.setImageURI(it)
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

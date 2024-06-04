@@ -1,10 +1,10 @@
 package com.nutriomatic.app.presentation.result
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.ActivityScanResultBinding
@@ -36,8 +36,12 @@ class ScanResultActivity : AppCompatActivity() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_edit -> {
-                        Toast.makeText(this@ScanResultActivity, "Edit clicked", Toast.LENGTH_SHORT)
-                            .show()
+                        Snackbar.make(
+                            this@ScanResultActivity,
+                            binding.root,
+                            "Edit clicked",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                         true
                     }
 

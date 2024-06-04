@@ -6,10 +6,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentRegisterBinding
@@ -142,10 +142,11 @@ class RegisterFragment : Fragment() {
 
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                activity,
-                                "Selamat, " + result.data.message,
-                                Toast.LENGTH_SHORT
+
+                            Snackbar.make(
+                                requireView(),
+                                result.data.message.toString(),
+                                Snackbar.LENGTH_SHORT
                             ).show()
 
 //                            activity?.let { it1 ->
@@ -169,8 +170,11 @@ class RegisterFragment : Fragment() {
 
                         is Result.Error -> {
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                activity, result.error, Toast.LENGTH_SHORT
+
+                            Snackbar.make(
+                                requireView(),
+                                result.error,
+                                Snackbar.LENGTH_SHORT
                             ).show()
                         }
                     }

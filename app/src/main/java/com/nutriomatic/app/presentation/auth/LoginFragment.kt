@@ -7,10 +7,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.remote.Result
@@ -72,9 +72,7 @@ class LoginFragment : Fragment() {
                     when (result) {
                         is Result.Error -> {
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                activity, result.error, Toast.LENGTH_SHORT
-                            ).show()
+                            Snackbar.make(requireView(), result.error, Snackbar.LENGTH_SHORT).show()
                         }
 
                         is Result.Loading -> {

@@ -4,16 +4,15 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.ActivityMainBinding
 
@@ -25,9 +24,19 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
+                Snackbar.make(
+                    this,
+                    binding.root,
+                    "Permission request granted",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_SHORT).show()
+                Snackbar.make(
+                    this,
+                    binding.root,
+                    "Permission request denied",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
 

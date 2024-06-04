@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthActivity
@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.menu_edit -> {
                         // Lakukan tindakan ketika menu item edit diklik
-                        makeToast("Edit clicked")
+                        Snackbar.make(view, "Edit clicked", Snackbar.LENGTH_SHORT).show()
                         true
                     }
 
@@ -102,9 +102,5 @@ class ProfileFragment : Fragment() {
                 show()
             }
         }
-    }
-
-    private fun makeToast(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }
 }

@@ -10,7 +10,8 @@ import com.nutriomatic.app.presentation.auth.LoginViewModel
 import com.nutriomatic.app.presentation.auth.RegisterViewModel
 
 
-class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: UserRepository) :
+    ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -18,12 +19,15 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> {
                 AuthViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
             }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -31,6 +35,7 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
     companion object {
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
+
         @JvmStatic
         fun getInstance(context: Context): ViewModelFactory {
             if (INSTANCE == null) {

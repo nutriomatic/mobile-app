@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -23,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.FragmentScanBinding
 import com.nutriomatic.app.presentation.helper.createCustomTempFile
@@ -154,8 +154,8 @@ class ScanFragment : Fragment() {
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
             val preview = Preview.Builder().build().also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                }
+                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            }
 
             imageCapture = ImageCapture.Builder().build()
 
@@ -163,7 +163,7 @@ class ScanFragment : Fragment() {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Failed to open camera", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "Failed to open camera", Snackbar.LENGTH_SHORT).show()
                 Log.e(TAG, "startCamera: ${e.message}")
             }
         }, ContextCompat.getMainExecutor(requireContext()))
@@ -184,9 +184,8 @@ class ScanFragment : Fragment() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Toast.makeText(
-                        requireContext(), "Failed to take photo", Toast.LENGTH_SHORT
-                    ).show()
+                    Snackbar.make(requireView(), "Failed to take photo", Snackbar.LENGTH_SHORT)
+                        .show()
                     Log.e(TAG, "onError: ${exception.message}")
                 }
             })

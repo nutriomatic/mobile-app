@@ -91,11 +91,15 @@ class LoginFragment : Fragment() {
 
 
 //                             If login is successful, start MainActivity
-                            val intent = Intent(activity, MainActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                            val intent = Intent(activity, MainActivity::class.java)
+//                            intent.flags =
+//                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                            startActivity(intent)
+//                            activity?.finish()
+                            val intent = Intent(requireActivity(), MainActivity::class.java)
+                            intent.putExtra("openFragment", "home")
                             startActivity(intent)
-                            activity?.finish()
+                            requireActivity().finish() // Opsional: Tutup aktivitas saat ini
 
                             // Close AuthActivity
 //                            val intent = Intent(activity, MainActivity::class.java)

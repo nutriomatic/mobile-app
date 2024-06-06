@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.ActivityMainBinding
+import com.nutriomatic.app.presentation.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -55,6 +56,12 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
+        val openFragment = intent.getStringExtra("openFragment")
+        if (openFragment == "home") {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerMain, HomeFragment())
+                .commit()
+        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerMain) as NavHostFragment

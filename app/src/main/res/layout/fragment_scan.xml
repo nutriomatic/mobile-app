@@ -34,14 +34,24 @@
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <ImageButton
-        android:id="@+id/btn_switch"
+        android:id="@+id/btn_flash"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/vertical_switch"
+        android:src="@drawable/lightning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_switch"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
+        android:src="@drawable/vertical_switch"
+        app:layout_constraintBottom_toBottomOf="@id/btn_capture"
+        app:layout_constraintStart_toEndOf="@id/btn_capture"
+        app:layout_constraintTop_toTopOf="@id/btn_capture" />
 
     <ImageButton
         android:id="@+id/btn_capture"

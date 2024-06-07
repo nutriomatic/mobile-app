@@ -34,6 +34,7 @@ class ScanFragment : Fragment() {
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
+    private var currentFlashMode: Int = ImageCapture.FLASH_MODE_OFF
 
     private val orientationEventListener by lazy {
         object : OrientationEventListener(requireContext()) {
@@ -89,6 +90,16 @@ class ScanFragment : Fragment() {
                 CameraSelector.DEFAULT_BACK_CAMERA
             }
 
+            startCamera()
+        }
+        binding.btnFlash.setOnClickListener {
+            if (currentFlashMode == ImageCapture.FLASH_MODE_OFF) {
+                currentFlashMode = ImageCapture.FLASH_MODE_ON
+                binding.btnFlash.setImageResource(R.drawable.lightning_fill)
+            } else {
+                currentFlashMode = ImageCapture.FLASH_MODE_OFF
+                binding.btnFlash.setImageResource(R.drawable.lightning)
+            }
             startCamera()
         }
         binding.btnCapture.setOnClickListener {
@@ -157,7 +168,9 @@ class ScanFragment : Fragment() {
                 it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
             }
 
-            imageCapture = ImageCapture.Builder().build()
+            imageCapture = ImageCapture.Builder()
+                .setFlashMode(currentFlashMode)
+                .build()
 
             try {
                 cameraProvider.unbindAll()

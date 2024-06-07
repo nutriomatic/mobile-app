@@ -1,6 +1,5 @@
 package com.nutriomatic.app.presentation.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,7 +14,6 @@ import com.nutriomatic.app.R
 import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentLoginBinding
-import com.nutriomatic.app.presentation.MainActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.isValidEmail
 
@@ -52,16 +50,6 @@ class LoginFragment : Fragment() {
 
     private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-
-//            binding.btnLogin.setOnClickListener {
-//                // Handle login logic here (e.g., authenticate user)
-//
-//                // If login is successful, start MainActivity
-//                val intent = Intent(activity, MainActivity::class.java)
-//                startActivity(intent)
-//                activity?.finish() // Close AuthActivity
-//            }
-
             val email = binding.edtEmailLog.text.toString()
             val password = binding.edtPassword.text.toString()
 
@@ -89,9 +77,8 @@ class LoginFragment : Fragment() {
                                 )
                             }?.let { it2 -> viewModel.saveSession(it2) }
 
-                            val intent = Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent)
-                            activity?.finish()
+                            findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+                            requireActivity().finish()
                         }
                     }
                 }

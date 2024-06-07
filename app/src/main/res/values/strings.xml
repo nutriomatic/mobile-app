@@ -8,4 +8,6 @@
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="minimum_name_length">Must be at least 3 characters</string>
     <string name="invalid_email_format">Invalid email format</string>
+    <string name="dialog_continue">Continue</string>
+    <string name="logout_confirmation">Are you sure want to logout?</string>
 </resources>

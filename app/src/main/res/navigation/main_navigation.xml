@@ -45,7 +45,11 @@
         android:id="@+id/profileFragment"
         android:name="com.nutriomatic.app.presentation.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_authActivity"
+            app:destination="@id/authActivity" />
+    </fragment>
     <activity
         android:id="@+id/productDetailsActivity"
         android:name="com.nutriomatic.app.presentation.details.ProductDetailsActivity"
@@ -82,4 +86,9 @@
             app:argType="string"
             app:nullable="true" />
     </activity>
+    <activity
+        android:id="@+id/authActivity"
+        android:name="com.nutriomatic.app.presentation.auth.AuthActivity"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

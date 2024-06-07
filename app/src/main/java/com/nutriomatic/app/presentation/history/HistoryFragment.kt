@@ -12,6 +12,7 @@ import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHistoryBinding
 import com.nutriomatic.app.presentation.helper.DefaultItemDecoration
+import com.nutriomatic.app.presentation.helper.adapter.ListScanHistoryAdapter
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null

@@ -1,4 +1,4 @@
-package com.nutriomatic.app.presentation.history
+package com.nutriomatic.app.presentation.helper.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

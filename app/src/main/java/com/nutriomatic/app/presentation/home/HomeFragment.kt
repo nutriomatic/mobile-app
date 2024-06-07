@@ -15,6 +15,7 @@ import com.nutriomatic.app.databinding.FragmentHomeBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
+import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null

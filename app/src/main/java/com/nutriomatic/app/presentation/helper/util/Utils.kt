@@ -1,4 +1,4 @@
-package com.nutriomatic.app.presentation.helper
+package com.nutriomatic.app.presentation.helper.util
 
 import android.content.ContentValues
 import android.content.Context

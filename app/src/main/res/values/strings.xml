@@ -4,4 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description_product">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat.</string>
     <string name="greet_user">Hi, %1$s</string>
+    <string name="minimum_password_length">Must be at least 8 characters</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="minimum_name_length">Must be at least 3 characters</string>
+    <string name="invalid_email_format">Invalid email format</string>
 </resources>

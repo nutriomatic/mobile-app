@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.pref.UserModel
@@ -17,6 +17,7 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentLoginBinding
 import com.nutriomatic.app.presentation.MainActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import com.nutriomatic.app.presentation.helper.util.isValidEmail
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -36,8 +37,7 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.tvRedirectRegister.setOnClickListener {
-            Navigation.findNavController(binding.root)
-                .navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         return binding.root
     }
@@ -89,22 +89,9 @@ class LoginFragment : Fragment() {
                                 )
                             }?.let { it2 -> viewModel.saveSession(it2) }
 
-
-//                             If login is successful, start MainActivity
-//                            val intent = Intent(activity, MainActivity::class.java)
-//                            intent.flags =
-//                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                            startActivity(intent)
-//                            activity?.finish()
-                            val intent = Intent(requireActivity(), MainActivity::class.java)
-                            intent.putExtra("openFragment", "home")
+                            val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
-                            requireActivity().finish() // Opsional: Tutup aktivitas saat ini
-
-                            // Close AuthActivity
-//                            val intent = Intent(activity, MainActivity::class.java)
-
-//                            startActivity(intent)
+                            activity?.finish()
                         }
                     }
                 }
@@ -114,37 +101,21 @@ class LoginFragment : Fragment() {
 
 
     private fun setupInput() {
-//        setMyButtonEnable()
-
         binding.edtPassword.setTextInputLayout(binding.tilPassword)
-//        binding.edtPassword.setButton(binding.btnLogin)
-
         binding.edtEmailLog.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-                if (!s.toString().trim().matches(Regex(emailPattern))) {
-                    binding.tilEmailLog.error = "Emalil not valid"
-//                    setMyButtonEnable()
+                if (!isValidEmail(s)) {
+                    binding.tilEmailLog.error = getString(R.string.invalid_email_format)
                 } else {
                     binding.tilEmailLog.error = null
-                    binding.tilEmailLog.isErrorEnabled = false
-//                    setMyButtonEnable()
                 }
             }
 
             override fun afterTextChanged(s: Editable) {}
         })
     }
-
-//    private fun setMyButtonEnable() {
-//        val isEmailValid = binding.tilEmailLog.error == null
-//        val isPasswordValid = binding.edtPassword.getButtonIsValid()
-//        binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
-//    }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

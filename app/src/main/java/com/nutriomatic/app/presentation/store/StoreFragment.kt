@@ -12,7 +12,7 @@ import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentStoreBinding
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
-import com.nutriomatic.app.presentation.home.ListProductAdapter
+import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null

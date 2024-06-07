@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
-        val openFragment = intent.getStringExtra("openFragment")
-        if (openFragment == "home") {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerMain, HomeFragment())
-                .commit()
-        }
+//        val openFragment = intent.getStringExtra("openFragment")
+//        if (openFragment == "home") {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragmentContainerMain, HomeFragment())
+//                .commit()
+//        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerMain) as NavHostFragment

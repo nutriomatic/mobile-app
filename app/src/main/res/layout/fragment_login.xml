@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Password"
+        app:errorIconDrawable="@null"
         app:layout_constraintEnd_toEndOf="@id/til_email_log"
         app:layout_constraintStart_toStartOf="@id/til_email_log"
         app:layout_constraintTop_toBottomOf="@id/til_email_log"
@@ -72,7 +73,7 @@
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
         app:startIconDrawable="@drawable/lock">
 
-        <com.nutriomatic.app.presentation.customview.CustomEditTextPasswordLogin
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.nutriomatic.app.presentation.customview.CustomButtonLogin
+    <com.nutriomatic.app.presentation.customview.CustomButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

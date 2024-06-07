@@ -25,7 +25,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.FragmentScanBinding
-import com.nutriomatic.app.presentation.helper.createCustomTempFile
+import com.nutriomatic.app.presentation.helper.util.createCustomTempFile
 
 class ScanFragment : Fragment() {
     private var _binding: FragmentScanBinding? = null

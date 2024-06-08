@@ -10,7 +10,7 @@ import com.nutriomatic.app.data.remote.repository.UserRepository
 object Injection {
     fun provideRepository(context: Context): UserRepository {
         val pref = UserPreference.getInstance(context.dataStore)
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.getApiService(pref)
 
         return UserRepository.getInstance(pref, apiService)
     }

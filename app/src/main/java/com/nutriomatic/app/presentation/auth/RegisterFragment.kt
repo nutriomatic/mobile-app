@@ -22,7 +22,7 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var factory: ViewModelFactory
-    private val viewModel: RegisterViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         factory
     }
 
@@ -44,7 +44,6 @@ class RegisterFragment : Fragment() {
 
         setupAction()
         setupInput()
-
     }
 
     private fun setupInput() {

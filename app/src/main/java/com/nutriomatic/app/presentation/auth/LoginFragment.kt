@@ -20,11 +20,9 @@ import com.nutriomatic.app.presentation.helper.util.isValidEmail
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val emailValid = false
-    private var passValid = false
 
     private lateinit var factory: ViewModelFactory
-    private val viewModel: LoginViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         factory
     }
 
@@ -55,12 +53,12 @@ class LoginFragment : Fragment() {
 
             viewModel.login(email, password)
 
-            viewModel.dataLogin.observe(viewLifecycleOwner) { result ->
-                if (result != null) {
-                    when (result) {
+            viewModel.token.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it) {
                         is Result.Error -> {
                             binding.progressBar.visibility = View.GONE
-                            Snackbar.make(requireView(), result.error, Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(requireView(), it.error, Snackbar.LENGTH_SHORT).show()
                         }
 
                         is Result.Loading -> {
@@ -70,12 +68,7 @@ class LoginFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
 
-                            result.data.token?.let { it1 ->
-                                UserModel(
-                                    email,
-                                    it1
-                                )
-                            }?.let { it2 -> viewModel.saveSession(it2) }
+                            viewModel.saveSession(UserModel(email, it.toString()))
 
                             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                             requireActivity().finish()

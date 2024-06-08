@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -16,6 +18,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
     }
 
     buildTypes {
@@ -25,9 +32,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
         }
     }
     buildFeatures {

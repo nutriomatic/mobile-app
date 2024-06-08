@@ -1,13 +1,49 @@
 <resources>
     <string name="app_name">Nutri-O-Matic</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description_product">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat.</string>
     <string name="greet_user">Hi, %1$s</string>
+
     <string name="minimum_password_length">Must be at least 8 characters</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="minimum_name_length">Must be at least 3 characters</string>
     <string name="invalid_email_format">Invalid email format</string>
+
+    <string name="birthday_datepicker_title">Select birth date</string>
     <string name="dialog_continue">Continue</string>
-    <string name="logout_confirmation">Are you sure want to logout?</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="logout_dialog_message">Are you sure want to logout?</string>
+    <string name="logout_dialog_title">Logout</string>
+    <string name="failed_to_take_photo">Failed to take photo</string>
+
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="measurement">Measurement</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="weight_goal_kg">Weight Goal (kg)</string>
+
+    <string name="save">Save</string>
+
+    <string name="gender">Gender</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <string name="health_goal">Health Goal</string>
+    <string name="health_goal_lose_weight">Lose Weight</string>
+    <string name="health_goal_maintain_weight">Maintain Weight</string>
+    <string name="health_goal_gain_weight">Gain Weight</string>
+
+    <string name="product_type">Product Type</string>
+    <string name="product_type_snack">Snack</string>
+    <string name="product_type_meal">Meal</string>
+    <string name="product_type_beverage">Beverage</string>
+
+    <string name="activity_level">Activity Level</string>
+    <string name="activity_level_sendentary">Sendentary</string>
+    <string name="activity_level_lightly_active">Lightly Active</string>
+    <string name="activity_level_moderately_active">Moderately Active</string>
+    <string name="activity_level_very_active">Very Active</string>
+    <string name="activity_level_super_active">Super Active</string>
+    <string name="birthday">Birthday</string>
 </resources>

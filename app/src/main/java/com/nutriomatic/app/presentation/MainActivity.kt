@@ -15,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.databinding.ActivityMainBinding
-import com.nutriomatic.app.presentation.home.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -56,13 +55,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
-//        val openFragment = intent.getStringExtra("openFragment")
-//        if (openFragment == "home") {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragmentContainerMain, HomeFragment())
-//                .commit()
-//        }
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerMain) as NavHostFragment
         navController = navHostFragment.navController
@@ -82,8 +74,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-//                R.id.homeFragment -> supportActionBar?.hide()
-//                R.id.storeFragment -> supportActionBar?.show()
                 R.id.scanFragment -> binding.bottomNavigationView.visibility = View.GONE
                 else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }

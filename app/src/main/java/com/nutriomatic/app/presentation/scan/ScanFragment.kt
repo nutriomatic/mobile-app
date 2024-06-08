@@ -197,7 +197,8 @@ class ScanFragment : Fragment() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Snackbar.make(requireView(), "Failed to take photo", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(requireView(),
+                        getString(R.string.failed_to_take_photo), Snackbar.LENGTH_SHORT)
                         .show()
                     Log.e(TAG, "onError: ${exception.message}")
                 }

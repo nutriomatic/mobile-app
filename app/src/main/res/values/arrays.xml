@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="gender_items">
-        <item>Male</item>
-        <item>Female</item>
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
     </string-array>
     <string-array name="health_goal_items">
-        <item>Lose Weight</item>
-        <item>Maintain Weight</item>
-        <item>Gain Weight</item>
+        <item>@string/health_goal_lose_weight</item>
+        <item>@string/health_goal_maintain_weight</item>
+        <item>@string/health_goal_gain_weight</item>
     </string-array>
-    <string-array name="type_product_items" >
-        <item>Snack</item>
-        <item>Makanan</item>
-        <item>Minuman</item>
+    <string-array name="product_type_items">
+        <item>@string/product_type_snack</item>
+        <item>@string/product_type_meal</item>
+        <item>@string/product_type_beverage</item>
+    </string-array>
+    <string-array name="activity_level_items">
+        <item>@string/activity_level_sendentary</item>
+        <item>@string/activity_level_lightly_active</item>
+        <item>@string/activity_level_moderately_active</item>
+        <item>@string/activity_level_very_active</item>
+        <item>@string/activity_level_super_active</item>
     </string-array>
 </resources>

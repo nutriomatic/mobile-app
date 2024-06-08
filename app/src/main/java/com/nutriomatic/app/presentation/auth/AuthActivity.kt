@@ -20,7 +20,6 @@ class AuthActivity : AppCompatActivity() {
         installSplashScreen()
 
         viewModel.getSession().observe(this) { user ->
-//            println(user.email + user.isLogin)
             if (user.isLogin) {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags =

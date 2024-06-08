@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
         factory = activity?.let { ViewModelFactory.getInstance(it) }!!
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select birth date")
+            .setTitleText(getString(R.string.birthday_datepicker_title))
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
 
@@ -82,8 +82,8 @@ class ProfileFragment : Fragment() {
     private fun logout() {
         activity?.let {
             AlertDialog.Builder(it).apply {
-                setTitle("Logout")
-                setMessage(getString(R.string.logout_confirmation))
+                setTitle(getString(R.string.logout_dialog_title))
+                setMessage(getString(R.string.logout_dialog_message))
 
                 setPositiveButton(getString(R.string.dialog_continue)) { _, _ ->
                     viewModel.logout()
@@ -91,7 +91,7 @@ class ProfileFragment : Fragment() {
                     requireActivity().finish()
                 }
 
-                setNegativeButton("Cancel", null)
+                setNegativeButton(getString(R.string.dialog_cancel), null)
 
                 create()
                 show()

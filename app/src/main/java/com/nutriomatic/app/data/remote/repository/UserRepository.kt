@@ -6,8 +6,9 @@ import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.request.LoginRequest
+import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
-import com.nutriomatic.app.data.remote.api.response.LoginResult
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -20,14 +21,15 @@ class UserRepository private constructor(
     private val _registerStatus = MutableLiveData<Result<RegisterResponse>>()
     val registerStatus: LiveData<Result<RegisterResponse>> = _registerStatus
 
-    private val _dataUser = MutableLiveData<Result<LoginResult>>()
-    val dataUser: LiveData<Result<LoginResult>> = _dataUser
+    private val _token = MutableLiveData<Result<String>>()
+    val token: LiveData<Result<String>> = _token
 
 
     suspend fun register(name: String, email: String, password: String) {
         _registerStatus.value = Result.Loading
         try {
-            val response = apiService.register(name, email, password)
+            val request = RegisterRequest(name, email, password)
+            val response = apiService.register(request)
             _registerStatus.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
@@ -39,15 +41,16 @@ class UserRepository private constructor(
 
 
     suspend fun login(email: String, password: String) {
-        _dataUser.value = Result.Loading
+        _token.value = Result.Loading
         try {
-            val response = apiService.login(email, password)
-            _dataUser.value = Result.Success(response.loginResult)
+            val request = LoginRequest(email, password)
+            val response = apiService.login(request)
+            _token.value = Result.Success(response.token.toString())
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            _dataUser.value = Result.Error(errorMessage ?: "An error occurred")
+            _token.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

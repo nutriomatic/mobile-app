@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:background="@android:color/transparent"
-            app:menu="@menu/profil_menu"/>
+            app:menu="@menu/profil_menu" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Name"
+                android:hint="@string/name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_image">
@@ -57,8 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:text="John Doe"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="John Doe" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Email"
+                android:hint="@string/email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_name_layout">
@@ -76,8 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="john.doe@example.com"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="john.doe@example.com" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Birthday"
+                android:hint="@string/birthday"
                 app:endIconDrawable="@drawable/date_range"
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,71 +97,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
-                    android:text="01/01/1990"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="01/01/1990" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_gender_layout"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Gender"
-
+                android:layout_marginTop="8dp"
+                android:hint="@string/gender"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_birthday_layout">
-
-                <!--                <com.google.android.material.textfield.TextInputEditText-->
-                <!--                    android:id="@+id/txt_gender_input"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:text="Male"-->
-                <!--                    android:textSize="16sp" />-->
-
 
                 <AutoCompleteTextView
                     android:id="@+id/txt_gender_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="Male"
+                    android:text="@string/gender_male"
                     app:simpleItems="@array/gender_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_measurement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:text="@string/measurement"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/txt_gender_layout" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_height_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
-                android:hint="Height (cm)"
+                android:hint="@string/height_cm"
                 app:layout_constraintEnd_toStartOf="@+id/txt_weight_layout"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_gender_layout">
+                app:layout_constraintTop_toBottomOf="@+id/tv_measurement">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="180"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="180" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_weight_layout"
-                android:layout_width="0dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:hint="Weight (kg)"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginEnd="4dp"
+                android:hint="@string/weight_kg"
+                app:layout_constraintEnd_toStartOf="@id/txt_weight_goal_layout"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/txt_height_layout"
                 app:layout_constraintTop_toTopOf="@+id/txt_height_layout">
 
@@ -170,8 +170,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="75"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="75" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,21 +180,40 @@
                 android:id="@+id/txt_weight_goal_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                android:hint="Weight Goal (kg)"
-                app:layout_constraintEnd_toStartOf="@+id/txt_health_goal_layout"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_height_layout">
+                android:hint="@string/weight_goal_kg"
+                app:layout_constraintBottom_toBottomOf="@id/txt_height_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_weight_layout"
+                app:layout_constraintTop_toTopOf="@+id/txt_height_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_weight_goal_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="80"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="80" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_activity_level_layout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/activity_level"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_height_layout">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txt_activity_level_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@string/activity_level_sendentary"
+                    app:simpleItems="@array/activity_level_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -203,19 +222,18 @@
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:hint="Health Goal"
+                android:layout_marginTop="8dp"
+                android:hint="@string/health_goal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txt_weight_goal_layout"
-                app:layout_constraintTop_toTopOf="@+id/txt_weight_goal_layout">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_activity_level_layout">
 
                 <AutoCompleteTextView
                     android:id="@+id/txt_health_goal_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="Lose Weight"
+                    android:text="@string/health_goal_lose_weight"
                     app:simpleItems="@array/health_goal_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -227,10 +245,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Save"
+                android:text="@string/save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_weight_goal_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_health_goal_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

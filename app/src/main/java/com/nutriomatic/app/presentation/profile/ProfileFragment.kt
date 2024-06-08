@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
@@ -20,7 +21,11 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var factory: ViewModelFactory
-    private val viewModel: AuthViewModel by viewModels {
+    private val authViewModel: AuthViewModel by viewModels {
+        factory
+    }
+
+    private val profileViewModel: ProfileViewModel by viewModels {
         factory
     }
 
@@ -42,7 +47,8 @@ class ProfileFragment : Fragment() {
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
 
-        observeLiveData()
+//        observeLiveData()
+        setupProfile()
 
         with(binding) {
             txtBirthdayLayout.setEndIconOnClickListener {
@@ -72,12 +78,51 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun observeLiveData() {
-        viewModel.getSession().observe(viewLifecycleOwner) { user ->
-            binding.txtNameInput.setText(user.token)
-            binding.txtEmailInput.setText(user.email)
+    private fun setupProfile() {
+        profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+//                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        result.data.user.apply {
+                            binding.txtNameInput.setText(this.name)
+                            binding.txtEmailInput.setText(this.email)
+//                            binding.txtBirthdayInput.setText(this.birthdate)
+//                            binding.txtNameInput.setText(this.name)
+//                            binding.txtNameInput.setText(this.name)
+                        }
+//                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.data.status.toString(),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    is Result.Error -> {
+//                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
+
+//    private fun observeLiveData() {
+//        authViewModel.getSession().observe(viewLifecycleOwner) { user ->
+//            binding.txtNameInput.setText(user.token)
+//            binding.txtEmailInput.setText(user.email)
+//        }
+//    }
 
     private fun logout() {
         activity?.let {
@@ -86,7 +131,7 @@ class ProfileFragment : Fragment() {
                 setMessage(getString(R.string.logout_dialog_message))
 
                 setPositiveButton(getString(R.string.dialog_continue)) { _, _ ->
-                    viewModel.logout()
+                    authViewModel.logout()
                     findNavController().navigate(R.id.action_profileFragment_to_authActivity)
                     requireActivity().finish()
                 }

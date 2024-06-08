@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import com.nutriomatic.app.di.Injection
 import com.nutriomatic.app.presentation.auth.AuthViewModel
+import com.nutriomatic.app.presentation.profile.ProfileViewModel
 
 
 class ViewModelFactory(private val repository: UserRepository) :
@@ -16,6 +17,9 @@ class ViewModelFactory(private val repository: UserRepository) :
         return when {
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> {
                 AuthViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

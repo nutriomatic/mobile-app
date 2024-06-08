@@ -5,18 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
-import com.nutriomatic.app.data.fake.FakeDataSource
+import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.FragmentStoreBinding
+import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
+    private val listProduct: List<ProductsItem> = emptyList()
+    var productAdapter: ListProductAdapter? = null
+
+
+    private val viewModel by viewModels<StoreViewModel> {
+        ViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,26 +40,42 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            val adapter = ListProductAdapter(
-                FakeDataSource.generateFakeProduct().take(5),
-                true,
-                onIconClick = {
-                    val navDirections =
-                        StoreFragmentDirections.actionStoreFragmentToAddProductActivity(it.id.toString())
-                    findNavController().navigate(navDirections)
-                    Snackbar.make(view, "Edit clicked", Snackbar.LENGTH_SHORT).show()
-                })
-            rvMyProducts.adapter = adapter
-            rvMyProducts.layoutManager = GridLayoutManager(activity, 2)
-            rvMyProducts.addItemDecoration(
-                GridSpacingItemDecoration(
-                    2,
-                    resources.getDimensionPixelSize(R.dimen.grid_item_offset),
-                    false
-                )
-            )
 
+        viewModel.products.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+
+                        setupAdapter(result.data.products.toMutableList())
+
+
+                        binding.progressBar.visibility = View.GONE
+
+//                        Snackbar.make(
+//                            requireView(),
+//                            result.data.status.toString(),
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+
+        with(binding) {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_edit -> {
@@ -67,5 +93,31 @@ class StoreFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun setupAdapter(data: MutableList<ProductsItem>) {
+        productAdapter = ListProductAdapter(
+            data,
+            true,
+            onIconClick = {
+                val navDirections =
+                    StoreFragmentDirections.actionStoreFragmentToAddProductActivity(
+                        it.productId.toString()
+                    )
+                findNavController().navigate(navDirections)
+                view?.let { it1 ->
+                    Snackbar.make(it1, "Edit clicked", Snackbar.LENGTH_SHORT).show()
+                }
+            })
+
+        binding.rvMyProducts.adapter = productAdapter
+        binding.rvMyProducts.layoutManager = GridLayoutManager(activity, 2)
+        binding.rvMyProducts.addItemDecoration(
+            GridSpacingItemDecoration(
+                2,
+                resources.getDimensionPixelSize(R.dimen.grid_item_offset),
+                false
+            )
+        )
     }
 }

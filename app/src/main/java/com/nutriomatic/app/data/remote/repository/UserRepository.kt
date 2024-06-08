@@ -11,10 +11,8 @@ import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
-import com.nutriomatic.app.data.remote.api.response.User
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -65,8 +63,7 @@ class UserRepository private constructor(
         _detailProfile.value = Result.Loading
         try {
 //            val request = LoginRequest(email, password)
-            val response =
-                apiService.getProfile("Bearer ${userPreference.getSession().first().token}")
+            val response = apiService.getProfile()
             _detailProfile.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

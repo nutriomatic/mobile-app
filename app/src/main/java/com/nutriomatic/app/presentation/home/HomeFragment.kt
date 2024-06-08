@@ -71,20 +71,20 @@ class HomeFragment : Fragment() {
                 true
             }
 
-            val adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
-                val navDirections =
-                    HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.id.toString())
-                Navigation.findNavController(view).navigate(navDirections)
-            }
-            rvProduct.adapter = adapter
-            rvProduct.layoutManager = GridLayoutManager(activity, 2)
-            rvProduct.addItemDecoration(
-                GridSpacingItemDecoration(
-                    2,
-                    resources.getDimensionPixelSize(R.dimen.grid_item_offset),
-                    false
-                )
-            )
+//            val adapter = ListProductAdapter(FakeDataSource.generateFakeProduct()) {
+//                val navDirections =
+//                    HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.id.toString())
+//                Navigation.findNavController(view).navigate(navDirections)
+//            }
+//            rvProduct.adapter = adapter
+//            rvProduct.layoutManager = GridLayoutManager(activity, 2)
+//            rvProduct.addItemDecoration(
+//                GridSpacingItemDecoration(
+//                    2,
+//                    resources.getDimensionPixelSize(R.dimen.grid_item_offset),
+//                    false
+//                )
+//            )
         }
     }
 

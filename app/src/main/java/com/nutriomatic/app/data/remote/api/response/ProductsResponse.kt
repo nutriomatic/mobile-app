@@ -32,7 +32,7 @@ data class ProductsItem(
 	val createdAt: String,
 
 	@field:SerializedName("product_price")
-	val productPrice: Int,
+	val productPrice: Double,
 
 	@field:SerializedName("product_picture")
 	val productPicture: String,

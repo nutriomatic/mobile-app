@@ -6,25 +6,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.data.fake.model.Product
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ItemProductBinding
 
 class ListProductAdapter(
-    private val listProduct: List<Product>,
+    private val listProduct: List<ProductsItem>,
     private val showEdit: Boolean = false,
-    private val onIconClick: ((Product) -> Unit)? = null,
-    private val onItemClick: ((Product) -> Unit)? = null,
+    private val onIconClick: ((ProductsItem) -> Unit)? = null,
+    private val onItemClick: ((ProductsItem) -> Unit)? = null,
 ) :
     RecyclerView.Adapter<ListProductAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Product) {
+        fun bind(item: ProductsItem) {
             Glide.with(itemView.context)
-                .load(item.photoUrl)
+                .load(item.productPicture)
                 .into(binding.ivPhoto)
 
             with(binding) {
-                tvName.text = item.name
-                tvPrice.text = item.price.toString()
+                tvName.text = item.productName
+                tvPrice.text = item.productPrice.toString()
                 ivEdit.visibility = if (showEdit) View.VISIBLE else View.GONE
                 ivEdit.setOnClickListener {
                     onIconClick?.invoke(item)

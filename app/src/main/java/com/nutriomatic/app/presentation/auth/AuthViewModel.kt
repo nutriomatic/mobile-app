@@ -2,7 +2,6 @@ package com.nutriomatic.app.presentation.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.remote.Result
@@ -11,7 +10,7 @@ import com.nutriomatic.app.data.remote.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
-    val token: LiveData<Result<String>> = userRepository.token
+    val loginToken: LiveData<Result<String>> = userRepository.loginToken
     val registerStatus: LiveData<Result<RegisterResponse>> = userRepository.registerStatus
 
     fun login(email: String, password: String) {
@@ -26,14 +25,29 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun saveSession(user: UserModel) {
+    fun saveTokenAndUserModel(token: String) {
         viewModelScope.launch {
-            userRepository.saveSession(user)
+            saveToken(token)
+            userRepository.saveUserModel()
         }
     }
 
-    fun getSession(): LiveData<UserModel> {
-        return userRepository.getSession().asLiveData()
+    fun saveUserModel() {
+        viewModelScope.launch {
+            userRepository.saveUserModel()
+        }
+    }
+
+    fun getUserModel(): LiveData<UserModel> {
+        return userRepository.getUserModel()
+    }
+
+    suspend fun saveToken(token: String) {
+        userRepository.saveToken(token)
+    }
+
+    fun getToken(): LiveData<String?> {
+        return userRepository.getToken()
     }
 
     fun logout() {

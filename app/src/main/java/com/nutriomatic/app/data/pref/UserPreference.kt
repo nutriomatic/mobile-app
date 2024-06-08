@@ -3,8 +3,8 @@ package com.nutriomatic.app.data.pref
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -15,21 +15,29 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-    suspend fun saveSession(user: UserModel) {
+    suspend fun saveUserModel(user: UserModel) {
         dataStore.edit { preferences ->
-            preferences[EMAIL_KEY] = user.email
-            preferences[TOKEN_KEY] = user.token
-            preferences[IS_LOGIN_KEY] = true
+            preferences[ID_KEY] = user.id.toString()
+            preferences[NAME_KEY] = user.name.toString()
+            preferences[EMAIL_KEY] = user.email.toString()
+            user.gender?.let { preferences[GENDER_KEY] = it }
         }
     }
 
-    fun getSession(): Flow<UserModel> {
+    fun getUserModel(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
             UserModel(
-                preferences[EMAIL_KEY] ?: "",
-                preferences[TOKEN_KEY] ?: "",
-                preferences[IS_LOGIN_KEY] ?: false
+                id = preferences[ID_KEY],
+                name = preferences[NAME_KEY],
+                email = preferences[EMAIL_KEY],
+                gender = preferences[GENDER_KEY]
             )
+        }
+    }
+
+    suspend fun saveToken(token: String) {
+        dataStore.edit {
+            it[TOKEN_KEY] = token
         }
     }
 
@@ -47,9 +55,21 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         @Volatile
         private var INSTANCE: UserPreference? = null
 
-        private val EMAIL_KEY = stringPreferencesKey("email")
+        private val ID_KEY = stringPreferencesKey("id")
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
+        private val NAME_KEY = stringPreferencesKey("name")
+        private val EMAIL_KEY = stringPreferencesKey("email")
+        private val GENDER_KEY = intPreferencesKey("gender")
+        private val ROLE_KEY = stringPreferencesKey("role")
+        private val TELP_KEY = stringPreferencesKey("telp")
+        private val PROFPIC_KEY = stringPreferencesKey("profpic")
+        private val BIRTHDATE_KEY = stringPreferencesKey("birthdate")
+        private val PLACE_KEY = stringPreferencesKey("place")
+        private val HEIGHT_KEY = intPreferencesKey("height")
+        private val WEIGHT_KEY = intPreferencesKey("weight")
+        private val WEIGHT_GOAL_KEY = intPreferencesKey("weight_goal")
+        private val HG_TYPE_KEY = intPreferencesKey("hg_type")
+        private val AL_TYPE_KEY = intPreferencesKey("al_type")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {

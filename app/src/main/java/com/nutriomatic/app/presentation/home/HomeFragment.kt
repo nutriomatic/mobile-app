@@ -6,16 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
-import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.databinding.FragmentHomeBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
-import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
-import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -89,7 +84,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.getSession().observe(viewLifecycleOwner) {
+        viewModel.getUserModel().observe(viewLifecycleOwner) {
             binding.tvGreetUser.text = getString(R.string.greet_user, it.email)
         }
     }

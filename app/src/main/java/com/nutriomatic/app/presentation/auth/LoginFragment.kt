@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
-import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentLoginBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
@@ -53,7 +52,7 @@ class LoginFragment : Fragment() {
 
             viewModel.login(email, password)
 
-            viewModel.token.observe(viewLifecycleOwner) {
+            viewModel.loginToken.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when (it) {
                         is Result.Error -> {
@@ -68,7 +67,7 @@ class LoginFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
 
-                            viewModel.saveSession(UserModel(email, it.data))
+                            viewModel.saveTokenAndUserModel(it.data)
 
                             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                             requireActivity().finish()

@@ -2,6 +2,7 @@ package com.nutriomatic.app.data.remote.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserModel
 import com.nutriomatic.app.data.pref.UserPreference
@@ -22,8 +23,8 @@ class UserRepository private constructor(
     private val _registerStatus = MutableLiveData<Result<RegisterResponse>>()
     val registerStatus: LiveData<Result<RegisterResponse>> = _registerStatus
 
-    private val _token = MutableLiveData<Result<String>>()
-    val token: LiveData<Result<String>> = _token
+    private val _loginToken = MutableLiveData<Result<String>>()
+    val loginToken: LiveData<Result<String>> = _loginToken
 
     private val _detailProfile = MutableLiveData<Result<ProfileResponse>>()
     val detailProfile: LiveData<Result<ProfileResponse>> = _detailProfile
@@ -45,16 +46,16 @@ class UserRepository private constructor(
 
 
     suspend fun login(email: String, password: String) {
-        _token.value = Result.Loading
+        _loginToken.value = Result.Loading
         try {
             val request = LoginRequest(email, password)
             val response = apiService.login(request)
-            _token.value = Result.Success(response.token.toString())
+            _loginToken.value = Result.Success(response.token.toString())
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            _token.value = Result.Error(errorMessage ?: "An error occurred")
+            _loginToken.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 
@@ -69,16 +70,55 @@ class UserRepository private constructor(
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            _token.value = Result.Error(errorMessage ?: "An error occurred")
+            _detailProfile.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 
-    suspend fun saveSession(user: UserModel) {
-        userPreference.saveSession(user)
+    suspend fun saveUserModel() {
+        try {
+            val response = apiService.getProfile()
+            with(response.user) {
+                userPreference.saveUserModel(
+                    UserModel(
+                        id = id,
+                        name = name,
+                        email = email,
+                        gender = gender,
+                        role = role,
+                        telp = telp,
+                        profpic = profpic,
+                        birthdate = birthdate,
+                        place = place,
+                        height = height,
+                        weight = weight,
+                        weightGoal = weightGoal,
+                        hgId = hgId,
+                        hgType = hgType,
+                        hgDesc = hgDesc,
+                        alId = alId,
+                        alType = alType,
+                        alDesc = alDesc,
+                        alValue = alValue
+                    )
+                )
+            }
+        } catch (e: HttpException) {
+            val jsonString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+        }
     }
 
-    fun getSession(): Flow<UserModel> {
-        return userPreference.getSession()
+    fun getUserModel(): LiveData<UserModel> {
+        return userPreference.getUserModel().asLiveData()
+    }
+
+    suspend fun saveToken(token: String) {
+        userPreference.saveToken(token)
+    }
+
+    fun getToken(): LiveData<String?> {
+        return userPreference.getToken().asLiveData()
     }
 
     suspend fun logout() {

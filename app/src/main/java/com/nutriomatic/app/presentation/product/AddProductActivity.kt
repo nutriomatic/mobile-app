@@ -1,21 +1,32 @@
 package com.nutriomatic.app.presentation.product
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.data.fake.model.Product
+import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
+import com.nutriomatic.app.presentation.MainActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.reduceFileSize
 import com.nutriomatic.app.presentation.helper.util.uriToFile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.UUID
 
 class AddProductActivity : AppCompatActivity() {
@@ -61,62 +72,64 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
+
     private fun createProduct() {
         currentImageUri?.let { uri ->
-            val imageFile = uriToFile(this, uri).reduceFileSize()
-            val name = binding.txtNameInput.text.toString()
-            val type = binding.selectType.text.toString()
-            val description = binding.txtProductDescInput.text.toString()
-            val servisSizeCont = binding.txtServingSizePerContInput.text.toString()
-            val fat = binding.txtFatInput.text.toString()
-            val carbohidrat = binding.txtCarboInput.text.toString()
-            val protein = binding.txtProteinInput.text.toString()
-            val sodium = binding.txtSodiumInput.text.toString()
+            val productName = binding.txtNameInput.text.toString()
+            val productPrice = 12.99
+            val productDesc = binding.txtProductDescInput.text.toString()
+            val productIsshow = false
+            val productLemakTotal = binding.txtFatInput.text.toString()
+            val productProtein = binding.txtCarboInput.text.toString()
+            val productKarbohidrat = binding.txtProteinInput.text.toString()
+            val productGaram = binding.txtSodiumInput.text.toString()
+            val productGrade = "Z"
+            val productServingSize = binding.txtServingSizePerContInput.text.toString()
+            val ptName = binding.selectType.text.toString()
 
-//            val requestBody = description.toRequestBody("text/plain".toMediaType())
-//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-//            val multipartBody = MultipartBody.Part.createFormData(
-//                "photo", imageFile.name, requestImageFile
-//            )
+            val imageFile = uriToFile(this, uri).reduceFileSize()
+            val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+            Log.d("GAMBAR", imageFile.name)
+
             viewModel.createProduct(
-                name,
-                20.0,
-                description,
-                false,
-                fat.toDouble(),
-                protein.toDouble(),
-                carbohidrat.toDouble(),
-                sodium.toDouble(),
-                "Z",
-                servisSizeCont.toInt(),
-                type,
-                imageFile
+                productName,
+                productPrice,
+                productDesc,
+                productIsshow,
+                productLemakTotal.toDouble(),
+                productProtein.toDouble(),
+                productKarbohidrat.toDouble(),
+                productGaram.toDouble(),
+                productGrade,
+                productServingSize.toInt(),
+                ptName,
+                body
             )
 
-//            viewModel.statusCreateProduct.observe(this) { result ->
-//                if (result != null) {
-//                    when (result) {
-//                        is Result.Loading -> {
-//                            binding.progressIndicator.visibility = View.VISIBLE
-//                        }
-//
-//                        is Result.Success -> {
-//                            binding.progressIndicator.visibility = View.GONE
-//                            val intent = Intent(this, MainActivity::class.java)
-//                            intent.flags =
-//                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                            startActivity(intent)
-//                        }
-//
-//                        is Result.Error -> {
-//                            binding.progressIndicator.visibility = View.GONE
-//                            Toast.makeText(
-//                                this, result.error, Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
-//                }
-//            }
+            viewModel.statusCreateProduct.observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is Result.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+
+                        is Result.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
+                            val navController = navHostFragment.navController
+                            navController.popBackStack(R.id.storeFragment, false)
+                        }
+
+                        is Result.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                this, result.error + ptName, Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
         } ?: showToast("500: Internal server error")
     }
 

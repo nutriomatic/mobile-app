@@ -7,41 +7,62 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import kotlinx.coroutines.launch
-import java.io.File
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddProductViewModel(private val repository: ProductRepository) : ViewModel() {
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> =
         repository.statusCreateProduct
 
     fun createProduct(
-        product_name: String,
-        product_price: Double = 20.0,
-        product_desc: String,
-        product_isshow: Boolean = false,
-        product_lemaktotal: Double,
-        product_protein: Double,
-        product_karbohidrat: Double,
-        product_garam: Double,
-        product_grade: String = "Z",
-        productServingsize: Int,
-        pt_name: String,
-        productPicture: File,
+        productName: String,
+        productPrice: Double,
+        productDesc: String,
+        productIsshow: Boolean,
+        productLemakTotal: Double,
+        productProtein: Double,
+        productKarbohidrat: Double,
+        productGaram: Double,
+        productGrade: String,
+        productServingSize: Int,
+        ptName: String,
+        file: MultipartBody.Part
     ) {
         viewModelScope.launch {
+            val productNameBody = createRequestBody(productName)
+            val productPriceBody = createRequestBody(productPrice.toString())
+            val productDescBody = createRequestBody(productDesc)
+            val productIsshowBody =
+                createRequestBody(productIsshow.toString())  // Convert Boolean to String
+            val productLemakTotalBody = createRequestBody(productLemakTotal.toString())
+            val productProteinBody = createRequestBody(productProtein.toString())
+            val productKarbohidratBody = createRequestBody(productKarbohidrat.toString())
+            val productGaramBody = createRequestBody(productGaram.toString())
+            val productGradeBody = createRequestBody(productGrade)
+            val productServingSizeBody = createRequestBody(productServingSize.toString())
+            val ptNameBody = createRequestBody(ptName)
+
             repository.createProduct(
-                product_name,
-                product_price,
-                product_desc,
-                product_isshow,
-                product_lemaktotal,
-                product_protein,
-                product_karbohidrat,
-                product_garam,
-                product_grade,
-                productServingsize,
-                pt_name,
-                productPicture
+                productNameBody,
+                productPriceBody,
+                productDescBody,
+                productIsshowBody,
+                productLemakTotalBody,
+                productProteinBody,
+                productKarbohidratBody,
+                productGaramBody,
+                productGradeBody,
+                productServingSizeBody,
+                ptNameBody,
+                file
             )
         }
     }
+
+    private fun createRequestBody(value: String): RequestBody {
+        return value.toRequestBody("text/plain".toMediaTypeOrNull())
+    }
+
 }

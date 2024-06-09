@@ -7,6 +7,7 @@ import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import com.nutriomatic.app.di.Injection
 import com.nutriomatic.app.presentation.auth.AuthViewModel
+import com.nutriomatic.app.presentation.product.AddProductViewModel
 import com.nutriomatic.app.presentation.profile.ProfileViewModel
 import com.nutriomatic.app.presentation.store.StoreViewModel
 
@@ -30,6 +31,9 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(StoreViewModel::class.java) -> {
                 StoreViewModel(productRepository) as T
+            }
+            modelClass.isAssignableFrom(AddProductViewModel::class.java) -> {
+                AddProductViewModel(productRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

@@ -13,8 +13,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.R
-import com.nutriomatic.app.data.fake.FakeDataSource
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.reduceFileSize
@@ -22,7 +22,6 @@ import com.nutriomatic.app.presentation.helper.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.util.UUID
 
 class AddProductActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductBinding
@@ -31,7 +30,6 @@ class AddProductActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddProductViewModel> {
         ViewModelFactory.getInstance(this)
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,23 +49,57 @@ class AddProductActivity : AppCompatActivity() {
             btnSave.setOnClickListener { createProduct() }
 
             args.productId?.let { id ->
+                viewModel.getProductById(id)
+                topAppBar.title = "Update Product"
 
-//                val product: Product? = FakeDataSource.getProductById(UUID.fromString(id))
-//                product?.let {
-//                    Glide.with(this@AddProductActivity)
-//                        .load(it.photoUrl)
-//                        .into(productImage)
-//                    txtNameInput.setText(it.name)
-//                    selectType.setText(it.type)
-//                    txtProductDescInput.setText(it.description)
-//                    txtServingSizePerContInput.setText(it.servingSizePerContainer.toString())
-//                    txtFatInput.setText(it.fatGrams.toString())
-//                    txtCarboInput.setText(it.carbohydratesGrams.toString())
-//                    txtProteinInput.setText(it.proteinGrams.toString())
-//                    txtSodiumInput.setText(it.sodiumMilliGrams.toString())
-//                }
+                viewModel.detailProduct.observe(this@AddProductActivity) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                            }
+
+                            is Result.Success -> {
+                                binding.progressBar.visibility = View.GONE
+                                val product: Product = result.data.product
+                                Glide.with(this@AddProductActivity)
+                                    .load(product.productPicture)
+                                    .into(productImage)
+                                txtNameInput.setText(product.productName)
+                                selectType.setText(product.ptId)
+                                txtProductDescInput.setText(product.productDesc)
+                                txtServingSizePerContInput.setText(product.productServingsize.toString())
+                                txtFatInput.setText(product.productLemaktotal.toString())
+                                txtCarboInput.setText(product.productKarbohidrat.toString())
+                                txtProteinInput.setText(product.productProtein.toString())
+                                txtSodiumInput.setText(product.productGaram.toString())
+
+                                // update
+                                btnSave.setOnClickListener { updateProduct(product.productId) }
+
+//                                val navHostFragment =
+//                                    supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
+//                                val navController = navHostFragment.navController
+//                                navController.popBackStack(R.id.storeFragment, false)
+                            }
+
+                            is Result.Error -> {
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    this@AddProductActivity, result.error, Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+
+
+                }
             }
         }
+    }
+
+    private fun updateProduct(productId: String) {
+        showToast("Api update belum tersedia!!")
     }
 
 

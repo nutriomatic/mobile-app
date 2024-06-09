@@ -17,7 +17,7 @@ data class Product(
 	val storeId: String,
 
 	@field:SerializedName("product_lemaktotal")
-	val productLemaktotal: Int,
+	val productLemaktotal: Double,
 
 	@field:SerializedName("product_isshow")
 	val productIsshow: Boolean,
@@ -29,7 +29,7 @@ data class Product(
 	val createdAt: String,
 
 	@field:SerializedName("product_price")
-	val productPrice: Int,
+	val productPrice: Double,
 
 	@field:SerializedName("product_picture")
 	val productPicture: String,
@@ -38,7 +38,7 @@ data class Product(
 	val productName: String,
 
 	@field:SerializedName("product_karbohidrat")
-	val productKarbohidrat: Int,
+	val productKarbohidrat: Double,
 
 	@field:SerializedName("product_desc")
 	val productDesc: String,
@@ -56,11 +56,11 @@ data class Product(
 	val productId: String,
 
 	@field:SerializedName("product_protein")
-	val productProtein: Int,
+	val productProtein: Double,
 
 	@field:SerializedName("product_expshow")
 	val productExpshow: String,
 
 	@field:SerializedName("product_garam")
-	val productGaram: Int
+	val productGaram: Double
 )

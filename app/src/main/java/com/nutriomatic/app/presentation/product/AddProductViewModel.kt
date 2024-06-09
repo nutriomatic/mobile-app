@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
+import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -15,6 +16,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class AddProductViewModel(private val repository: ProductRepository) : ViewModel() {
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> =
         repository.statusCreateProduct
+    val detailProduct: LiveData<Result<ProductByIdResponse>> = repository.detailProduct
+
 
     fun createProduct(
         productName: String,
@@ -58,6 +61,13 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
                 ptNameBody,
                 file
             )
+        }
+    }
+
+
+    fun getProductById(id: String) {
+        viewModelScope.launch {
+            repository.getProductById(id)
         }
     }
 

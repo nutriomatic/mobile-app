@@ -1,6 +1,5 @@
 package com.nutriomatic.app.presentation.product
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,18 +14,14 @@ import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
-import com.nutriomatic.app.data.fake.model.Product
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
-import com.nutriomatic.app.presentation.MainActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.reduceFileSize
 import com.nutriomatic.app.presentation.helper.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.util.UUID
 
 class AddProductActivity : AppCompatActivity() {
@@ -36,6 +31,8 @@ class AddProductActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddProductViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +51,21 @@ class AddProductActivity : AppCompatActivity() {
             btnSave.setOnClickListener { createProduct() }
 
             args.productId?.let { id ->
-                val product: Product? = FakeDataSource.getProductById(UUID.fromString(id))
-                product?.let {
-                    Glide.with(this@AddProductActivity)
-                        .load(it.photoUrl)
-                        .into(productImage)
-                    txtNameInput.setText(it.name)
-                    selectType.setText(it.type)
-                    txtProductDescInput.setText(it.description)
-                    txtServingSizePerContInput.setText(it.servingSizePerContainer.toString())
-                    txtFatInput.setText(it.fatGrams.toString())
-                    txtCarboInput.setText(it.carbohydratesGrams.toString())
-                    txtProteinInput.setText(it.proteinGrams.toString())
-                    txtSodiumInput.setText(it.sodiumMilliGrams.toString())
-                }
+
+//                val product: Product? = FakeDataSource.getProductById(UUID.fromString(id))
+//                product?.let {
+//                    Glide.with(this@AddProductActivity)
+//                        .load(it.photoUrl)
+//                        .into(productImage)
+//                    txtNameInput.setText(it.name)
+//                    selectType.setText(it.type)
+//                    txtProductDescInput.setText(it.description)
+//                    txtServingSizePerContInput.setText(it.servingSizePerContainer.toString())
+//                    txtFatInput.setText(it.fatGrams.toString())
+//                    txtCarboInput.setText(it.carbohydratesGrams.toString())
+//                    txtProteinInput.setText(it.proteinGrams.toString())
+//                    txtSodiumInput.setText(it.sodiumMilliGrams.toString())
+//                }
             }
         }
     }
@@ -116,7 +114,8 @@ class AddProductActivity : AppCompatActivity() {
 
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
+                            val navHostFragment =
+                                supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
                             val navController = navHostFragment.navController
                             navController.popBackStack(R.id.storeFragment, false)
                         }
@@ -124,7 +123,7 @@ class AddProductActivity : AppCompatActivity() {
                         is Result.Error -> {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(
-                                this, result.error + ptName, Toast.LENGTH_SHORT
+                                this, result.error, Toast.LENGTH_SHORT
                             ).show()
                         }
                     }

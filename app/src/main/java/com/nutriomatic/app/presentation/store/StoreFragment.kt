@@ -102,7 +102,7 @@ class StoreFragment : Fragment() {
             onIconClick = {
                 val navDirections =
                     StoreFragmentDirections.actionStoreFragmentToAddProductActivity(
-                        it.productId.toString()
+                        it.productId
                     )
                 findNavController().navigate(navDirections)
                 view?.let { it1 ->

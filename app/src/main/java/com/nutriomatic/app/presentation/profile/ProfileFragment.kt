@@ -79,42 +79,59 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupProfile() {
-        profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
-                    }
+//        authViewModel.saveUserModel()
+//
+        profileViewModel.getUserModel().observe(viewLifecycleOwner) {
+            with(binding) {
+                txtNameInput.setText(it.name)
+                txtEmailInput.setText(it.email)
+                txtBirthdayInput.setText(it.birthdate)
+                txtGenderInput.setText(it.gender.toString())
 
-                    is Result.Success -> {
-                        result.data.user.apply {
-                            binding.txtNameInput.setText(this.name)
-                            binding.txtEmailInput.setText(this.email)
-//                            binding.txtBirthdayInput.setText(this.birthdate)
-//                            binding.txtNameInput.setText(this.name)
-//                            binding.txtNameInput.setText(this.name)
-                        }
-//                        binding.progressBar.visibility = View.GONE
+                txtHeightInput.setText(it.height.toString())
+                txtWeightInput.setText(it.weight.toString())
+                txtWeightGoalInput.setText(it.weightGoal.toString())
 
-                        Snackbar.make(
-                            requireView(),
-                            result.data.status.toString(),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    is Result.Error -> {
-//                        binding.progressBar.visibility = View.GONE
-
-                        Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+                txtActivityLevelInput.setText(it.alDesc)
+                txtHealthGoalInput.setText(it.hgDesc)
             }
         }
+//        profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
+//            if (result != null) {
+//                when (result) {
+//                    is Result.Loading -> {
+////                        binding.progressBar.visibility = View.VISIBLE
+//                    }
+//
+//                    is Result.Success -> {
+//                        result.data.user.apply {
+//                            binding.txtNameInput.setText(this.name)
+//                            binding.txtEmailInput.setText(this.email)
+////                            binding.txtBirthdayInput.setText(this.birthdate)
+////                            binding.txtNameInput.setText(this.name)
+////                            binding.txtNameInput.setText(this.name)
+//                        }
+////                        binding.progressBar.visibility = View.GONE
+//
+//                        Snackbar.make(
+//                            requireView(),
+//                            result.data.status.toString(),
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
+//                    }
+//
+//                    is Result.Error -> {
+////                        binding.progressBar.visibility = View.GONE
+//
+//                        Snackbar.make(
+//                            requireView(),
+//                            result.error,
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//            }
+//        }
     }
 
 //    private fun observeLiveData() {

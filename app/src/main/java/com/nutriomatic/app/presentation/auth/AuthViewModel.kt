@@ -25,10 +25,11 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun saveTokenAndUserModel(token: String) {
+    fun saveTokenAndUserModel(token: String, email: String) {
         viewModelScope.launch {
-            saveToken(token)
-            userRepository.saveUserModel()
+//            saveToken(token)
+            userRepository.saveTokenAndEmail(token, email)
+//            userRepository.saveUserModel()
         }
     }
 
@@ -42,9 +43,9 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         return userRepository.getUserModel()
     }
 
-    suspend fun saveToken(token: String) {
-        userRepository.saveToken(token)
-    }
+//    suspend fun saveToken(token: String) {
+//        userRepository.saveToken(token)
+//    }
 
     fun getToken(): LiveData<String?> {
         return userRepository.getToken()

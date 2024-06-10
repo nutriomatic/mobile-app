@@ -67,7 +67,7 @@ class LoginFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
 
-                            viewModel.saveTokenAndUserModel(it.data)
+                            viewModel.saveTokenAndUserModel(it.data, email)
 
                             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
                             requireActivity().finish()

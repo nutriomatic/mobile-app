@@ -1,14 +1,17 @@
 package com.nutriomatic.app.presentation.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
@@ -43,10 +46,10 @@ class ProductDetailsActivity : AppCompatActivity() {
                     is Result.Success -> {
 //                        binding.progressBar.visibility = View.GONE
                         setupProduct(result.data.product)
-                        val navHostFragment =
-                            supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
-                        val navController = navHostFragment.navController
-                        navController.popBackStack(R.id.storeFragment, false)
+//                        val navHostFragment =
+//                            supportFragmentManager.findFragmentById(R.id.main_navigation) as NavHostFragment
+//                        val navController = navHostFragment.navController
+//                        navController.popBackStack(R.id.storeFragment, false)
                     }
 
                     is Result.Error -> {
@@ -62,13 +65,20 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setupProduct(product: Product) {
         with(binding) {
-            Glide.with(this@ProductDetailsActivity)
-                .load(product.productPicture)
-                .into(itemImage)
+            Glide.with(this@ProductDetailsActivity).load(product.productPicture).into(itemImage)
             itemTitle.text = product.productName
-            itemPrice.text = product.productPrice.toString()
+            "Rp. ${product.productPrice.toString()}".also { itemPrice.text = it }
+            itemDescription.text = product.productDesc
+
             imgLabel.setOnClickListener {
-                showBottomSheetDialog()
+                val modalBottomSheet = ModalBottomSheet(
+                    product.productLemaktotal,
+                    product.productGaram,
+                    product.productKarbohidrat,
+                    product.productProtein,
+                    product.productServingsize
+                )
+                modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
             }
 
             topAppBar.setNavigationOnClickListener { onBackPressed() }
@@ -90,15 +100,61 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showBottomSheetDialog() {
+    private fun showBottomSheetDialog(
+        productLemaktotal: Double,
+        productGaram: Double,
+        productKarbohidrat: Double,
+        productProtein: Double,
+        productServingsize: Int
+    ) {
         val bottomSheetDialog = BottomSheetDialog(this)
         val binding = BottomSheetLayoutBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(binding.root)
+
 
         BottomSheetBehavior.from(binding.bottomSheetNutritionFact).apply {
             this.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
         bottomSheetDialog.show()
+    }
+}
+
+class ModalBottomSheet(
+    private val productLemaktotal: Double,
+    private val productGaram: Double,
+    private val productKarbohidrat: Double,
+    private val productProtein: Double,
+    private val productServingsize: Int
+) : BottomSheetDialogFragment() {
+    private var _binding: BottomSheetLayoutBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = BottomSheetLayoutBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.txtServingSizePerContInput.setText(productServingsize.toString())
+        binding.txtFatInput.setText(productLemaktotal.toString())
+        binding.txtCarboInput.setText(productKarbohidrat.toString())
+        binding.txtProteinInput.setText(productProtein.toString())
+        binding.txtSodiumInput.setText(productGaram.toString())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        const val TAG = "ModalBottomSheet"
     }
 }

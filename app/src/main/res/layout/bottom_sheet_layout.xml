@@ -1,34 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_nutrition_fact"
+    style="@style/Widget.Material3.BottomSheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:padding="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <FrameLayout
-        android:id="@+id/bottom_sheet_nutrition_fact"
-        style="@style/Widget.Material3.BottomSheet"
+    <!-- Bottom sheet contents. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
+        android:layout_height="wrap_content">
 
         <!-- Drag handle for accessibility -->
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView
             android:id="@+id/drag_handle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Bottom sheet contents. -->
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Nutriton Fact"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:paddingBottom="16dp"
+            android:text="Detail Nutrition Fact"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
-    </FrameLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_serving_size_per_cont_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Serving size per container"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:layout_editor_absoluteX="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_serving_size_per_cont_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:text="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/label_amount_per_serving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Amount per serving"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_serving_size_per_cont_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_fat_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:hint="Fat (gr)"
+            app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_amount_per_serving">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_fat_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:text="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_carbo_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:hint="Carbohidrat (gr)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_fat_layout"
+            app:layout_constraintTop_toBottomOf="@id/label_amount_per_serving">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_carbo_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:text="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_protein_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:hint="Protein (gr)"
+            app:layout_constraintEnd_toStartOf="@+id/txt_sodium_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_fat_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_protein_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:text="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_sodium_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:hint="Sodium (mg)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_protein_layout"
+            app:layout_constraintTop_toBottomOf="@+id/txt_carbo_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_sodium_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:text="1"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

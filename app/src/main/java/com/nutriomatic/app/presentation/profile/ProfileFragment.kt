@@ -15,6 +15,9 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -29,11 +32,11 @@ class ProfileFragment : Fragment() {
         factory
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,21 +45,12 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         factory = activity?.let { ViewModelFactory.getInstance(it) }!!
 
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(getString(R.string.birthday_datepicker_title))
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-            .build()
-
 //        observeLiveData()
         setupProfile()
 
         with(binding) {
             txtBirthdayLayout.setEndIconOnClickListener {
-                datePicker.show(childFragmentManager, "date_picker")
-            }
-
-            datePicker.addOnPositiveButtonClickListener {
-                txtBirthdayInput.setText(datePicker.headerText)
+                showDatePicker()
             }
 
             topAppBar.setOnMenuItemClickListener { menuItem ->
@@ -81,57 +75,52 @@ class ProfileFragment : Fragment() {
     private fun setupProfile() {
 //        authViewModel.saveUserModel()
 //
-        profileViewModel.getUserModel().observe(viewLifecycleOwner) {
-            with(binding) {
-                txtNameInput.setText(it.name)
-                txtEmailInput.setText(it.email)
-                txtBirthdayInput.setText(it.birthdate)
-                txtGenderInput.setText(it.gender.toString())
-
-                txtHeightInput.setText(it.height.toString())
-                txtWeightInput.setText(it.weight.toString())
-                txtWeightGoalInput.setText(it.weightGoal.toString())
-
-                txtActivityLevelInput.setText(it.alDesc)
-                txtHealthGoalInput.setText(it.hgDesc)
-            }
-        }
-//        profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
-//            if (result != null) {
-//                when (result) {
-//                    is Result.Loading -> {
-////                        binding.progressBar.visibility = View.VISIBLE
-//                    }
+//        profileViewModel.getUserModel().observe(viewLifecycleOwner) {
+//            with(binding) {
+//                txtNameInput.setText(it.name)
+//                txtEmailInput.setText(it.email)
+//                txtBirthdayInput.setText(it.birthdate)
+//                txtGenderInput.setText(it.gender.toString())
 //
-//                    is Result.Success -> {
-//                        result.data.user.apply {
-//                            binding.txtNameInput.setText(this.name)
-//                            binding.txtEmailInput.setText(this.email)
-////                            binding.txtBirthdayInput.setText(this.birthdate)
-////                            binding.txtNameInput.setText(this.name)
-////                            binding.txtNameInput.setText(this.name)
-//                        }
-////                        binding.progressBar.visibility = View.GONE
+//                txtHeightInput.setText(it.height.toString())
+//                txtWeightInput.setText(it.weight.toString())
+//                txtWeightGoalInput.setText(it.weightGoal.toString())
 //
-//                        Snackbar.make(
-//                            requireView(),
-//                            result.data.status.toString(),
-//                            Snackbar.LENGTH_SHORT
-//                        ).show()
-//                    }
-//
-//                    is Result.Error -> {
-////                        binding.progressBar.visibility = View.GONE
-//
-//                        Snackbar.make(
-//                            requireView(),
-//                            result.error,
-//                            Snackbar.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
+//                txtActivityLevelInput.setText(it.alDesc)
+//                txtHealthGoalInput.setText(it.hgDesc)
 //            }
 //        }
+
+        profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        result.data.user.apply {
+                            binding.txtNameInput.setText(this.name)
+                            binding.txtEmailInput.setText(this.email)
+                            binding.txtBirthdayInput.setText(convertDateToString(this.birthdate))
+//                            binding.txtNameInput.setText(this.name)
+//                            binding.txtNameInput.setText(this.name)
+                        }
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
 //    private fun observeLiveData() {
@@ -140,6 +129,7 @@ class ProfileFragment : Fragment() {
 //            binding.txtEmailInput.setText(user.email)
 //        }
 //    }
+
 
     private fun logout() {
         activity?.let {
@@ -160,4 +150,34 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
+    fun showDatePicker() {
+        val dateInMillis = convertStringToMillis(binding.txtBirthdayInput.text.toString())
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.birthday_datepicker_title))
+            .setSelection(dateInMillis)
+            .build()
+
+        datePicker.show(childFragmentManager, "date_picker")
+
+        datePicker.addOnPositiveButtonClickListener {
+            binding.txtBirthdayInput.setText(datePicker.headerText)
+        }
+    }
+
+    private fun convertDateToString(dateString: String): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = dateFormat.parse(dateString)
+        val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        return outputFormat.format(date)
+    }
+
+    private fun convertStringToMillis(dateString: String): Long {
+        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
+        val date = dateFormat.parse(dateString)
+        return date?.time ?: 0L
+    }
+
 }

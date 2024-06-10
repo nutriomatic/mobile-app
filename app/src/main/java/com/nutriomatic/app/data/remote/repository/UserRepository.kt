@@ -13,7 +13,6 @@ import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
-import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -113,8 +112,12 @@ class UserRepository private constructor(
         return userPreference.getUserModel().asLiveData()
     }
 
-    suspend fun saveToken(token: String) {
-        userPreference.saveToken(token)
+//    suspend fun saveToken(token: String) {
+//        userPreference.saveToken(token)
+//    }
+
+    suspend fun saveTokenAndEmail(token: String, email: String) {
+        userPreference.saveTokenAndEmail(token, email)
     }
 
     fun getToken(): LiveData<String?> {

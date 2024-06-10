@@ -41,6 +41,13 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    suspend fun saveTokenAndEmail(token: String, email: String) {
+        dataStore.edit {
+            it[TOKEN_KEY] = token
+            it[EMAIL_KEY] = email
+        }
+    }
+
     fun getToken(): Flow<String?> {
         return dataStore.data.map { it[TOKEN_KEY] }
     }

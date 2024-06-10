@@ -21,7 +21,7 @@ class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private val listProduct: List<ProductsItem> = emptyList()
-    var productAdapter: ListProductAdapter? = null
+    private var productAdapter: ListProductAdapter? = null
 
 
     private val viewModel by viewModels<StoreViewModel> {
@@ -79,7 +79,9 @@ class StoreFragment : Fragment() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_edit -> {
-                        Snackbar.make(view, "Edit clicked", Snackbar.LENGTH_SHORT).show()
+                        val navDirections =
+                            StoreFragmentDirections.actionStoreFragmentToCreateStoreActivity()
+                        findNavController().navigate(navDirections)
                         true
                     }
 

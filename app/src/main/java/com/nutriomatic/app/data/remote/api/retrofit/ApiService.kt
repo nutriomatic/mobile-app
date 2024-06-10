@@ -1,7 +1,9 @@
 package com.nutriomatic.app.data.remote.api.retrofit
 
+import com.nutriomatic.app.data.remote.api.request.CreateStoreRequest
 import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
+import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
@@ -17,10 +19,10 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.File
 
 interface ApiService {
 
+    //    Auth
     @POST("auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest): RegisterResponse
 
@@ -31,10 +33,17 @@ interface ApiService {
     suspend fun getProfile(
     ): ProfileResponse
 
+
+    //    Store
+    @POST("store/")
+    suspend fun createStore(@Body createStoreRequest: CreateStoreRequest): BasicResponse
+
+
+    //    Product
     @GET("product/")
     suspend fun getProducts(
         @Query("pageSize") pageSize: Int = 5,
-        @Query("page") size: Int = 1
+        @Query("page") size: Int = 1,
     ): ProductsResponse
 
     @POST("product/")
@@ -51,14 +60,12 @@ interface ApiService {
         @Part("product_grade") productGrade: RequestBody,
         @Part("product_servingsize") productServingSize: RequestBody,
         @Part("pt_name") ptName: RequestBody,
-        @Part file: MultipartBody.Part
+        @Part file: MultipartBody.Part,
     ): CreateProductResponse
 
 
     @GET("product/{id}")
     suspend fun getProductById(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): ProductByIdResponse
-
-
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NutriOMatic"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.store.CreateStoreActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.product.AddProductActivity"
             android:exported="false" />
@@ -31,7 +35,7 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".presentation.auth.AuthActivity"
             android:exported="true"

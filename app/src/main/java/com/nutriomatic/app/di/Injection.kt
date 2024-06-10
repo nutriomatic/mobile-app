@@ -5,6 +5,7 @@ import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.pref.dataStore
 import com.nutriomatic.app.data.remote.api.retrofit.ApiConfig
 import com.nutriomatic.app.data.remote.repository.ProductRepository
+import com.nutriomatic.app.data.remote.repository.StoreRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 
 
@@ -21,5 +22,12 @@ object Injection {
         val apiService = ApiConfig.getApiService(pref)
 
         return ProductRepository.getInstance(pref, apiService)
+    }
+
+    fun provideStoreRepository(context: Context): StoreRepository {
+        val pref = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getApiService(pref)
+
+        return StoreRepository.getInstance(apiService)
     }
 }

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_storeFragment_to_addProductActivity"
             app:destination="@id/addProductActivity" />
+        <action
+            android:id="@+id/action_storeFragment_to_createStoreActivity"
+            app:destination="@id/createStoreActivity" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
@@ -91,4 +94,9 @@
         android:name="com.nutriomatic.app.presentation.auth.AuthActivity"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <activity
+        android:id="@+id/createStoreActivity"
+        android:name="com.nutriomatic.app.presentation.store.CreateStoreActivity"
+        android:label="activity_create_store"
+        tools:layout="@layout/activity_create_store" />
 </navigation>

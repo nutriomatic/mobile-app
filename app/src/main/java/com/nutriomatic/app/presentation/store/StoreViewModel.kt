@@ -4,15 +4,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
+import com.nutriomatic.app.data.remote.repository.StoreRepository
 import kotlinx.coroutines.launch
 
-class StoreViewModel(private val repository: ProductRepository) : ViewModel() {
+class StoreViewModel(private val repository: ProductRepository, private val storeRepository: StoreRepository) : ViewModel() {
     val products: LiveData<Result<ProductsResponse>> = repository.products
+    val createStoreResponse: LiveData<Result<BasicResponse>> = storeRepository.createStoreResponse
 
     init {
         getProducts()
+    }
+
+    fun createStore(
+        storeName: String,
+        storeUsername: String,
+        storeAddress: String,
+        storeContact: String,
+    ) {
+        viewModelScope.launch {
+            storeRepository.createStore(storeName, storeUsername, storeAddress, storeContact)
+        }
     }
 
     private fun getProducts() {

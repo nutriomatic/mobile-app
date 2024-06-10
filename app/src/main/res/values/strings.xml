@@ -46,4 +46,8 @@
     <string name="activity_level_very_active">Very Active</string>
     <string name="activity_level_super_active">Super Active</string>
     <string name="birthday">Birthday</string>
+    <string name="username">Username</string>
+    <string name="store_name">Store Name</string>
+    <string name="contact">Contact</string>
+    <string name="address">Address</string>
 </resources>

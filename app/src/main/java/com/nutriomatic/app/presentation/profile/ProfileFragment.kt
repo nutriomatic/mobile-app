@@ -1,9 +1,12 @@
 package com.nutriomatic.app.presentation.profile
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,9 +20,11 @@ import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.convertDateToString
 import com.nutriomatic.app.presentation.helper.util.convertStringToMillis
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.nutriomatic.app.presentation.helper.util.reduceFileSize
+import com.nutriomatic.app.presentation.helper.util.uriToFile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -34,6 +39,7 @@ class ProfileFragment : Fragment() {
         factory
     }
 
+    private var currentImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,14 +53,15 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         factory = activity?.let { ViewModelFactory.getInstance(it) }!!
 
-//        observeLiveData()
         setupProfile()
-//        binding.txtBirthdayInput.setText(convertDateToString("2023 Januari 12"))
-
 
         with(binding) {
             txtBirthdayLayout.setEndIconOnClickListener {
                 showDatePicker()
+            }
+
+            profileImage.setOnClickListener {
+                startGallery()
             }
 
             topAppBar.setOnMenuItemClickListener { menuItem ->
@@ -73,28 +80,82 @@ class ProfileFragment : Fragment() {
                     else -> false
                 }
             }
+
+            btnSave.setOnClickListener {
+                updateProfile()
+            }
+        }
+    }
+
+    private fun updateProfile() {
+        val name = binding.txtNameInput.text.toString()
+        val email = binding.txtEmailInput.text.toString()
+//            how to get the position of gender in drop down
+//            val gender = getGenderValue()
+        val gender = 1
+        val telephone = binding.txtTelephoneInput.text.toString()
+        val birthdate = binding.txtBirthdayInput.text.toString()
+        val height = binding.txtHeightInput.text.toString().toInt()
+        val weight = binding.txtWeightInput.text.toString().toInt()
+        val weightGoal = binding.txtWeightGoalInput.text.toString().toInt()
+//            val alType = binding.txtActivityLevelInput.text.toString()
+//            val hgType = binding.txtHealthGoalInput.text.toString()
+
+        val alType = 1
+        val hgType = 1
+
+        var filePart: MultipartBody.Part? = null
+        currentImageUri?.let {uri->
+            val imageFile = uriToFile(requireContext(), uri).reduceFileSize()
+            val fileRequestBody = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            filePart =
+                MultipartBody.Part.createFormData("file", imageFile.name, fileRequestBody)
+        }
+
+        profileViewModel.updateProfile(
+            name,
+            email,
+            gender,
+            telephone,
+            birthdate,
+            height,
+            weight,
+            weightGoal,
+            alType,
+            hgType,
+            filePart
+        )
+
+        profileViewModel.updateProfileResponse.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        Snackbar.make(
+                            requireView(),
+                            getString(R.string.profile_update_success),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
 
     private fun setupProfile() {
-//        authViewModel.saveUserModel()
-//
-//        profileViewModel.getUserModel().observe(viewLifecycleOwner) {
-//            with(binding) {
-//                txtNameInput.setText(it.name)
-//                txtEmailInput.setText(it.email)
-//                txtBirthdayInput.setText(it.birthdate)
-//                txtGenderInput.setText(it.gender.toString())
-//
-//                txtHeightInput.setText(it.height.toString())
-//                txtWeightInput.setText(it.weight.toString())
-//                txtWeightGoalInput.setText(it.weightGoal.toString())
-//
-//                txtActivityLevelInput.setText(it.alDesc)
-//                txtHealthGoalInput.setText(it.hgDesc)
-//            }
-//        }
-
         profileViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
@@ -106,9 +167,14 @@ class ProfileFragment : Fragment() {
                         result.data.user.apply {
                             binding.txtNameInput.setText(this.name)
                             binding.txtEmailInput.setText(this.email)
-                            binding.txtBirthdayInput.setText(convertDateToString("2022-12-12"))
-//                            binding.txtNameInput.setText(this.name)
-//                            binding.txtNameInput.setText(this.name)
+                            binding.txtTelephoneInput.setText(this.telp)
+                            binding.txtBirthdayInput.setText(this.birthdate)
+                            binding.txtGenderInput.setText(this.gender.toString())
+                            binding.txtHeightInput.setText(this.height.toString())
+                            binding.txtWeightInput.setText(this.weight.toString())
+                            binding.txtWeightGoalInput.setText(this.weightGoal.toString())
+                            binding.txtActivityLevelInput.setText(this.alType.toString())
+                            binding.txtHealthGoalInput.setText(this.hgType.toString())
                         }
                         binding.progressBar.visibility = View.GONE
                     }
@@ -126,14 +192,6 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
-//    private fun observeLiveData() {
-//        authViewModel.getSession().observe(viewLifecycleOwner) { user ->
-//            binding.txtNameInput.setText(user.token)
-//            binding.txtEmailInput.setText(user.email)
-//        }
-//    }
-
 
     private fun logout() {
         activity?.let {
@@ -155,7 +213,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val dateInMillis = convertStringToMillis(binding.txtBirthdayInput.text.toString())
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -168,5 +226,28 @@ class ProfileFragment : Fragment() {
         datePicker.addOnPositiveButtonClickListener {
             binding.txtBirthdayInput.setText(datePicker.headerText)
         }
+    }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            showImage()
+        }
+    }
+
+    private fun showImage() {
+        currentImageUri?.let {
+            binding.profileImage.setImageURI(it)
+        }
+    }
+
+    companion object {
+        val gender = mapOf("Male" to 1, "Female" to 0)
     }
 }

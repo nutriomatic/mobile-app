@@ -30,7 +30,7 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
         productGaram: Double,
         productGrade: String,
         productServingSize: Int,
-        ptName: String,
+        ptType: Int,
         file: MultipartBody.Part
     ) {
         viewModelScope.launch {
@@ -45,7 +45,7 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
             val productGaramBody = createRequestBody(productGaram.toString())
             val productGradeBody = createRequestBody(productGrade)
             val productServingSizeBody = createRequestBody(productServingSize.toString())
-            val ptNameBody = createRequestBody(ptName)
+            val ptNameBody = createRequestBody(ptType.toString())
 
             repository.createProduct(
                 productNameBody,

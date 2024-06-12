@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,7 +31,17 @@ class AddProductActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddProductViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private var ptType = 0;
 
+
+    private fun getProductTypes(): List<String> {
+        return typeProduct.map { it["pt_name"].toString() }
+    }
+
+    private fun getProductTypeCode(ptName: String): Int {
+        return typeProduct.find { it["pt_name"] == ptName }?.get("pt_type")?.toString()
+            ?.toIntOrNull() ?: 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +50,8 @@ class AddProductActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+
+
         binding.apply {
             topAppBar.setNavigationOnClickListener { onBackPressed() }
 
@@ -46,7 +59,21 @@ class AddProductActivity : AppCompatActivity() {
                 startGallery()
             }
 
+            val productTypes = getProductTypes()
+            val adapter = ArrayAdapter(
+                this@AddProductActivity,
+                android.R.layout.simple_dropdown_item_1line,
+                productTypes
+            )
+            selectType.setAdapter(adapter)
+
+            binding.selectType.setOnItemClickListener { parent, view, position, id ->
+                val selectedPtName = parent.getItemAtPosition(position).toString()
+                ptType = getProductTypeCode(selectedPtName)
+            }
+
             btnSave.setOnClickListener { createProduct() }
+
 
             args.productId?.let { id ->
                 viewModel.getProductById(id)
@@ -115,12 +142,13 @@ class AddProductActivity : AppCompatActivity() {
             val productGaram = binding.txtSodiumInput.text.toString()
             val productGrade = "Z"
             val productServingSize = binding.txtServingSizePerContInput.text.toString()
-            val ptName = binding.selectType.text.toString()
+//            val ptName = binding.selectType.text.toString()
+
 
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
-            Log.d("GAMBAR", imageFile.name)
+//            Log.d("GAMBAR", imageFile.name)
 
             viewModel.createProduct(
                 productName,
@@ -133,7 +161,7 @@ class AddProductActivity : AppCompatActivity() {
                 productGaram.toDouble(),
                 productGrade,
                 productServingSize.toInt(),
-                ptName,
+                ptType,
                 body
             )
 
@@ -187,6 +215,56 @@ class AddProductActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    companion object {
+        val typeProduct = arrayOf(
+            mapOf(
+                "pt_name" to "Snacks",
+                "pt_type" to 201
+            ),
+            mapOf(
+                "pt_name" to "Chocolate Bar",
+                "pt_type" to 202
+            ),
+            mapOf(
+                "pt_name" to "Ice Cream",
+                "pt_type" to 203
+            ),
+            mapOf(
+                "pt_name" to "Bread",
+                "pt_type" to 204
+            ),
+            mapOf(
+                "pt_name" to "Cheese",
+                "pt_type" to 205
+            ),
+            mapOf(
+                "pt_name" to "Frozen Food",
+                "pt_type" to 206
+            ),
+            mapOf(
+                "pt_name" to "Water",
+                "pt_type" to 301
+            ),
+            mapOf(
+                "pt_name" to "Juice",
+                "pt_type" to 302
+            ),
+            mapOf(
+                "pt_name" to "Milk",
+                "pt_type" to 303
+            ),
+            mapOf(
+                "pt_name" to "Coffee",
+                "pt_type" to 304
+            ),
+            mapOf(
+                "pt_name" to "Tea",
+                "pt_type" to 305
+            )
+        )
+    }
+
 
 //    private fun showLoading(isLoading: Boolean) {
 //        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE

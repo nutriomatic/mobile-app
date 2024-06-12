@@ -43,6 +43,10 @@ class AddProductActivity : AppCompatActivity() {
             ?.toIntOrNull() ?: 0
     }
 
+    private fun getProductTypeName(ptCode: Int): String? {
+        return typeProduct.find { it["pt_type"] == ptCode }?.get("pt_name")?.toString()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductBinding.inflate(layoutInflater)
@@ -95,7 +99,14 @@ class AddProductActivity : AppCompatActivity() {
                                     .load(product.productPicture)
                                     .into(productImage)
                                 txtNameInput.setText(product.productName)
-                                selectType.setText(product.ptId)
+//                                selectType.setText(product.ptId)
+                                val ptCode = 201 // Ganti dengan pt_code
+                                val ptName = getProductTypeName(ptCode)
+
+                                val position = adapter.getPosition(ptName)
+                                if (position != -1) {
+                                    selectType.setText(adapter.getItem(position), false)
+                                }
                                 txtProductDescInput.setText(product.productDesc)
                                 txtServingSizePerContInput.setText(product.productServingsize.toString())
                                 txtFatInput.setText(product.productLemaktotal.toString())

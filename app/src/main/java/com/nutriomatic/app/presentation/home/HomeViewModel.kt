@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.response.ProductsResponse
+import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
@@ -14,18 +14,19 @@ class HomeViewModel(
     private val userRepository: UserRepository,
     private val productRepository: ProductRepository
 ) : ViewModel() {
-    val productsAdvertise: LiveData<Result<ProductsResponse>> = productRepository.products
+    val productsAdvertise: LiveData<Result<ProductAdvertiseResponse>> =
+        productRepository.productsAdvertise
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
 
 
     init {
-        getProducts()
+        getProductsAdvertise()
         getProfile()
     }
 
-    private fun getProducts() {
+    private fun getProductsAdvertise() {
         viewModelScope.launch {
-            productRepository.getProducts()
+            productRepository.getProductsAdvertise()
         }
     }
 

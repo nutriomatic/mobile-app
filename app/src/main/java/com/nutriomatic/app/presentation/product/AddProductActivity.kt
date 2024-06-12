@@ -70,6 +70,8 @@ class AddProductActivity : AppCompatActivity() {
             binding.selectType.setOnItemClickListener { parent, view, position, id ->
                 val selectedPtName = parent.getItemAtPosition(position).toString()
                 ptType = getProductTypeCode(selectedPtName)
+                Toast.makeText(this@AddProductActivity, ptType.toString() + "helo", Toast.LENGTH_SHORT)
+                    .show()
             }
 
             btnSave.setOnClickListener { createProduct() }
@@ -148,7 +150,7 @@ class AddProductActivity : AppCompatActivity() {
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
-//            Log.d("GAMBAR", imageFile.name)
+            Log.d("TYPE", ptType.toString())
 
             viewModel.createProduct(
                 productName,

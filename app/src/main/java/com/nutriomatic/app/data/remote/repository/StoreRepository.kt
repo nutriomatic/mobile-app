@@ -7,12 +7,15 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.request.CreateStoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
+import com.nutriomatic.app.data.remote.api.response.StoreResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 import retrofit2.HttpException
 
 class StoreRepository(private val apiService: ApiService) {
     private val _createStoreResponse = MutableLiveData<Result<BasicResponse>>()
     val createStoreResponse: LiveData<Result<BasicResponse>> = _createStoreResponse
+    private val _store = MutableLiveData<Result<StoreResponse>>()
+    val store: LiveData<Result<StoreResponse>> = _store
 
     suspend fun createStore(
         storeName: String,
@@ -30,6 +33,20 @@ class StoreRepository(private val apiService: ApiService) {
             val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _createStoreResponse.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun getStore(
+    ) {
+        _store.value = Result.Loading
+        try {
+            val response = apiService.getStore()
+            _store.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _store.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

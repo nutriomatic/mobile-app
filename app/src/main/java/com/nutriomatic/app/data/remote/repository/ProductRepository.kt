@@ -7,6 +7,7 @@ import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
+import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
@@ -20,6 +21,9 @@ class ProductRepository private constructor(
 ) {
     private val _products = MutableLiveData<Result<ProductsResponse>>()
     val products: LiveData<Result<ProductsResponse>> = _products
+
+    private val _productsAdvertise = MutableLiveData<Result<ProductAdvertiseResponse>>()
+    val productsAdvertise: LiveData<Result<ProductAdvertiseResponse>> = _productsAdvertise
 
     private val _statusCreateProduct = MutableLiveData<Result<CreateProductResponse>>()
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> = _statusCreateProduct
@@ -38,6 +42,19 @@ class ProductRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _products.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun getProductsAdvertise() {
+        _productsAdvertise.value = Result.Loading
+        try {
+            val response = apiService.getProductsAdvertise()
+            _productsAdvertise.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _productsAdvertise.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

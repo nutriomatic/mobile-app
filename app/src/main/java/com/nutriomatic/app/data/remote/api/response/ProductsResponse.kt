@@ -14,6 +14,21 @@ data class ProductsResponse(
 	val status: String
 )
 
+data class ProductAdvertiseResponse(
+
+	@field:SerializedName("code")
+	val code: Int,
+
+	@field:SerializedName("pagination")
+	val pagination: Pagination,
+
+	@field:SerializedName("products")
+	val products: List<ProductsItem> = emptyList(),
+
+	@field:SerializedName("status")
+	val status: String
+)
+
 data class ProductsItem(
 
 	@field:SerializedName("store_id")

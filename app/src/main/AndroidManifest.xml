@@ -18,6 +18,9 @@
         android:theme="@style/Theme.NutriOMatic"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.advertise.AdvertiseActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.store.CreateStoreActivity"
             android:exported="false" />
         <activity

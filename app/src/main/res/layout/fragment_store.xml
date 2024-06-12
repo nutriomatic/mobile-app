@@ -54,6 +54,16 @@
                 app:layout_constraintStart_toEndOf="@id/iv_store_photo"
                 app:layout_constraintTop_toTopOf="@id/iv_store_photo" />
 
+            <!-- Username Store -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_username_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username Store"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                app:layout_constraintStart_toStartOf="@id/tv_store_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_name" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_store_contact"
                 android:layout_width="wrap_content"
@@ -61,7 +71,22 @@
                 android:text="Contact"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 app:layout_constraintStart_toStartOf="@id/tv_store_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_store_name" />
+                app:layout_constraintTop_toBottomOf="@id/tv_username_store" />
+
+
+
+            <!-- Alamat -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_store_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="@id/tv_store_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_contact" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider"

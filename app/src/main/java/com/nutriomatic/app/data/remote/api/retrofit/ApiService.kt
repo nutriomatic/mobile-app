@@ -6,10 +6,12 @@ import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
+import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
+import com.nutriomatic.app.data.remote.api.response.StoreResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -38,6 +40,10 @@ interface ApiService {
     @POST("store/")
     suspend fun createStore(@Body createStoreRequest: CreateStoreRequest): BasicResponse
 
+    @GET("store/")
+    suspend fun getStore(
+    ): StoreResponse
+
 
     //    Product
     @GET("product/")
@@ -45,6 +51,13 @@ interface ApiService {
         @Query("pageSize") pageSize: Int = 5,
         @Query("page") size: Int = 1,
     ): ProductsResponse
+
+    @GET("product/advertise")
+    suspend fun getProductsAdvertise(
+        @Query("pageSize") pageSize: Int = 5,
+        @Query("page") size: Int = 1,
+    ): ProductAdvertiseResponse
+
 
     @POST("product/")
     @Multipart
@@ -59,7 +72,7 @@ interface ApiService {
         @Part("product_garam") productGaram: RequestBody,
         @Part("product_grade") productGrade: RequestBody,
         @Part("product_servingsize") productServingSize: RequestBody,
-        @Part("pt_name") ptName: RequestBody,
+        @Part("pt_type") ptType: RequestBody,
         @Part file: MultipartBody.Part,
     ): CreateProductResponse
 

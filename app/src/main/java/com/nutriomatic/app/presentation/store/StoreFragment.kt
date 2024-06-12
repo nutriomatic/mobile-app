@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
+import com.nutriomatic.app.data.remote.api.response.Store
 import com.nutriomatic.app.databinding.FragmentStoreBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
@@ -40,6 +41,32 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.store.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+//                        binding.tvStoreName.text =
+
+                        setupStore(result.data.store)
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
 
         viewModel.products.observe(viewLifecycleOwner) { result ->
             if (result != null) {
@@ -55,11 +82,6 @@ class StoreFragment : Fragment() {
 
                         binding.progressBar.visibility = View.GONE
 
-//                        Snackbar.make(
-//                            requireView(),
-//                            result.data.status.toString(),
-//                            Snackbar.LENGTH_SHORT
-//                        ).show()
                     }
 
                     is Result.Error -> {
@@ -94,6 +116,15 @@ class StoreFragment : Fragment() {
                 findNavController().navigate(navDirections)
             }
 
+        }
+    }
+
+    private fun setupStore(store: Store) {
+        with(binding){
+            tvStoreName.text = store.storeName
+            tvStoreContact.text = store.storeContact
+            tvUsernameStore.text = store.storeUsername
+            tvStoreAddress.text = store.storeAddress
         }
     }
 

@@ -16,9 +16,11 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timestamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
@@ -115,4 +117,33 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun convertDateToString(dateString: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date = dateFormat.parse(dateString)
+    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    return outputFormat.format(date)
+}
+
+//fun convertStringToMillis(dateString: String): Long {
+//    val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+//    dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
+//    val date = dateFormat.parse(dateString)
+//    return date?.time ?: 0L
+//}
+
+fun convertStringToMillis(dateString: String): Long {
+    val dateFormats = arrayOf("MMM d, yyyy", "d MMMM yyyy")
+    val dateFormat =
+        dateFormats.map { SimpleDateFormat(it, Locale.getDefault()) }.firstOrNull { formatter ->
+            formatter.isLenient = false
+            try {
+                formatter.parse(dateString)?.time
+                true
+            } catch (e: ParseException) {
+                false
+            }
+        }
+    return dateFormat?.parse(dateString)?.time ?: 0L
 }

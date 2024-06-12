@@ -15,6 +15,8 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import com.nutriomatic.app.presentation.helper.util.convertDateToString
+import com.nutriomatic.app.presentation.helper.util.convertStringToMillis
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -166,27 +168,5 @@ class ProfileFragment : Fragment() {
         datePicker.addOnPositiveButtonClickListener {
             binding.txtBirthdayInput.setText(datePicker.headerText)
         }
-    }
-
-    private fun convertDateToString(dateString: String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = dateFormat.parse(dateString)
-        val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-        return outputFormat.format(date)
-    }
-
-    private fun convertStringToMillis(dateString: String): Long {
-        val dateFormats = arrayOf("MMM d, yyyy", "d MMMM yyyy")
-        val dateFormat =
-            dateFormats.map { SimpleDateFormat(it, Locale.getDefault()) }.firstOrNull { formatter ->
-                formatter.isLenient = false
-                try {
-                    formatter.parse(dateString)?.time
-                    true
-                } catch (e: ParseException) {
-                    false
-                }
-            }
-        return dateFormat?.parse(dateString)?.time ?: 0L
     }
 }

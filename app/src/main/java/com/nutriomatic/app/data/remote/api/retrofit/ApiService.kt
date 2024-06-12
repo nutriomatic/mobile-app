@@ -52,6 +52,13 @@ interface ApiService {
         @Query("page") size: Int = 1,
     ): ProductsResponse
 
+    @GET("product/store/{store_id}")
+    suspend fun getProductsStore(
+        @Path("store_id") id: String,
+        @Query("pageSize") pageSize: Int = 10,
+        @Query("page") size: Int = 1,
+    ): ProductsResponse
+
     @GET("product/advertise")
     suspend fun getProductsAdvertise(
         @Query("pageSize") pageSize: Int = 5,

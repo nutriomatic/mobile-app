@@ -15,13 +15,12 @@ class StoreViewModel(
     private val repository: ProductRepository,
     private val storeRepository: StoreRepository
 ) : ViewModel() {
-    val products: LiveData<Result<ProductsResponse>> = repository.products
+    val productsStore: LiveData<Result<ProductsResponse>> = repository.productsStore
     val createStoreResponse: LiveData<Result<BasicResponse>> = storeRepository.createStoreResponse
     val store: LiveData<Result<StoreResponse>> = storeRepository.store
 
     init {
         getStore()
-        getProducts()
     }
 
     fun createStore(
@@ -41,9 +40,9 @@ class StoreViewModel(
         }
     }
 
-    private fun getProducts() {
+    fun getProductsByStore(storeId: String) {
         viewModelScope.launch {
-            repository.getProducts()
+            repository.getProductsByStore(storeId)
         }
     }
 

@@ -19,8 +19,8 @@ class ProductRepository private constructor(
     private val userPreference: UserPreference,
     private val apiService: ApiService,
 ) {
-    private val _products = MutableLiveData<Result<ProductsResponse>>()
-    val products: LiveData<Result<ProductsResponse>> = _products
+    private val _productsStore = MutableLiveData<Result<ProductsResponse>>()
+    val productsStore: LiveData<Result<ProductsResponse>> = _productsStore
 
     private val _productsAdvertise = MutableLiveData<Result<ProductAdvertiseResponse>>()
     val productsAdvertise: LiveData<Result<ProductAdvertiseResponse>> = _productsAdvertise
@@ -32,16 +32,29 @@ class ProductRepository private constructor(
     val detailProduct: LiveData<Result<ProductByIdResponse>> = _detailProduct
 
 
-    suspend fun getProducts() {
-        _products.value = Result.Loading
+//    suspend fun getProducts() {
+//        _products.value = Result.Loading
+//        try {
+//            val response = apiService.getProducts()
+//            _products.value = Result.Success(response)
+//        } catch (e: HttpException) {
+//            val jsonInString = e.response()?.errorBody()?.string()
+//            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+//            val errorMessage = errorBody.message
+//            _products.value = Result.Error(errorMessage ?: "An error occurred")
+//        }
+//    }
+
+  suspend fun getProductsByStore(storeId : String) {
+        _productsStore.value = Result.Loading
         try {
-            val response = apiService.getProducts()
-            _products.value = Result.Success(response)
+            val response = apiService.getProductsStore(storeId)
+            _productsStore.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            _products.value = Result.Error(errorMessage ?: "An error occurred")
+            _productsStore.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

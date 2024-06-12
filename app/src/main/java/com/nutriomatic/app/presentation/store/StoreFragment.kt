@@ -52,6 +52,7 @@ class StoreFragment : Fragment() {
 //                        binding.tvStoreName.text =
 
                         setupStore(result.data.store)
+                        setupProductsStore(result.data.store.storeId)
                         binding.progressBar.visibility = View.GONE
                     }
 
@@ -68,34 +69,8 @@ class StoreFragment : Fragment() {
             }
         }
 
-        viewModel.products.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-
-                    is Result.Success -> {
-
-                        setupAdapter(result.data.products.toMutableList())
 
 
-                        binding.progressBar.visibility = View.GONE
-
-                    }
-
-                    is Result.Error -> {
-                        binding.progressBar.visibility = View.GONE
-
-                        Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-        }
 
         with(binding) {
             topAppBar.setOnMenuItemClickListener {
@@ -119,8 +94,38 @@ class StoreFragment : Fragment() {
         }
     }
 
+    private fun setupProductsStore(storeId: String) {
+        viewModel.getProductsByStore(storeId)
+        viewModel.productsStore.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+
+                        setupAdapter(result.data.products.toMutableList())
+                        binding.progressBar.visibility = View.GONE
+
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupStore(store: Store) {
-        with(binding){
+        with(binding) {
             tvStoreName.text = store.storeName
             tvStoreContact.text = store.storeContact
             tvUsernameStore.text = store.storeUsername

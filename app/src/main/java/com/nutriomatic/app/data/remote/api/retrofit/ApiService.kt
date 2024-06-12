@@ -12,11 +12,13 @@ import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
+import com.nutriomatic.app.data.remote.api.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -34,6 +36,24 @@ interface ApiService {
     @GET("auth/me")
     suspend fun getProfile(
     ): ProfileResponse
+
+
+    //    Profile
+    @PATCH("user/")
+    @Multipart
+    suspend fun updateProfile(
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("telephone") telephone: RequestBody,
+        @Part("birthdate") birthdate: RequestBody,
+        @Part("height") height: RequestBody,
+        @Part("weight") weight: RequestBody,
+        @Part("weight_goal") weightGoal: RequestBody,
+        @Part("al_type") alType: RequestBody,
+        @Part("hg_type") hgType: RequestBody,
+        @Part file: MultipartBody.Part? = null,
+    ): UpdateProfileResponse
 
 
     //    Store

@@ -12,6 +12,9 @@ import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import com.nutriomatic.app.BuildConfig
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -20,7 +23,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timestamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
@@ -126,6 +128,13 @@ fun convertDateToString(dateString: String): String {
     return outputFormat.format(date)
 }
 
+fun convertToISOFormat(dateString: String): String {
+    val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    val date = dateFormat.parse(dateString)
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    return outputFormat.format(date)
+}
+
 //fun convertStringToMillis(dateString: String): Long {
 //    val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
 //    dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
@@ -146,4 +155,12 @@ fun convertStringToMillis(dateString: String): Long {
             }
         }
     return dateFormat?.parse(dateString)?.time ?: 0L
+}
+
+fun createRequestBodyText(value: String): RequestBody {
+    return value.toRequestBody("text/plain".toMediaTypeOrNull())
+}
+
+fun createRequestBodyInt(value: Int): RequestBody {
+    return value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 }

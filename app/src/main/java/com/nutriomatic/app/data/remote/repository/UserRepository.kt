@@ -12,7 +12,10 @@ import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
+import com.nutriomatic.app.data.remote.api.response.UpdateProfileResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -28,6 +31,8 @@ class UserRepository private constructor(
     private val _detailProfile = MutableLiveData<Result<ProfileResponse>>()
     val detailProfile: LiveData<Result<ProfileResponse>> = _detailProfile
 
+    private val _updateProfileResponse = MutableLiveData<Result<UpdateProfileResponse>>()
+    val updateProfileResponse: LiveData<Result<UpdateProfileResponse>> = _updateProfileResponse
 
     suspend fun register(name: String, email: String, password: String) {
         _registerStatus.value = Result.Loading
@@ -105,6 +110,44 @@ class UserRepository private constructor(
             val jsonString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
+        }
+    }
+
+    suspend fun updateProfile(
+        name: RequestBody,
+        email: RequestBody,
+        gender: RequestBody,
+        telephone: RequestBody,
+        birthdate: RequestBody,
+        height: RequestBody,
+        weight: RequestBody,
+        weightGoal: RequestBody,
+        alType: RequestBody,
+        hgType: RequestBody,
+        photo: MultipartBody.Part? = null,
+    ) {
+        _updateProfileResponse.value = Result.Loading
+        try {
+            val response = apiService.updateProfile(
+                name,
+                email,
+                gender,
+                telephone,
+                birthdate,
+                height,
+                weight,
+                weightGoal,
+                alType,
+                hgType,
+                photo
+            )
+
+            _updateProfileResponse.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _updateProfileResponse.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

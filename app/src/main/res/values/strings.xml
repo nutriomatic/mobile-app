@@ -50,4 +50,6 @@
     <string name="store_name">Store Name</string>
     <string name="contact">Contact</string>
     <string name="address">Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="profile_update_success">Success updating profile</string>
 </resources>

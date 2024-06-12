@@ -1,20 +1,42 @@
 package com.nutriomatic.app.data.remote.api.request
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Multipart
 import java.io.File
 
 data class CreateProductRequest (
-    val product_name: String,
-    val product_price: Double,
-    val product_desc: String,
-    val product_isshow: Boolean = false,
-    val product_lemaktotal: Double,
-    val product_protein: Double,
-    val product_karbohidrat: Double,
-    val product_garam: Double,
-    val product_grade: String = "Z",
-    val productServingsize: Int,
-    val pt_name: String,
-    @SerializedName("file") val productPicture: File,
+    @SerializedName("product_name")
+    val productName: String,
+
+    @SerializedName("product_price")
+    val productPrice: Double,
+
+    @SerializedName("product_desc")
+    val productDesc: String,
+
+    @SerializedName("product_isshow")
+    val productIsShow: Boolean = false,
+
+    @SerializedName("product_lemaktotal")
+    val productLemakTotal: Double,
+
+    @SerializedName("product_protein")
+    val productProtein: Double,
+
+    @SerializedName("product_karbohidrat")
+    val productKarbohidrat: Double,
+
+    @SerializedName("product_garam")
+    val productGaram: Double,
+
+    @SerializedName("product_grade")
+    val productGrade: String = "Z",
+
+    @SerializedName("product_servingsize")
+    val productServingSize: Int,
+
+    @SerializedName("pt_name")
+    val ptName: String,
+
+    @SerializedName("file")
+    val productPicture: File,
 )

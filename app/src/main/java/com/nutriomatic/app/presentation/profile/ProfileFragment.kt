@@ -15,9 +15,8 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
+import com.nutriomatic.app.presentation.helper.util.convertDateToString
+import com.nutriomatic.app.presentation.helper.util.convertStringToMillis
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -102,9 +101,8 @@ class ProfileFragment : Fragment() {
                         result.data.user.apply {
                             binding.txtNameInput.setText(this.name)
                             binding.txtEmailInput.setText(this.email)
-                            binding.txtBirthdayInput.setText(convertDateToString(this.birthdate))
-//                            binding.txtNameInput.setText(this.name)
-//                            binding.txtNameInput.setText(this.name)
+                            binding.txtBirthdayInput.setText(this.birthdate)
+//                            binding.txtBirthdayInput.setText(convertDateToString(this.birthdate))
                         }
                         binding.progressBar.visibility = View.GONE
                     }
@@ -151,12 +149,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    fun showDatePicker() {
-        val dateInMillis = convertStringToMillis(binding.txtBirthdayInput.text.toString())
+    private fun showDatePicker() {
+//        val dateInMillis = convertStringToMillis(binding.txtBirthdayInput.text.toString())
 
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.birthday_datepicker_title))
-            .setSelection(dateInMillis)
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
 
         datePicker.show(childFragmentManager, "date_picker")
@@ -165,19 +163,4 @@ class ProfileFragment : Fragment() {
             binding.txtBirthdayInput.setText(datePicker.headerText)
         }
     }
-
-    private fun convertDateToString(dateString: String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = dateFormat.parse(dateString)
-        val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-        return outputFormat.format(date)
-    }
-
-    private fun convertStringToMillis(dateString: String): Long {
-        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-        dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
-        val date = dateFormat.parse(dateString)
-        return date?.time ?: 0L
-    }
-
 }

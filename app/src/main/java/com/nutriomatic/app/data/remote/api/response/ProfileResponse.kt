@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfileResponse(
 
+	@field:SerializedName("code")
+	val code: Int,
+
 	@field:SerializedName("user")
 	val user: User,
 

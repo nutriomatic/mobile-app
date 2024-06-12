@@ -49,7 +49,7 @@ class UserRepository private constructor(
         try {
             val request = LoginRequest(email, password)
             val response = apiService.login(request)
-            _loginToken.value = Result.Success(response.token.toString())
+            _loginToken.value = Result.Success(response.token)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)

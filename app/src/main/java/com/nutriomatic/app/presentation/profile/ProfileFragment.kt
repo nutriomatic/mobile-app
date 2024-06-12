@@ -15,9 +15,9 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentProfileBinding
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.TimeZone
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -47,6 +47,8 @@ class ProfileFragment : Fragment() {
 
 //        observeLiveData()
         setupProfile()
+//        binding.txtBirthdayInput.setText(convertDateToString("2023 Januari 12"))
+
 
         with(binding) {
             txtBirthdayLayout.setEndIconOnClickListener {
@@ -102,7 +104,7 @@ class ProfileFragment : Fragment() {
                         result.data.user.apply {
                             binding.txtNameInput.setText(this.name)
                             binding.txtEmailInput.setText(this.email)
-                            binding.txtBirthdayInput.setText(convertDateToString(this.birthdate))
+                            binding.txtBirthdayInput.setText(convertDateToString("2022-12-12"))
 //                            binding.txtNameInput.setText(this.name)
 //                            binding.txtNameInput.setText(this.name)
                         }
@@ -174,10 +176,17 @@ class ProfileFragment : Fragment() {
     }
 
     private fun convertStringToMillis(dateString: String): Long {
-        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-        dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
-        val date = dateFormat.parse(dateString)
-        return date?.time ?: 0L
+        val dateFormats = arrayOf("MMM d, yyyy", "d MMMM yyyy")
+        val dateFormat =
+            dateFormats.map { SimpleDateFormat(it, Locale.getDefault()) }.firstOrNull { formatter ->
+                formatter.isLenient = false
+                try {
+                    formatter.parse(dateString)?.time
+                    true
+                } catch (e: ParseException) {
+                    false
+                }
+            }
+        return dateFormat?.parse(dateString)?.time ?: 0L
     }
-
 }

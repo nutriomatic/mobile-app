@@ -1,8 +1,8 @@
 package com.nutriomatic.app.data.remote.api.retrofit
 
-import com.nutriomatic.app.data.remote.api.request.CreateStoreRequest
 import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
+import com.nutriomatic.app.data.remote.api.request.StoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
@@ -58,11 +58,16 @@ interface ApiService {
 
     //    Store
     @POST("store/")
-    suspend fun createStore(@Body createStoreRequest: CreateStoreRequest): BasicResponse
+    suspend fun createStore(@Body createStoreRequest: StoreRequest): BasicResponse
 
     @GET("store/")
     suspend fun getStore(
     ): StoreResponse
+
+    @PATCH("store/")
+    suspend fun updateStore(
+        @Body updateStoreRequest: StoreRequest
+    ): BasicResponse
 
 
     //    Product

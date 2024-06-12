@@ -98,5 +98,10 @@
         android:id="@+id/createStoreActivity"
         android:name="com.nutriomatic.app.presentation.store.CreateStoreActivity"
         android:label="activity_create_store"
-        tools:layout="@layout/activity_create_store" />
+        tools:layout="@layout/activity_create_store" >
+        <argument
+            android:name="storeId"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 </navigation>

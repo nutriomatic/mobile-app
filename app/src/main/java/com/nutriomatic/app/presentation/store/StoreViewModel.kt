@@ -1,6 +1,7 @@
 package com.nutriomatic.app.presentation.store
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
@@ -17,7 +18,9 @@ class StoreViewModel(
 ) : ViewModel() {
     val productsStore: LiveData<Result<ProductsResponse>> = repository.productsStore
     val createStoreResponse: LiveData<Result<BasicResponse>> = storeRepository.createStoreResponse
+    val updateStoreStatus: LiveData<Result<BasicResponse>> = storeRepository.updateStoreResponse
     val store: LiveData<Result<StoreResponse>> = storeRepository.store
+
 
     init {
         getStore()
@@ -34,7 +37,18 @@ class StoreViewModel(
         }
     }
 
-    private fun getStore() {
+    fun updateStore(
+        storeName: String,
+        storeUsername: String,
+        storeAddress: String,
+        storeContact: String,
+    ) {
+        viewModelScope.launch {
+            storeRepository.updateStore(storeName, storeUsername, storeAddress, storeContact)
+        }
+    }
+
+    fun getStore() {
         viewModelScope.launch {
             storeRepository.getStore()
         }

@@ -21,8 +21,8 @@ import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private val listProduct: List<ProductsItem> = emptyList()
     private var productAdapter: ListProductAdapter? = null
+    private var store_id: String? = null
 
 
     private val viewModel by viewModels<StoreViewModel> {
@@ -41,6 +41,34 @@ class StoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeStore()
+
+        with(binding) {
+            topAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_edit -> {
+                        val navDirections =
+                            StoreFragmentDirections.actionStoreFragmentToCreateStoreActivity(
+                                store_id
+                            )
+                        findNavController().navigate(navDirections)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+            fab.setOnClickListener {
+                val navDirections =
+                    StoreFragmentDirections.actionStoreFragmentToAddProductActivity(null)
+                findNavController().navigate(navDirections)
+            }
+
+        }
+    }
+
+
+    private fun observeStore() {
         viewModel.store.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
@@ -49,10 +77,9 @@ class StoreFragment : Fragment() {
                     }
 
                     is Result.Success -> {
-//                        binding.tvStoreName.text =
-
                         setupStore(result.data.store)
                         setupProductsStore(result.data.store.storeId)
+                        setStoreId(result.data.store.storeId)
                         binding.progressBar.visibility = View.GONE
                     }
 
@@ -68,30 +95,10 @@ class StoreFragment : Fragment() {
                 }
             }
         }
+    }
 
-
-
-
-        with(binding) {
-            topAppBar.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.menu_edit -> {
-                        val navDirections =
-                            StoreFragmentDirections.actionStoreFragmentToCreateStoreActivity()
-                        findNavController().navigate(navDirections)
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-            fab.setOnClickListener {
-                val navDirections =
-                    StoreFragmentDirections.actionStoreFragmentToAddProductActivity(null)
-                findNavController().navigate(navDirections)
-            }
-
-        }
+    private fun setStoreId(storeId: String) {
+        store_id = storeId
     }
 
     private fun setupProductsStore(storeId: String) {
@@ -134,6 +141,12 @@ class StoreFragment : Fragment() {
     }
 
     private fun setupAdapter(data: MutableList<ProductsItem>) {
+        if (data.isEmpty()) {
+            binding.messageEmpty.visibility = View.VISIBLE
+        } else {
+            binding.messageEmpty.visibility = View.GONE
+        }
+
         productAdapter = ListProductAdapter(
             data,
             true,
@@ -157,5 +170,10 @@ class StoreFragment : Fragment() {
                 false
             )
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getStore()
     }
 }

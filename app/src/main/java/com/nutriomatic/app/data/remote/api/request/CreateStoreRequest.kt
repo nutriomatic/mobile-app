@@ -2,7 +2,7 @@ package com.nutriomatic.app.data.remote.api.request
 
 import com.google.gson.annotations.SerializedName
 
-data class CreateStoreRequest(
+data class StoreRequest(
     @SerializedName("store_name")
     val storeName: String,
 

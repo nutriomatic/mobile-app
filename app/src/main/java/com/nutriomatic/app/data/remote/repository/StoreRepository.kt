@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.request.CreateStoreRequest
+import com.nutriomatic.app.data.remote.api.request.StoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
@@ -14,6 +14,8 @@ import retrofit2.HttpException
 class StoreRepository(private val apiService: ApiService) {
     private val _createStoreResponse = MutableLiveData<Result<BasicResponse>>()
     val createStoreResponse: LiveData<Result<BasicResponse>> = _createStoreResponse
+    private val _updateStoreStatus = MutableLiveData<Result<BasicResponse>>()
+    val updateStoreResponse: LiveData<Result<BasicResponse>> = _updateStoreStatus
     private val _store = MutableLiveData<Result<StoreResponse>>()
     val store: LiveData<Result<StoreResponse>> = _store
 
@@ -25,7 +27,7 @@ class StoreRepository(private val apiService: ApiService) {
     ) {
         _createStoreResponse.value = Result.Loading
         try {
-            val request = CreateStoreRequest(storeName, storeUsername, storeAddress, storeContact)
+            val request = StoreRequest(storeName, storeUsername, storeAddress, storeContact)
             val response = apiService.createStore(request)
             _createStoreResponse.value = Result.Success(response)
         } catch (e: HttpException) {
@@ -47,6 +49,26 @@ class StoreRepository(private val apiService: ApiService) {
             val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _store.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+
+    suspend fun updateStore(
+        storeName: String,
+        storeUsername: String,
+        storeAddress: String,
+        storeContact: String,
+    ) {
+        _updateStoreStatus.value = Result.Loading
+        try {
+            val request = StoreRequest(storeName, storeUsername, storeAddress, storeContact)
+            val response = apiService.updateStore(request)
+            _updateStoreStatus.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _updateStoreStatus.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

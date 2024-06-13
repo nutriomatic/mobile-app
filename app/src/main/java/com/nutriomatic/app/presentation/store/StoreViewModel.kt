@@ -1,7 +1,6 @@
 package com.nutriomatic.app.presentation.store
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
@@ -39,12 +38,11 @@ class StoreViewModel(
 
     fun updateStore(
         storeName: String,
-        storeUsername: String,
         storeAddress: String,
         storeContact: String,
     ) {
         viewModelScope.launch {
-            storeRepository.updateStore(storeName, storeUsername, storeAddress, storeContact)
+            storeRepository.updateStore(storeName, storeAddress, storeContact)
         }
     }
 

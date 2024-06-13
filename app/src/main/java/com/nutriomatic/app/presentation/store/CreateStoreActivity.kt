@@ -52,6 +52,7 @@ class CreateStoreActivity : AppCompatActivity() {
     private fun setupStore(store: Store) {
         with(binding) {
             binding.btnSave.setText("Update Store")
+            binding.txtUsernameInput.isEnabled = false
 
             txtNameInput.setText(store.storeName)
             txtContactInput.setText(store.storeContact)
@@ -61,12 +62,10 @@ class CreateStoreActivity : AppCompatActivity() {
             btnSave.setOnClickListener {
 
                 val name = binding.txtNameInput.text.toString().trim()
-                val username = binding.txtUsernameInput.text.toString().trim()
                 val address = binding.txtAddressInput.text.toString().trim()
                 val contact = binding.txtContactInput.text.toString().trim()
 
-                viewModel.updateStore(name, username, address, contact)
-
+                viewModel.updateStore(name, address, contact)
 
                 viewModel.updateStoreStatus.observe(this@CreateStoreActivity) { result ->
                     if (result != null) {

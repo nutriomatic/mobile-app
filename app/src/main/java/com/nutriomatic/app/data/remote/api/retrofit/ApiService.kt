@@ -3,6 +3,7 @@ package com.nutriomatic.app.data.remote.api.retrofit
 import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.request.StoreRequest
+import com.nutriomatic.app.data.remote.api.request.UpdateStoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
@@ -66,7 +67,7 @@ interface ApiService {
 
     @PATCH("store/")
     suspend fun updateStore(
-        @Body updateStoreRequest: StoreRequest
+        @Body updateStoreRequest: UpdateStoreRequest
     ): BasicResponse
 
 

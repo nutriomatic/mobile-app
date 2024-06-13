@@ -15,3 +15,14 @@ data class StoreRequest(
     @SerializedName("store_contact")
     val storeContact: String,
 )
+
+data class UpdateStoreRequest(
+    @SerializedName("store_name")
+    val storeName: String,
+
+    @SerializedName("store_address")
+    val storeAddress: String,
+
+    @SerializedName("store_contact")
+    val storeContact: String,
+)

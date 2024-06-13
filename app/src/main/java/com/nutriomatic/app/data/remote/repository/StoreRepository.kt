@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.request.StoreRequest
+import com.nutriomatic.app.data.remote.api.request.UpdateStoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
@@ -55,13 +56,12 @@ class StoreRepository(private val apiService: ApiService) {
 
     suspend fun updateStore(
         storeName: String,
-        storeUsername: String,
         storeAddress: String,
         storeContact: String,
     ) {
         _updateStoreStatus.value = Result.Loading
         try {
-            val request = StoreRequest(storeName, storeUsername, storeAddress, storeContact)
+            val request = UpdateStoreRequest(storeName, storeAddress, storeContact)
             val response = apiService.updateStore(request)
             _updateStoreStatus.value = Result.Success(response)
         } catch (e: HttpException) {

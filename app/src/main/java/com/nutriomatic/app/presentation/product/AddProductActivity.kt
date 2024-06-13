@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
@@ -31,21 +32,7 @@ class AddProductActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddProductViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private var ptType = 0;
-
-
-    private fun getProductTypes(): List<String> {
-        return typeProduct.map { it["pt_name"].toString() }
-    }
-
-    private fun getProductTypeCode(ptName: String): Int {
-        return typeProduct.find { it["pt_name"] == ptName }?.get("pt_type")?.toString()
-            ?.toIntOrNull() ?: 0
-    }
-
-    private fun getProductTypeName(ptCode: Int): String? {
-        return typeProduct.find { it["pt_type"] == ptCode }?.get("pt_name")?.toString()
-    }
+    private var ptType = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +50,7 @@ class AddProductActivity : AppCompatActivity() {
                 startGallery()
             }
 
-            val productTypes = getProductTypes()
+            val productTypes = LocalData.getProductTypeNames(this@AddProductActivity)
             val adapter = ArrayAdapter(
                 this@AddProductActivity,
                 android.R.layout.simple_dropdown_item_1line,
@@ -73,8 +60,12 @@ class AddProductActivity : AppCompatActivity() {
 
             binding.selectType.setOnItemClickListener { parent, view, position, id ->
                 val selectedPtName = parent.getItemAtPosition(position).toString()
-                ptType = getProductTypeCode(selectedPtName)
-                Toast.makeText(this@AddProductActivity, ptType.toString() + "helo", Toast.LENGTH_SHORT)
+                ptType = LocalData.getProductTypeCodeByName(this@AddProductActivity, selectedPtName)
+                Toast.makeText(
+                    this@AddProductActivity,
+                    ptType.toString() + "helo",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -101,7 +92,10 @@ class AddProductActivity : AppCompatActivity() {
                                 txtNameInput.setText(product.productName)
 //                                selectType.setText(product.ptId)
                                 val ptCode = 201 // Ganti dengan pt_code
-                                val ptName = getProductTypeName(ptCode)
+                                val ptName = LocalData.getProductTypeNameByCode(
+                                    this@AddProductActivity,
+                                    ptCode
+                                )
 
                                 val position = adapter.getPosition(ptName)
                                 if (position != -1) {
@@ -224,62 +218,7 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-    companion object {
-        val typeProduct = arrayOf(
-            mapOf(
-                "pt_name" to "Snacks",
-                "pt_type" to 201
-            ),
-            mapOf(
-                "pt_name" to "Chocolate Bar",
-                "pt_type" to 202
-            ),
-            mapOf(
-                "pt_name" to "Ice Cream",
-                "pt_type" to 203
-            ),
-            mapOf(
-                "pt_name" to "Bread",
-                "pt_type" to 204
-            ),
-            mapOf(
-                "pt_name" to "Cheese",
-                "pt_type" to 205
-            ),
-            mapOf(
-                "pt_name" to "Frozen Food",
-                "pt_type" to 206
-            ),
-            mapOf(
-                "pt_name" to "Water",
-                "pt_type" to 301
-            ),
-            mapOf(
-                "pt_name" to "Juice",
-                "pt_type" to 302
-            ),
-            mapOf(
-                "pt_name" to "Milk",
-                "pt_type" to 303
-            ),
-            mapOf(
-                "pt_name" to "Coffee",
-                "pt_type" to 304
-            ),
-            mapOf(
-                "pt_name" to "Tea",
-                "pt_type" to 305
-            )
-        )
-    }
-
-
-//    private fun showLoading(isLoading: Boolean) {
-//        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
-//    }
 }

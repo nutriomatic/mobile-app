@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="@string/birthday"
+                android:hint="@string/birthdate"
                 app:endIconDrawable="@drawable/date_range"
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toEndOf="parent"

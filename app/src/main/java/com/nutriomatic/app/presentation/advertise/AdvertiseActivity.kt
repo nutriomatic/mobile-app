@@ -3,8 +3,7 @@ package com.nutriomatic.app.presentation.advertise
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.nutriomatic.app.R
 
 class AdvertiseActivity : AppCompatActivity() {
@@ -12,10 +11,16 @@ class AdvertiseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_advertise)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        supportActionBar?.hide()
+        // Dapatkan referensi ke ConstraintLayout induk
+        val advLayout = findViewById<ConstraintLayout>(R.id.advertise_layout)
+
+        // Tambahkan penanganan klik
+        advLayout.setOnClickListener {
+            // Panggil finish() untuk mengakhiri aktivitas
+            finish()
         }
+
     }
 }

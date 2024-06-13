@@ -153,6 +153,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getProductsAdvertise()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

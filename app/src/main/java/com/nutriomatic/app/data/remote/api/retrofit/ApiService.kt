@@ -91,6 +91,11 @@ interface ApiService {
         @Query("page") size: Int = 1,
     ): ProductAdvertiseResponse
 
+    @POST("product/advertise/{id}")
+    suspend fun advertiseProduct(
+        @Path("id") id: String
+    ): BasicResponse
+
 
     @POST("product/")
     @Multipart
@@ -108,6 +113,24 @@ interface ApiService {
         @Part("pt_type") ptType: RequestBody,
         @Part file: MultipartBody.Part,
     ): CreateProductResponse
+
+
+    @PATCH("product/{id}")
+    @Multipart
+    suspend fun updateProductById(
+        @Path("id") id: String,
+        @Part("product_name") productName: RequestBody,
+//        @Part("product_price") productPrice: RequestBody,
+        @Part("product_desc") productDesc: RequestBody,
+        @Part("product_lemaktotal") productLemakTotal: RequestBody,
+        @Part("product_protein") productProtein: RequestBody,
+        @Part("product_karbohidrat") productKarbohidrat: RequestBody,
+        @Part("product_garam") productGaram: RequestBody,
+        @Part("product_grade") productGrade: RequestBody,
+        @Part("product_servingsize") productServingSize: RequestBody,
+        @Part("pt_type") ptType: RequestBody,
+        @Part file: MultipartBody.Part,
+    ): BasicResponse
 
 
     @GET("product/{id}")

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
@@ -28,6 +29,12 @@ class ProductRepository private constructor(
     private val _statusCreateProduct = MutableLiveData<Result<CreateProductResponse>>()
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> = _statusCreateProduct
 
+    private val _statusUpdateProduct = MutableLiveData<Result<BasicResponse>>()
+    val statusUpdateProduct: LiveData<Result<BasicResponse>> = _statusUpdateProduct
+
+    private val _statusAdvertiseProduct = MutableLiveData<Result<BasicResponse>>()
+    val statusAdvertiseProduct: LiveData<Result<BasicResponse>> = _statusAdvertiseProduct
+
     private val _detailProduct = MutableLiveData<Result<ProductByIdResponse>>()
     val detailProduct: LiveData<Result<ProductByIdResponse>> = _detailProduct
 
@@ -45,7 +52,7 @@ class ProductRepository private constructor(
 //        }
 //    }
 
-  suspend fun getProductsByStore(storeId : String) {
+    suspend fun getProductsByStore(storeId: String) {
         _productsStore.value = Result.Loading
         try {
             val response = apiService.getProductsStore(storeId)
@@ -111,6 +118,46 @@ class ProductRepository private constructor(
         }
     }
 
+    suspend fun updateProduct(
+        id: String,
+        productName: RequestBody,
+//        productPrice: RequestBody,
+        productDesc: RequestBody,
+        productLemakTotal: RequestBody,
+        productProtein: RequestBody,
+        productKarbohidrat: RequestBody,
+        productGaram: RequestBody,
+        productGrade: RequestBody,
+        productServingSize: RequestBody,
+        ptName: RequestBody,
+        body: MultipartBody.Part
+    ) {
+        _statusUpdateProduct.value = Result.Loading
+        try {
+            val response = apiService.updateProductById(
+                id,
+                productName,
+//                productPrice,
+                productDesc,
+                productLemakTotal,
+                productProtein,
+                productKarbohidrat,
+                productGaram,
+                productGrade,
+                productServingSize,
+                ptName,
+                body
+            )
+
+            _statusUpdateProduct.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _statusUpdateProduct.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
     suspend fun getProductById(id: String) {
         _detailProduct.value = Result.Loading
         try {
@@ -122,6 +169,20 @@ class ProductRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _detailProduct.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun advertiseProduct(id: String) {
+        _statusAdvertiseProduct.value = Result.Loading
+        try {
+            val response =
+                apiService.advertiseProduct(id)
+            _statusAdvertiseProduct.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _statusAdvertiseProduct.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

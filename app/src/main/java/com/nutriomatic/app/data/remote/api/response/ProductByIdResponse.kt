@@ -49,8 +49,8 @@ data class Product(
 	@field:SerializedName("updated_at")
 	val updatedAt: String,
 
-	@field:SerializedName("pt_id")
-	val ptId: String,
+	@field:SerializedName("pt_type")
+	val ptCode: Int,
 
 	@field:SerializedName("product_id")
 	val productId: String,

@@ -24,7 +24,7 @@ class HomeViewModel(
         getProfile()
     }
 
-    private fun getProductsAdvertise() {
+    fun getProductsAdvertise() {
         viewModelScope.launch {
             productRepository.getProductsAdvertise()
         }

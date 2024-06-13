@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
@@ -16,6 +17,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class AddProductViewModel(private val repository: ProductRepository) : ViewModel() {
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> =
         repository.statusCreateProduct
+    val statusUpdateProduct: LiveData<Result<BasicResponse>> =
+        repository.statusUpdateProduct
+    val statusAdvertiseProduct: LiveData<Result<BasicResponse>> =
+        repository.statusAdvertiseProduct
     val detailProduct: LiveData<Result<ProductByIdResponse>> = repository.detailProduct
 
 
@@ -65,9 +70,59 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
     }
 
 
+    fun updateProduct(
+        id: String,
+        productName: String,
+//        productPrice: Double,
+        productDesc: String,
+        productLemakTotal: Double,
+        productProtein: Double,
+        productKarbohidrat: Double,
+        productGaram: Double,
+        productGrade: String,
+        productServingSize: Int,
+        ptType: Int,
+        file: MultipartBody.Part
+    ) {
+        viewModelScope.launch {
+            val productNameBody = createRequestBody(productName)
+//            val productPriceBody = createRequestBody(productPrice.toString())
+            val productDescBody = createRequestBody(productDesc)
+            val productLemakTotalBody = createRequestBody(productLemakTotal.toString())
+            val productProteinBody = createRequestBody(productProtein.toString())
+            val productKarbohidratBody = createRequestBody(productKarbohidrat.toString())
+            val productGaramBody = createRequestBody(productGaram.toString())
+            val productGradeBody = createRequestBody(productGrade)
+            val productServingSizeBody = createRequestBody(productServingSize.toString())
+            val ptNameBody = createRequestBody(ptType.toString())
+
+            repository.updateProduct(
+                id,
+                productNameBody,
+//                productPriceBody,
+                productDescBody,
+                productLemakTotalBody,
+                productProteinBody,
+                productKarbohidratBody,
+                productGaramBody,
+                productGradeBody,
+                productServingSizeBody,
+                ptNameBody,
+                file
+            )
+        }
+    }
+
+
     fun getProductById(id: String) {
         viewModelScope.launch {
             repository.getProductById(id)
+        }
+    }
+
+    fun advertiseProduct(id: String) {
+        viewModelScope.launch {
+            repository.advertiseProduct(id)
         }
     }
 

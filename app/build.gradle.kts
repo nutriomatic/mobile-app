@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+//    implementation("com.github.bumptech.glide:disklrucache:4.14.2")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
 

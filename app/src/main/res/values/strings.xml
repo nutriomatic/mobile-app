@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Nutri-O-Matic</string>
+    <string name="app_name" translatable="false">Nutri-O-Matic</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="description_product">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat.</string>
+    <string name="description_product" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat.</string>
     <string name="greet_user">Hi, %1$s</string>
 
     <string name="minimum_password_length">Must be at least 8 characters</string>
@@ -36,8 +36,16 @@
 
     <string name="product_type">Product Type</string>
     <string name="product_type_snack">Snacks</string>
-    <string name="product_type_meal">Meal</string>
-    <string name="product_type_beverage">Beverage</string>
+    <string name="product_type_chocolate_bar">Chocolate Bar</string>
+    <string name="product_type_ice_cream">Ice Cream</string>
+    <string name="product_type_bread">Bread</string>
+    <string name="product_type_cheese">Cheese</string>
+    <string name="product_type_frozen_food">Frozen Food</string>
+    <string name="product_type_water">Water</string>
+    <string name="product_type_juice">Juice</string>
+    <string name="product_type_milk">Milk</string>
+    <string name="product_type_coffee">Coffee</string>
+    <string name="product_type_tea">Tea</string>
 
     <string name="activity_level">Activity Level</string>
     <string name="activity_level_sendentary">Sendentary</string>
@@ -45,11 +53,13 @@
     <string name="activity_level_moderately_active">Moderately Active</string>
     <string name="activity_level_very_active">Very Active</string>
     <string name="activity_level_super_active">Super Active</string>
-    <string name="birthday">Birthday</string>
+
+    <string name="birthdate">Birthdate</string>
     <string name="username">Username</string>
     <string name="store_name">Store Name</string>
     <string name="contact">Contact</string>
     <string name="address">Address</string>
     <string name="phone_number">Phone Number</string>
-    <string name="profile_update_success">Success updating profile</string>
+
+    <string name="profile_update_success" translatable="false">Success updating profile</string>
 </resources>

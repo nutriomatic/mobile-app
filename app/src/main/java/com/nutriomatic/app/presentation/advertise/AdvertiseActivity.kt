@@ -13,12 +13,10 @@ class AdvertiseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_advertise)
 
         supportActionBar?.hide()
-        // Dapatkan referensi ke ConstraintLayout induk
+
         val advLayout = findViewById<ConstraintLayout>(R.id.advertise_layout)
 
-        // Tambahkan penanganan klik
         advLayout.setOnClickListener {
-            // Panggil finish() untuk mengakhiri aktivitas
             finish()
         }
 

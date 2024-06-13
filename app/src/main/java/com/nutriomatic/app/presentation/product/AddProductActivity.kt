@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nutriomatic.app.BuildConfig
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
@@ -44,18 +45,18 @@ class AddProductActivity : AppCompatActivity() {
     private var ptType = 0;
 
 
-    private fun getProductTypes(): List<String> {
-        return typeProduct.map { it["pt_name"].toString() }
-    }
-
-    private fun getProductTypeCode(ptName: String): Int {
-        return typeProduct.find { it["pt_name"] == ptName }?.get("pt_type")?.toString()
-            ?.toIntOrNull() ?: 0
-    }
-
-    private fun getProductTypeName(ptCode: Int): String? {
-        return typeProduct.find { it["pt_type"] == ptCode }?.get("pt_name")?.toString()
-    }
+//    private fun getProductTypes(): List<String> {
+//        return typeProduct.map { it["pt_name"].toString() }
+//    }
+//
+//    private fun getProductTypeCode(ptName: String): Int {
+//        return typeProduct.find { it["pt_name"] == ptName }?.get("pt_type")?.toString()
+//            ?.toIntOrNull() ?: 0
+//    }
+//
+//    private fun getProductTypeName(ptCode: Int): String? {
+//        return typeProduct.find { it["pt_type"] == ptCode }?.get("pt_name")?.toString()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +74,8 @@ class AddProductActivity : AppCompatActivity() {
                 startGallery()
             }
 
-            val productTypes = getProductTypes()
+            val productTypes =
+                LocalData.getProductTypeNames(this@AddProductActivity) // getProductTypes()
             val adapter = ArrayAdapter(
                 this@AddProductActivity, android.R.layout.simple_dropdown_item_1line, productTypes
             )
@@ -81,10 +83,14 @@ class AddProductActivity : AppCompatActivity() {
 
             selectType.setOnItemClickListener { parent, view, position, id ->
                 val selectedPtName = parent.getItemAtPosition(position).toString()
-                ptType = getProductTypeCode(selectedPtName)
-                Toast.makeText(
-                    this@AddProductActivity, ptType.toString() + "helo", Toast.LENGTH_SHORT
-                ).show()
+                ptType = LocalData.getProductTypeCodeByName(
+                    this@AddProductActivity,
+                    selectedPtName
+                ) // getProductTypeCode(selectedPtName)
+
+//                Toast.makeText(
+//                    this@AddProductActivity, ptType.toString() + "helo", Toast.LENGTH_SHORT
+//                ).show()
             }
 
             btnSave.setOnClickListener { createProduct() }
@@ -155,8 +161,12 @@ class AddProductActivity : AppCompatActivity() {
 
 
                                 txtNameInput.setText(product.productName)
-                                Log.d("KODEPT", product.ptCode.toString())
-                                val ptName = getProductTypeName(product.ptCode)
+//                                Log.d("KODEPT", product.ptCode.toString())
+
+                                val ptName = LocalData.getProductTypeNameByCode(
+                                    this@AddProductActivity,
+                                    product.ptCode
+                                ) // getProductTypeName(product.ptCode)
 
                                 val position = adapter.getPosition(ptName)
                                 if (position != -1) {
@@ -222,7 +232,10 @@ class AddProductActivity : AppCompatActivity() {
 
             binding.selectType.setOnItemClickListener { parent, view, position, id ->
                 val selectedPtName = parent.getItemAtPosition(position).toString()
-                ptType = getProductTypeCode(selectedPtName)
+                ptType = LocalData.getProductTypeCodeByName(
+                    this@AddProductActivity,
+                    selectedPtName
+                ) // getProductTypeCode(selectedPtName)
             }
 
             val productName = binding.txtNameInput.text.toString()

@@ -9,11 +9,6 @@
         <item>@string/health_goal_maintain_weight</item>
         <item>@string/health_goal_gain_weight</item>
     </string-array>
-    <string-array name="product_type_items">
-        <item>@string/product_type_snack</item>
-        <item>@string/product_type_meal</item>
-        <item>@string/product_type_beverage</item>
-    </string-array>
     <string-array name="activity_level_items">
         <item>@string/activity_level_sendentary</item>
         <item>@string/activity_level_lightly_active</item>

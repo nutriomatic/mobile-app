@@ -46,7 +46,7 @@ interface ApiService {
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("gender") gender: RequestBody,
-        @Part("telephone") telephone: RequestBody,
+        @Part("telp") telephone: RequestBody,
         @Part("birthdate") birthdate: RequestBody,
         @Part("height") height: RequestBody,
         @Part("weight") weight: RequestBody,

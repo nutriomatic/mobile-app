@@ -75,20 +75,20 @@ interface ApiService {
     @GET("product/")
     suspend fun getProducts(
         @Query("pageSize") pageSize: Int = 20,
-        @Query("page") size: Int = 1,
+        @Query("page") page: Int = 1,
     ): ProductsResponse
 
     @GET("product/store/{store_id}")
     suspend fun getProductsStore(
         @Path("store_id") id: String,
         @Query("pageSize") pageSize: Int = 20,
-        @Query("page") size: Int = 1,
+        @Query("page") page: Int = 1,
     ): ProductsResponse
 
     @GET("product/advertise")
     suspend fun getProductsAdvertise(
         @Query("pageSize") pageSize: Int = 20,
-        @Query("page") size: Int = 1,
+        @Query("page") page: Int = 1,
     ): ProductAdvertiseResponse
 
     @POST("product/advertise/{id}")

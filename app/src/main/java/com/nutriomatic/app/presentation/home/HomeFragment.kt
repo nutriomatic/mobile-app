@@ -11,28 +11,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.FragmentHomeBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
+import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var productAdapter: ListProductAdapter? = null
-
-//    private val viewModel: AuthViewModel by viewModels {
-//        ViewModelFactory.getInstance(requireActivity())
-//    }
 
     private val homeViewModel: HomeViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
     }
-
-//    private val profileViewModel: ProfileViewModel by viewModels {
-//        ViewModelFactory.getInstance(requireActivity())
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +37,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeLiveData()
+        observeProfileLiveData()
+        setupProductPagination()
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -74,38 +66,37 @@ class HomeFragment : Fragment() {
 
         }
 
-        homeViewModel.productsAdvertise.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-
-                    is Result.Success -> {
-                        setupAdapter(result.data.products.toMutableList())
-                        binding.progressBar.visibility = View.GONE
-                    }
-
-                    is Result.Error -> {
-                        binding.progressBar.visibility = View.GONE
-
-                        Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-        }
+//        homeViewModel.productsAdvertise.observe(viewLifecycleOwner) { result ->
+//            if (result != null) {
+//                when (result) {
+//                    is Result.Loading -> {
+//                        binding.progressBar.visibility = View.VISIBLE
+//                    }
+//
+//                    is Result.Success -> {
+////                        setupAdapter(result.data.products.toMutableList())
+//                        binding.progressBar.visibility = View.GONE
+//                    }
+//
+//                    is Result.Error -> {
+//                        binding.progressBar.visibility = View.GONE
+//
+//                        Snackbar.make(
+//                            requireView(),
+//                            result.error,
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//            }
+//        }
     }
 
-    private fun setupAdapter(data: MutableList<ProductsItem>) {
-        val productAdapter = ListProductAdapter(data) {
+    private fun setupProductPagination() {
+        val productAdapter = ProductDataAdapter {
             val navDirections =
                 HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.productId)
             findNavController().navigate(navDirections)
-//            view?.let { it1 -> Navigation.findNavController(it1).navigate(navDirections) }
         }
 
 
@@ -117,20 +108,20 @@ class HomeFragment : Fragment() {
                     2, resources.getDimensionPixelSize(R.dimen.grid_item_offset), false
                 )
             )
+
+            homeViewModel.productPaging.observe(viewLifecycleOwner) {
+                productAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+            }
         }
 
     }
 
-    private fun observeLiveData() {
-//        viewModel.getUserModel().observe(viewLifecycleOwner) {
-//            binding.tvGreetUser.text = getString(R.string.greet_user, it.email)
-//        }
-
+    private fun observeProfileLiveData() {
         homeViewModel.detailProfile.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
                     is Result.Success -> {
@@ -151,11 +142,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.getProductsAdvertise()
     }
 
     override fun onDestroyView() {

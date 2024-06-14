@@ -2,7 +2,12 @@ package com.nutriomatic.app.data.remote.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.google.gson.Gson
+import com.nutriomatic.app.data.remote.ProductPagingSource
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
@@ -10,6 +15,7 @@ import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 import okhttp3.MultipartBody
@@ -78,6 +84,13 @@ class ProductRepository private constructor(
         }
     }
 
+    fun getProductsPaging(): LiveData<PagingData<ProductsItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 4),
+            pagingSourceFactory = { ProductPagingSource(apiService) }
+        ).liveData
+    }
+
     suspend fun createProduct(
         productName: RequestBody,
         productPrice: RequestBody,
@@ -90,7 +103,7 @@ class ProductRepository private constructor(
         productGrade: RequestBody,
         productServingSize: RequestBody,
         ptName: RequestBody,
-        body: MultipartBody.Part
+        body: MultipartBody.Part,
     ) {
         _statusCreateProduct.value = Result.Loading
         try {
@@ -130,7 +143,7 @@ class ProductRepository private constructor(
         productGrade: RequestBody,
         productServingSize: RequestBody,
         ptName: RequestBody,
-        body: MultipartBody.Part
+        body: MultipartBody.Part,
     ) {
         _statusUpdateProduct.value = Result.Loading
         try {

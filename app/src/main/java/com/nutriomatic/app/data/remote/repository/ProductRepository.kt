@@ -7,9 +7,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
-import com.nutriomatic.app.data.remote.ProductPagingSource
+import com.nutriomatic.app.data.remote.AdvertisedProductPagingSource
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.UserProductPagingSource
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
@@ -84,10 +85,17 @@ class ProductRepository private constructor(
         }
     }
 
-    fun getProductsPaging(): LiveData<PagingData<ProductsItem>> {
+    fun getAdvertisedProductsPaging(): LiveData<PagingData<ProductsItem>> {
         return Pager(
             config = PagingConfig(pageSize = 4),
-            pagingSourceFactory = { ProductPagingSource(apiService) }
+            pagingSourceFactory = { AdvertisedProductPagingSource(apiService) }
+        ).liveData
+    }
+
+    fun getUserProductsPaging(storeId: String): LiveData<PagingData<ProductsItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 4),
+            pagingSourceFactory = { UserProductPagingSource(apiService, storeId) }
         ).liveData
     }
 

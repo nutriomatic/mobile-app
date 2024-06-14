@@ -14,7 +14,6 @@ import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.FragmentHomeBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
-import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
 
 class HomeFragment : Fragment() {
@@ -109,7 +108,7 @@ class HomeFragment : Fragment() {
                 )
             )
 
-            homeViewModel.productPaging.observe(viewLifecycleOwner) {
+            homeViewModel.advertisedProductPaging.observe(viewLifecycleOwner) {
                 productAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
         }

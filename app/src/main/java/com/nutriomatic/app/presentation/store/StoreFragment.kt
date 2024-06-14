@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.data.remote.api.response.Store
 import com.nutriomatic.app.databinding.FragmentStoreBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
-import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
+import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private var productAdapter: ListProductAdapter? = null
+    private var productAdapter: ProductDataAdapter? = null
     private var store_id: String? = null
 
 
@@ -78,8 +77,8 @@ class StoreFragment : Fragment() {
 
                     is Result.Success -> {
                         setupStore(result.data.store)
-                        setupProductsStore(result.data.store.storeId)
                         setStoreId(result.data.store.storeId)
+                        setupProductsStore(result.data.store.storeId)
                         binding.progressBar.visibility = View.GONE
                     }
 
@@ -102,7 +101,8 @@ class StoreFragment : Fragment() {
     }
 
     private fun setupProductsStore(storeId: String) {
-        viewModel.getProductsByStore(storeId)
+//        viewModel.getProductsByStore(storeId)
+        setupProductPagination(storeId)
         viewModel.productsStore.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
@@ -112,7 +112,7 @@ class StoreFragment : Fragment() {
 
                     is Result.Success -> {
 
-                        setupAdapter(result.data.products.toMutableList())
+//                        setupProductPagination(result.data.products.toMutableList())
                         binding.progressBar.visibility = View.GONE
 
                     }
@@ -140,15 +140,15 @@ class StoreFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter(data: MutableList<ProductsItem>) {
-        if (data.isEmpty()) {
-            binding.messageEmpty.visibility = View.VISIBLE
-        } else {
-            binding.messageEmpty.visibility = View.GONE
-        }
+    //    private fun setupProductPagination(data: MutableList<ProductsItem>) {
+    private fun setupProductPagination(storeId: String) {
+//        if (data.isEmpty()) {
+//            binding.messageEmpty.visibility = View.VISIBLE
+//        } else {
+//            binding.messageEmpty.visibility = View.GONE
+//        }
 
-        productAdapter = ListProductAdapter(
-            data,
+        productAdapter = ProductDataAdapter(
             true,
             onIconClick = {
                 val navDirections =
@@ -170,10 +170,14 @@ class StoreFragment : Fragment() {
                 false
             )
         )
+
+        viewModel.getUserProductsPaging(storeId).observe(viewLifecycleOwner) {
+            productAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getStore()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        viewModel.getStore()
+//    }
 }

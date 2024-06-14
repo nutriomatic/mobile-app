@@ -3,8 +3,10 @@ package com.nutriomatic.app.presentation.store
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
@@ -12,14 +14,15 @@ import com.nutriomatic.app.data.remote.repository.StoreRepository
 import kotlinx.coroutines.launch
 
 class StoreViewModel(
-    private val repository: ProductRepository,
+    private val productRepository: ProductRepository,
     private val storeRepository: StoreRepository
 ) : ViewModel() {
-    val productsStore: LiveData<Result<ProductsResponse>> = repository.productsStore
+    val productsStore: LiveData<Result<ProductsResponse>> = productRepository.productsStore
     val createStoreResponse: LiveData<Result<BasicResponse>> = storeRepository.createStoreResponse
     val updateStoreStatus: LiveData<Result<BasicResponse>> = storeRepository.updateStoreResponse
     val store: LiveData<Result<StoreResponse>> = storeRepository.store
 
+    fun getUserProductsPaging(storeId: String): LiveData<PagingData<ProductsItem>> = productRepository.getUserProductsPaging(storeId = storeId)
 
     init {
         getStore()
@@ -54,7 +57,7 @@ class StoreViewModel(
 
     fun getProductsByStore(storeId: String) {
         viewModelScope.launch {
-            repository.getProductsByStore(storeId)
+            productRepository.getProductsByStore(storeId)
         }
     }
 

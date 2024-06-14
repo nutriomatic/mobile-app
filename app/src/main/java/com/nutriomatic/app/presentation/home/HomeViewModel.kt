@@ -21,8 +21,8 @@ class HomeViewModel(
         productRepository.productsAdvertise
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
 
-    val productPaging: LiveData<PagingData<ProductsItem>> =
-        productRepository.getProductsPaging().cachedIn(viewModelScope)
+    val advertisedProductPaging: LiveData<PagingData<ProductsItem>> =
+        productRepository.getAdvertisedProductsPaging().cachedIn(viewModelScope)
 
     init {
 //        getProductsAdvertise()

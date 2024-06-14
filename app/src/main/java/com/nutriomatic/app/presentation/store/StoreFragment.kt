@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
@@ -77,8 +78,11 @@ class StoreFragment : Fragment() {
 
                     is Result.Success -> {
                         setupStore(result.data.store)
+//                        Hanya setup pagination ketika store_id pertama kali memiliki nilai
+                        if (store_id == null) {
+                            setupProductsStore(result.data.store.storeId)
+                        }
                         setStoreId(result.data.store.storeId)
-                        setupProductsStore(result.data.store.storeId)
                         binding.progressBar.visibility = View.GONE
                     }
 
@@ -161,6 +165,16 @@ class StoreFragment : Fragment() {
                 }
             })
 
+        productAdapter?.addLoadStateListener {
+            val isEmpty = it.refresh is LoadState.NotLoading && productAdapter?.itemCount == 0
+
+            if (isEmpty) {
+                binding.messageEmpty.visibility = View.VISIBLE
+            } else {
+                binding.messageEmpty.visibility = View.GONE
+            }
+        }
+
         binding.rvMyProducts.adapter = productAdapter
         binding.rvMyProducts.layoutManager = GridLayoutManager(activity, 2)
         binding.rvMyProducts.addItemDecoration(
@@ -176,8 +190,8 @@ class StoreFragment : Fragment() {
         }
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.getStore()
-//    }
+    override fun onResume() {
+        super.onResume()
+        viewModel.getStore()
+    }
 }

@@ -232,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@string/activity_level_sendentary"
+                    android:text="@string/activity_level_sedentary"
                     app:simpleItems="@array/activity_level_items" />
 
             </com.google.android.material.textfield.TextInputLayout>

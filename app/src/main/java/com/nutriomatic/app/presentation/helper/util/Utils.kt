@@ -23,6 +23,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timestamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
@@ -99,7 +100,6 @@ fun File.reduceFileSize(): File {
 }
 
 
-
 fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
     val orientation = ExifInterface(file).getAttributeInt(
         ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED
@@ -121,32 +121,12 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap {
     )
 }
 
-fun convertDateToString(dateString: String): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date = dateFormat.parse(dateString)
-    val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-    return outputFormat.format(date)
-}
-
-fun convertToISOFormat(dateString: String): String {
-    val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-    val date = dateFormat.parse(dateString)
-    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return outputFormat.format(date)
-}
-
-//fun convertStringToMillis(dateString: String): Long {
-//    val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-//    dateFormat.timeZone = TimeZone.getTimeZone("UTC") // Menetapkan zona waktu ke UTC
-//    val date = dateFormat.parse(dateString)
-//    return date?.time ?: 0L
-//}
-
 fun convertStringToMillis(dateString: String): Long {
-    val dateFormats = arrayOf("MMM d, yyyy", "d MMMM yyyy")
+    val dateFormats = arrayOf("MMM d, yyyy", "d MMMM yyyy", "yyyy-MM-dd")
     val dateFormat =
         dateFormats.map { SimpleDateFormat(it, Locale.getDefault()) }.firstOrNull { formatter ->
             formatter.isLenient = false
+            formatter.timeZone = TimeZone.getTimeZone("UTC")
             try {
                 formatter.parse(dateString)?.time
                 true
@@ -155,6 +135,12 @@ fun convertStringToMillis(dateString: String): Long {
             }
         }
     return dateFormat?.parse(dateString)?.time ?: 0L
+}
+
+fun millisToISOFormat(millis: Long): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return dateFormat.format(Date(millis))
 }
 
 fun createRequestBodyText(value: String): RequestBody {

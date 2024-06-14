@@ -38,7 +38,7 @@
     <string name="product_type_coffee">Kopi</string>
     <string name="product_type_tea">Teh</string>
     <string name="activity_level">Tingkat Aktivitas</string>
-    <string name="activity_level_sendentary">Sedenter</string>
+    <string name="activity_level_sedentary">Sedenter</string>
     <string name="activity_level_lightly_active">Sedikit Aktif</string>
     <string name="activity_level_moderately_active">Cukup Aktif</string>
     <string name="activity_level_very_active">Sangat Aktif</string>
@@ -49,4 +49,6 @@
     <string name="address">Alamat</string>
     <string name="phone_number">Nomor Telepon</string>
     <string name="birthdate">Tanggal Lahir</string>
+    <string name="profile_update_success">Sukses mengubah profil</string>
+    <string name="please_choose_a_valid_image">Mohon pilih gambar!</string>
 </resources>

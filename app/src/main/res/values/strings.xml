@@ -48,7 +48,7 @@
     <string name="product_type_tea">Tea</string>
 
     <string name="activity_level">Activity Level</string>
-    <string name="activity_level_sendentary">Sendentary</string>
+    <string name="activity_level_sedentary">Sedentary</string>
     <string name="activity_level_lightly_active">Lightly Active</string>
     <string name="activity_level_moderately_active">Moderately Active</string>
     <string name="activity_level_very_active">Very Active</string>
@@ -61,5 +61,6 @@
     <string name="address">Address</string>
     <string name="phone_number">Phone Number</string>
 
-    <string name="profile_update_success" translatable="false">Success updating profile</string>
+    <string name="profile_update_success">Success updating profile</string>
+    <string name="please_choose_a_valid_image">Please choose a valid image!</string>
 </resources>

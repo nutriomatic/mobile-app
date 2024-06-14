@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nutriomatic.app.BuildConfig
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.Product
@@ -42,21 +43,7 @@ class AddProductActivity : AppCompatActivity() {
     private val viewModel by viewModels<AddProductViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private var ptType = 0;
-
-
-//    private fun getProductTypes(): List<String> {
-//        return typeProduct.map { it["pt_name"].toString() }
-//    }
-//
-//    private fun getProductTypeCode(ptName: String): Int {
-//        return typeProduct.find { it["pt_name"] == ptName }?.get("pt_type")?.toString()
-//            ?.toIntOrNull() ?: 0
-//    }
-//
-//    private fun getProductTypeName(ptCode: Int): String? {
-//        return typeProduct.find { it["pt_type"] == ptCode }?.get("pt_name")?.toString()
-//    }
+    private var ptType = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +108,7 @@ class AddProductActivity : AppCompatActivity() {
                                     .into(object : CustomTarget<Drawable>() {
                                         override fun onResourceReady(
                                             resource: Drawable,
-                                            transition: Transition<in Drawable>?
+                                            transition: Transition<in Drawable>?,
                                         ) {
                                             // Simpan drawable ke file
                                             val file = File(cacheDir, "image.jpg")
@@ -289,15 +276,11 @@ class AddProductActivity : AppCompatActivity() {
                     }
                 }
             }
-
-        } ?: showToast("Please choose a valid image!")
-
+        } ?: showToast(getString(R.string.please_choose_a_valid_image))
     }
 
 
     private fun createProduct() {
-
-
         currentImageUri?.let { uri ->
             val productName = binding.txtNameInput.text.toString()
             val productPrice = 0.0
@@ -309,9 +292,6 @@ class AddProductActivity : AppCompatActivity() {
             val productGaram = binding.txtSodiumInput.text.toString()
             val productGrade = "Z"
             val productServingSize = binding.txtServingSizePerContInput.text.toString()
-//            val ptName = binding.selectType.text.toString()
-
-
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
@@ -353,8 +333,7 @@ class AddProductActivity : AppCompatActivity() {
                     }
                 }
             }
-        } ?: showToast("Please choose a valid image!")
-
+        } ?: showToast(getString(R.string.please_choose_a_valid_image))
     }
 
     private fun startGallery() {
@@ -376,41 +355,7 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-    companion object {
-        val typeProduct = arrayOf(
-            mapOf(
-                "pt_name" to "Snacks", "pt_type" to 201
-            ), mapOf(
-                "pt_name" to "Chocolate Bar", "pt_type" to 202
-            ), mapOf(
-                "pt_name" to "Ice Cream", "pt_type" to 203
-            ), mapOf(
-                "pt_name" to "Bread", "pt_type" to 204
-            ), mapOf(
-                "pt_name" to "Cheese", "pt_type" to 205
-            ), mapOf(
-                "pt_name" to "Frozen Food", "pt_type" to 206
-            ), mapOf(
-                "pt_name" to "Water", "pt_type" to 301
-            ), mapOf(
-                "pt_name" to "Juice", "pt_type" to 302
-            ), mapOf(
-                "pt_name" to "Milk", "pt_type" to 303
-            ), mapOf(
-                "pt_name" to "Coffee", "pt_type" to 304
-            ), mapOf(
-                "pt_name" to "Tea", "pt_type" to 305
-            )
-        )
-    }
-
-
-//    private fun showLoading(isLoading: Boolean) {
-//        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
-//    }
 }

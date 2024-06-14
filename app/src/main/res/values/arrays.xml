@@ -10,7 +10,7 @@
         <item>@string/health_goal_gain_weight</item>
     </string-array>
     <string-array name="activity_level_items">
-        <item>@string/activity_level_sendentary</item>
+        <item>@string/activity_level_sedentary</item>
         <item>@string/activity_level_lightly_active</item>
         <item>@string/activity_level_moderately_active</item>
         <item>@string/activity_level_very_active</item>

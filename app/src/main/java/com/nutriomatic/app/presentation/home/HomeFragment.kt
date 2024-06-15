@@ -107,7 +107,17 @@ class HomeFragment : Fragment() {
                     2, resources.getDimensionPixelSize(R.dimen.grid_item_offset), false
                 )
             )
-
+            nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (scrollY > 0) {
+                    btnScrollTop.show()
+                } else {
+                    btnScrollTop.hide()
+                }
+            }
+            btnScrollTop.setOnClickListener {
+                binding.appBarLayout.setExpanded(true, true)
+                binding.nestedScrollView.smoothScrollTo(0, 0)
+            }
             homeViewModel.advertisedProductPaging.observe(viewLifecycleOwner) {
                 productAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }

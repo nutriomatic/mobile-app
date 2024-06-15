@@ -184,7 +184,16 @@ class StoreFragment : Fragment() {
                 false
             )
         )
-
+        binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            if (scrollY > 0) {
+                binding.btnScrollTop.show()
+            } else {
+                binding.btnScrollTop.hide()
+            }
+        }
+        binding.btnScrollTop.setOnClickListener {
+            binding.nestedScrollView.smoothScrollTo(0, 0)
+        }
         viewModel.getUserProductsPaging(storeId).observe(viewLifecycleOwner) {
             productAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
         }

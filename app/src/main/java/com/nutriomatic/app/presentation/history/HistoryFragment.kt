@@ -41,6 +41,17 @@ class HistoryFragment : Fragment() {
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             rvScanHistory.addItemDecoration(DefaultItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_offset)))
 
+            nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (scrollY > 0) {
+                    binding.btnScrollTop.show()
+                } else {
+                    binding.btnScrollTop.hide()
+                }
+            }
+            binding.btnScrollTop.setOnClickListener {
+                binding.nestedScrollView.smoothScrollTo(0, 0)
+            }
+
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_sort -> {

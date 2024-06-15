@@ -7,4 +7,5 @@ data class NutritionScan(
     val name: String,
     val type: String,
     val photoUrl: String,
+    val grade: String,
 )

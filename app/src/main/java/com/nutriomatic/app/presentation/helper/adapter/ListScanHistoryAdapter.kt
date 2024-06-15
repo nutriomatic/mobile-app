@@ -2,6 +2,8 @@ package com.nutriomatic.app.presentation.helper.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.data.fake.model.NutritionScan
@@ -10,8 +12,7 @@ import com.nutriomatic.app.databinding.ItemScanHistoryBinding
 class ListScanHistoryAdapter(
     private val nutritionScans: List<NutritionScan>,
     private val onItemClick: ((NutritionScan) -> Unit)? = null,
-) :
-    RecyclerView.Adapter<ListScanHistoryAdapter.ViewHolder>() {
+) : ListAdapter<NutritionScan, ListScanHistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     inner class ViewHolder(private val binding: ItemScanHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NutritionScan) {
@@ -20,7 +21,7 @@ class ListScanHistoryAdapter(
                 .into(binding.ivScanPhoto)
 
             with(binding) {
-                tvScanName.text = item.name
+                tvScanName.text = "${item.name} - ${item.grade}"
             }
 
             itemView.setOnClickListener {
@@ -42,5 +43,20 @@ class ListScanHistoryAdapter(
 
     override fun getItemCount(): Int {
         return nutritionScans.size
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<NutritionScan>() {
+            override fun areItemsTheSame(oldItem: NutritionScan, newItem: NutritionScan): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: NutritionScan,
+                newItem: NutritionScan,
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

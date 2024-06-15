@@ -17,7 +17,7 @@ import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
-import com.nutriomatic.app.databinding.BottomSheetLayoutBinding
+import com.nutriomatic.app.databinding.NutritionBottomSheetLayoutBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 
 class ProductDetailsActivity : AppCompatActivity() {
@@ -108,7 +108,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         productServingsize: Int
     ) {
         val bottomSheetDialog = BottomSheetDialog(this)
-        val binding = BottomSheetLayoutBinding.inflate(layoutInflater)
+        val binding = NutritionBottomSheetLayoutBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(binding.root)
 
 
@@ -127,7 +127,7 @@ class ModalBottomSheet(
     private val productProtein: Double,
     private val productServingsize: Int
 ) : BottomSheetDialogFragment() {
-    private var _binding: BottomSheetLayoutBinding? = null
+    private var _binding: NutritionBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -135,7 +135,7 @@ class ModalBottomSheet(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = BottomSheetLayoutBinding.inflate(inflater, container, false)
+        _binding = NutritionBottomSheetLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 

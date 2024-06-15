@@ -79,8 +79,7 @@
                     android:id="@+id/select_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -157,6 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/txt_carbo_input"
                     android:textSize="16sp"
                     tools:text="180" />
 
@@ -178,6 +178,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/txt_protein_input"
                     android:textSize="16sp"
                     tools:text="75" />
 
@@ -201,6 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/txt_sodium_input"
                     android:textSize="16sp"
                     tools:text="80" />
 

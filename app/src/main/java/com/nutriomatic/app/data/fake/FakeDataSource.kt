@@ -27,11 +27,13 @@ object FakeDataSource {
     }
 
     private val fakeScans = List(20) {
+        val grades = listOf("A", "B", "C", "D")
         NutritionScan(
             UUID.nameUUIDFromBytes(random.nextBytes(16)),
             "Scan $it",
             "Type $it",
-            "https://picsum.photos/seed/$it/2000/4000"
+            "https://picsum.photos/seed/$it/2000/4000",
+            grades[random.nextInt(grades.size)]
         )
     }
 

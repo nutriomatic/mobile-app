@@ -11,7 +11,11 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.nutriomatic.app.BuildConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -110,6 +114,24 @@ fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
         ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(this, 270F)
         ExifInterface.ORIENTATION_NORMAL -> this
         else -> this
+    }
+}
+
+suspend fun getCachedImageUri(context: Context, imageUrl: String): Uri? {
+    return withContext(Dispatchers.IO) {
+        try {
+            val futureTarget = Glide.with(context)
+                .asFile()
+                .load(imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .submit()
+
+            val file = futureTarget.get()
+            Uri.fromFile(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
 

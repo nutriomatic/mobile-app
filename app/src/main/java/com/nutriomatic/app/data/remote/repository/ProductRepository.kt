@@ -142,8 +142,9 @@ class ProductRepository private constructor(
     suspend fun updateProduct(
         id: String,
         productName: RequestBody,
-//        productPrice: RequestBody,
+        productPrice: RequestBody,
         productDesc: RequestBody,
+        productIsshow: RequestBody,
         productLemakTotal: RequestBody,
         productProtein: RequestBody,
         productKarbohidrat: RequestBody,
@@ -151,15 +152,16 @@ class ProductRepository private constructor(
         productGrade: RequestBody,
         productServingSize: RequestBody,
         ptName: RequestBody,
-        body: MultipartBody.Part,
+        body: MultipartBody.Part?,
     ) {
         _statusUpdateProduct.value = Result.Loading
         try {
             val response = apiService.updateProductById(
                 id,
                 productName,
-//                productPrice,
+                productPrice,
                 productDesc,
+                productIsshow,
                 productLemakTotal,
                 productProtein,
                 productKarbohidrat,

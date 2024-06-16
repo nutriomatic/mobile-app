@@ -73,8 +73,9 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
     fun updateProduct(
         id: String,
         productName: String,
-//        productPrice: Double,
+        productPrice: Double,
         productDesc: String,
+        productIsShow: Boolean,
         productLemakTotal: Double,
         productProtein: Double,
         productKarbohidrat: Double,
@@ -82,12 +83,13 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
         productGrade: String,
         productServingSize: Int,
         ptType: Int,
-        file: MultipartBody.Part
+        file: MultipartBody.Part?
     ) {
         viewModelScope.launch {
             val productNameBody = createRequestBody(productName)
-//            val productPriceBody = createRequestBody(productPrice.toString())
+            val productPriceBody = createRequestBody(productPrice.toString())
             val productDescBody = createRequestBody(productDesc)
+            val productIsShowBody = createRequestBody(productIsShow.toString())
             val productLemakTotalBody = createRequestBody(productLemakTotal.toString())
             val productProteinBody = createRequestBody(productProtein.toString())
             val productKarbohidratBody = createRequestBody(productKarbohidrat.toString())
@@ -99,8 +101,9 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
             repository.updateProduct(
                 id,
                 productNameBody,
-//                productPriceBody,
+                productPriceBody,
                 productDescBody,
+                productIsShowBody,
                 productLemakTotalBody,
                 productProteinBody,
                 productKarbohidratBody,

@@ -120,8 +120,9 @@ interface ApiService {
     suspend fun updateProductById(
         @Path("id") id: String,
         @Part("product_name") productName: RequestBody,
-//        @Part("product_price") productPrice: RequestBody,
+        @Part("product_price") productPrice: RequestBody,
         @Part("product_desc") productDesc: RequestBody,
+        @Part("product_isshow") productIsshow: RequestBody,
         @Part("product_lemaktotal") productLemakTotal: RequestBody,
         @Part("product_protein") productProtein: RequestBody,
         @Part("product_karbohidrat") productKarbohidrat: RequestBody,
@@ -129,7 +130,7 @@ interface ApiService {
         @Part("product_grade") productGrade: RequestBody,
         @Part("product_servingsize") productServingSize: RequestBody,
         @Part("pt_type") ptType: RequestBody,
-        @Part file: MultipartBody.Part,
+        @Part file: MultipartBody.Part?,
     ): BasicResponse
 
 

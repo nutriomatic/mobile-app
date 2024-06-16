@@ -1,9 +1,6 @@
 package com.nutriomatic.app.presentation.product
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,12 +11,9 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.nutriomatic.app.BuildConfig
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
@@ -32,9 +26,6 @@ import com.nutriomatic.app.presentation.helper.util.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class AddProductActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddProductBinding
@@ -44,6 +35,7 @@ class AddProductActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private var ptType = 0
+    private var productIsShow = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +43,6 @@ class AddProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-
 
         binding.apply {
             topAppBar.setNavigationOnClickListener { onBackPressed() }
@@ -63,28 +53,29 @@ class AddProductActivity : AppCompatActivity() {
 
             val productTypes =
                 LocalData.getProductTypeNames(this@AddProductActivity) // getProductTypes()
-            val adapter = ArrayAdapter(
+            val productTypeAdapter = ArrayAdapter(
                 this@AddProductActivity, android.R.layout.simple_dropdown_item_1line, productTypes
             )
-            selectType.setAdapter(adapter)
+            selectType.setAdapter(productTypeAdapter)
 
             selectType.setOnItemClickListener { parent, view, position, id ->
                 val selectedPtName = parent.getItemAtPosition(position).toString()
                 ptType = LocalData.getProductTypeCodeByName(
                     this@AddProductActivity,
                     selectedPtName
-                ) // getProductTypeCode(selectedPtName)
-
-//                Toast.makeText(
-//                    this@AddProductActivity, ptType.toString() + "helo", Toast.LENGTH_SHORT
-//                ).show()
+                )
             }
+
+            val grades = LocalData.getGradeNames()
+            val productGradeAdapter = ArrayAdapter(
+                this@AddProductActivity, android.R.layout.simple_dropdown_item_1line, grades
+            )
+            selectGrade.setAdapter(productGradeAdapter)
 
             btnSave.setOnClickListener { createProduct() }
             binding.btnAdv.setOnClickListener {
                 showToast("Save product first!")
             }
-
 
             args.productId?.let { id ->
                 viewModel.getProductById(id)
@@ -100,72 +91,28 @@ class AddProductActivity : AppCompatActivity() {
                             is Result.Success -> {
                                 binding.progressBar.visibility = View.GONE
                                 val product: Product = result.data.product
-//                                Glide.with(this@AddProductActivity).load(product.productPicture)
-//                                    .into(productImage)
 
                                 Glide.with(this@AddProductActivity)
                                     .load(product.productPicture)
-                                    .into(object : CustomTarget<Drawable>() {
-                                        override fun onResourceReady(
-                                            resource: Drawable,
-                                            transition: Transition<in Drawable>?,
-                                        ) {
-                                            // Simpan drawable ke file
-                                            val file = File(cacheDir, "image.jpg")
-                                            try {
-                                                val outputStream = FileOutputStream(file)
-                                                val bitmap = (resource as BitmapDrawable).bitmap
-                                                bitmap.compress(
-                                                    Bitmap.CompressFormat.JPEG,
-                                                    100,
-                                                    outputStream
-                                                )
-                                                outputStream.close()
-
-                                                // Dapatkan URI dari file
-                                                currentImageUri = FileProvider.getUriForFile(
-                                                    this@AddProductActivity,
-                                                    "${BuildConfig.APPLICATION_ID}.provider", // Ubah sesuai aplikasi Anda
-                                                    file
-                                                )
-                                            } catch (e: IOException) {
-                                                e.printStackTrace()
-                                            }
-
-                                            // Set gambar di ImageView
-                                            binding.productImage.setImageDrawable(resource)
-                                        }
-
-                                        override fun onLoadCleared(placeholder: Drawable?) {
-                                            // Handle jika diperlukan
-                                        }
-                                    })
-
-
-//                                currentImageUri?.let {
-//                                    binding.productImage.setImageURI(it)
-//                                }
+                                    .into(binding.productImage)
 
 
                                 txtNameInput.setText(product.productName)
-//                                Log.d("KODEPT", product.ptCode.toString())
 
-                                val ptName = LocalData.getProductTypeNameByCode(
-                                    this@AddProductActivity,
-                                    product.ptCode
-                                ) // getProductTypeName(product.ptCode)
-
-                                val position = adapter.getPosition(ptName)
-                                if (position != -1) {
-                                    selectType.setText(adapter.getItem(position), false)
-                                }
-
+                                productIsShow = product.productIsshow
                                 txtProductDescInput.setText(product.productDesc)
+                                txtPriceInput.setText(product.productPrice.toString())
                                 txtServingSizePerContInput.setText(product.productServingsize.toString())
                                 txtFatInput.setText(product.productLemaktotal.toString())
                                 txtCarboInput.setText(product.productKarbohidrat.toString())
                                 txtProteinInput.setText(product.productProtein.toString())
                                 txtSodiumInput.setText(product.productGaram.toString())
+                                val productTypeName = LocalData.getProductTypeNameByCode(
+                                    this@AddProductActivity,
+                                    product.ptCode
+                                )
+                                selectType.setText(productTypeName, false)
+                                selectGrade.setText(product.productGrade, false)
 
                                 // update
                                 btnSave.setOnClickListener { updateProduct(product.productId) }
@@ -214,84 +161,91 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun updateProduct(productId: String) {
+        binding.selectType.setOnItemClickListener { parent, view, position, id ->
+            val selectedPtName = parent.getItemAtPosition(position).toString()
+            ptType = LocalData.getProductTypeCodeByName(
+                this@AddProductActivity,
+                selectedPtName
+            )
+        }
 
+        val productName = binding.txtNameInput.text.toString()
+        val productDesc = binding.txtProductDescInput.text.toString()
+        val productPrice = binding.txtPriceInput.text.toString()
+        val productIsshow = productIsShow
+        val productLemakTotal = binding.txtFatInput.text.toString()
+        val productProtein = binding.txtCarboInput.text.toString()
+        val productKarbohidrat = binding.txtProteinInput.text.toString()
+        val productGaram = binding.txtSodiumInput.text.toString()
+        val productGrade = binding.selectGrade.text.toString()
+        val productServingSize = binding.txtServingSizePerContInput.text.toString()
+
+        var body: MultipartBody.Part? = null
         currentImageUri?.let { uri ->
-
-            binding.selectType.setOnItemClickListener { parent, view, position, id ->
-                val selectedPtName = parent.getItemAtPosition(position).toString()
-                ptType = LocalData.getProductTypeCodeByName(
-                    this@AddProductActivity,
-                    selectedPtName
-                ) // getProductTypeCode(selectedPtName)
-            }
-
-            val productName = binding.txtNameInput.text.toString()
-            val productPrice = 0.0
-            val productDesc = binding.txtProductDescInput.text.toString()
-            val productIsshow = false
-            val productLemakTotal = binding.txtFatInput.text.toString()
-            val productProtein = binding.txtCarboInput.text.toString()
-            val productKarbohidrat = binding.txtProteinInput.text.toString()
-            val productGaram = binding.txtSodiumInput.text.toString()
-            val productGrade = "Z"
-            val productServingSize = binding.txtServingSizePerContInput.text.toString()
-
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-            val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+            body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+        }
 
-            viewModel.updateProduct(
-                productId,
-                productName,
-//                productPrice,
-                productDesc,
-                productLemakTotal.toDouble(),
-                productProtein.toDouble(),
-                productKarbohidrat.toDouble(),
-                productGaram.toDouble(),
-                productGrade,
-                productServingSize.toInt(),
-                ptType,
-                body
-            )
+        viewModel.updateProduct(
+            id = productId,
+            productName = productName,
+            productPrice = productPrice.toDouble(),
+            productDesc = productDesc,
+            productIsShow = productIsshow,
+            productLemakTotal = productLemakTotal.toDouble(),
+            productProtein = productProtein.toDouble(),
+            productKarbohidrat = productKarbohidrat.toDouble(),
+            productGaram = productGaram.toDouble(),
+            productGrade = productGrade,
+            productServingSize = productServingSize.toInt(),
+            ptType = ptType,
+            file = body
+        )
 
-            viewModel.statusUpdateProduct.observe(this) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                        }
+        viewModel.statusUpdateProduct.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
 
-                        is Result.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            finish()
-                        }
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        Snackbar.make(
+                            this@AddProductActivity,
+                            binding.root,
+                            result.data.message.toString(),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+//                        finish()
+                    }
 
-                        is Result.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(
-                                this, result.error, Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(
+                            this, result.error, Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-        } ?: showToast(getString(R.string.please_choose_a_valid_image))
+        }
     }
 
 
     private fun createProduct() {
         currentImageUri?.let { uri ->
             val productName = binding.txtNameInput.text.toString()
-            val productPrice = 0.0
+            val productPrice = 13000.0
             val productDesc = binding.txtProductDescInput.text.toString()
             val productIsshow = false
-            val productLemakTotal = binding.txtFatInput.text.toString()
-            val productProtein = binding.txtCarboInput.text.toString()
-            val productKarbohidrat = binding.txtProteinInput.text.toString()
-            val productGaram = binding.txtSodiumInput.text.toString()
-            val productGrade = "Z"
-            val productServingSize = binding.txtServingSizePerContInput.text.toString()
+            val productLemakTotal = binding.txtFatInput.text.toString().ifEmpty { "0" }
+            val productProtein = binding.txtCarboInput.text.toString().ifEmpty { "0" }
+            val productKarbohidrat = binding.txtProteinInput.text.toString().ifEmpty { "0" }
+            val productGaram = binding.txtSodiumInput.text.toString().ifEmpty { "0" }
+            val productGrade = binding.selectGrade.text.toString()
+            val productServingSize =
+                binding.txtServingSizePerContInput.text.toString().ifEmpty { "1" }
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)

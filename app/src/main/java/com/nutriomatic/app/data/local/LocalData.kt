@@ -41,6 +41,8 @@ object LocalData {
         HealthGoal(3, R.string.health_goal_gain_weight),
     )
 
+    val GRADES = listOf("A", "B", "C", "D")
+
     fun getGenderNames(context: Context): List<String> {
         return GENDERS.map { context.getString(it.name) }
     }
@@ -94,5 +96,9 @@ object LocalData {
     fun getHealthGoalNameByCode(context: Context, code: Int): String {
         return HEALTH_GOALS.find { it.type == code }?.let { context.getString(it.desc) }
             ?: context.getString(HEALTH_GOALS.first().desc)
+    }
+
+    fun getGradeNames(): List<String> {
+        return GRADES
     }
 }

@@ -70,6 +70,7 @@ class LoginFragment : Fragment() {
                             viewModel.saveTokenAndUserModel(it.data, email)
 
                             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
+//                            findNavController().navigate(R.id.action_loginFragment_to_adminActivity)
                             requireActivity().finish()
                         }
                     }

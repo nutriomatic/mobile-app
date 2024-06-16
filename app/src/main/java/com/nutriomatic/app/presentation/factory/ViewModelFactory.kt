@@ -7,6 +7,7 @@ import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.StoreRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import com.nutriomatic.app.di.Injection
+import com.nutriomatic.app.presentation.admin.AdminHomeViewModel
 import com.nutriomatic.app.presentation.auth.AuthViewModel
 import com.nutriomatic.app.presentation.details.ProductDetailViewModel
 import com.nutriomatic.app.presentation.history.HistoryViewModel
@@ -52,6 +53,10 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
                 HistoryViewModel() as T
+            }
+
+            modelClass.isAssignableFrom(AdminHomeViewModel::class.java) -> {
+                AdminHomeViewModel(userRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

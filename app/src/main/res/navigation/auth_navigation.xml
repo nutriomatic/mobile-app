@@ -18,6 +18,9 @@
             android:id="@+id/action_loginFragment_to_mainActivity"
             app:destination="@id/mainActivity"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_adminActivity"
+            app:destination="@id/adminActivity" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -35,4 +38,9 @@
         android:name="com.nutriomatic.app.presentation.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/adminActivity"
+        android:name="com.nutriomatic.app.presentation.admin.AdminActivity"
+        android:label="activity_admin"
+        tools:layout="@layout/activity_admin" />
 </navigation>

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nutriomatic.app.R
 import com.nutriomatic.app.presentation.MainActivity
+import com.nutriomatic.app.presentation.admin.AdminActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 
 class AuthActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class AuthActivity : AppCompatActivity() {
         viewModel.getToken().observe(this) { token ->
             if (token != null) {
                 val intent = Intent(this, MainActivity::class.java)
+//                val intent = Intent(this, AdminActivity::class.java)
                 intent.flags =
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/adminHomeFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.nutriomatic.app.presentation.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_authActivity"
+            app:destination="@id/authActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/authActivity"
+        android:name="com.nutriomatic.app.presentation.auth.AuthActivity"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/adminHomeFragment"
+        android:name="com.nutriomatic.app.presentation.admin.AdminHomeFragment"
+        android:label="fragment_admin_home"
+        tools:layout="@layout/fragment_admin_home" >
+        <action
+            android:id="@+id/action_adminHomeFragment_to_transactionDetailActivity"
+            app:destination="@id/transactionDetailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/transactionDetailActivity"
+        android:name="com.nutriomatic.app.presentation.transaction_detail.TransactionDetailActivity"
+        android:label="activity_transaction_detail"
+        tools:layout="@layout/activity_transaction_detail" >
+        <argument
+            android:name="transactionId"
+            app:argType="string" />
+    </activity>
+</navigation>

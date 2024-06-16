@@ -2,6 +2,7 @@ package com.nutriomatic.app.data.fake
 
 import com.nutriomatic.app.data.fake.model.NutritionScan
 import com.nutriomatic.app.data.fake.model.Product
+import com.nutriomatic.app.data.fake.model.Transaction
 import java.util.UUID
 import kotlin.random.Random
 
@@ -37,6 +38,21 @@ object FakeDataSource {
         )
     }
 
+    private val fakeTransactions = List(20) {
+        val status = listOf("Pending", "Success", "Failed")
+        Transaction(
+            id = UUID.randomUUID().toString(),
+            price = random.nextDouble(from = 50.0, until = 200.0),
+            va = "VA $it",
+            startDate = "2021-01-01",
+            endDate = "2021-01-31",
+            status = status[random.nextInt(status.size)],
+            paymentProof = "https://picsum.photos/seed/$it/2000/4000",
+            createdAt = "2021-01-01",
+            updatedAt = "2021-01-01",
+        )
+    }
+
     fun generateFakeProduct(): List<Product> {
         return fakeProducts
     }
@@ -51,5 +67,13 @@ object FakeDataSource {
 
     fun getScanById(id: UUID): NutritionScan? {
         return fakeScans.find { it.id == id }
+    }
+
+    fun generateFakeTransactions(): List<Transaction> {
+        return fakeTransactions
+    }
+
+    fun getTransactionById(id: String): Transaction? {
+        return fakeTransactions.find { it.id == id }
     }
 }

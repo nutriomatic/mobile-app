@@ -35,7 +35,7 @@ data class ProductsItem(
 	val storeId: String,
 
 	@field:SerializedName("product_lemaktotal")
-	val productLemaktotal: Int,
+	val productLemaktotal: Double,
 
 	@field:SerializedName("product_isshow")
 	val productIsshow: Boolean,
@@ -56,7 +56,7 @@ data class ProductsItem(
 	val productName: String,
 
 	@field:SerializedName("product_karbohidrat")
-	val productKarbohidrat: Int,
+	val productKarbohidrat: Double,
 
 	@field:SerializedName("product_desc")
 	val productDesc: String,
@@ -74,13 +74,13 @@ data class ProductsItem(
 	val productId: String,
 
 	@field:SerializedName("product_protein")
-	val productProtein: Int,
+	val productProtein: Double,
 
 	@field:SerializedName("product_expshow")
 	val productExpshow: String,
 
 	@field:SerializedName("product_garam")
-	val productGaram: Int
+	val productGaram: Double
 )
 
 data class Pagination(

@@ -18,7 +18,6 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Thread.sleep(2000L)
         installSplashScreen()
-
         viewModel.getToken().observe(this) { token ->
             if (token != null) {
                 val intent = Intent(this, MainActivity::class.java)

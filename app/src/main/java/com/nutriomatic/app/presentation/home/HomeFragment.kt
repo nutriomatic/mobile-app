@@ -1,6 +1,7 @@
 package com.nutriomatic.app.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,12 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
+    val productAdapter = ProductDataAdapter {
+        val navDirections =
+            HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.productId)
+        findNavController().navigate(navDirections)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -35,6 +42,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         observeProfileLiveData()
         setupProductPagination()
@@ -92,13 +100,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProductPagination() {
-        val productAdapter = ProductDataAdapter {
-            val navDirections =
-                HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.productId)
-            findNavController().navigate(navDirections)
-        }
-
-
         with(binding) {
             rvProduct.adapter = productAdapter
             rvProduct.layoutManager = GridLayoutManager(activity, 2)
@@ -118,9 +119,16 @@ class HomeFragment : Fragment() {
                 binding.appBarLayout.setExpanded(true, true)
                 binding.nestedScrollView.smoothScrollTo(0, 0)
             }
-            homeViewModel.advertisedProductPaging.observe(viewLifecycleOwner) {
-                productAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+
+            homeViewModel.advertisedProductPaging.observe(viewLifecycleOwner) { pagingData ->
+                if (pagingData != null) {
+                    Log.d("HomeFragment", "Paging data received: $pagingData")
+                    productAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+                } else {
+                    Log.e("HomeFragment", "No paging data received")
+                }
             }
+
         }
 
     }

@@ -236,7 +236,7 @@ class AddProductActivity : AppCompatActivity() {
     private fun createProduct() {
         currentImageUri?.let { uri ->
             val productName = binding.txtNameInput.text.toString()
-            val productPrice = 13000.0
+            val productPrice = binding.txtPriceInput.text.toString().ifEmpty { "0" }
             val productDesc = binding.txtProductDescInput.text.toString()
             val productIsshow = false
             val productLemakTotal = binding.txtFatInput.text.toString().ifEmpty { "0" }
@@ -253,7 +253,7 @@ class AddProductActivity : AppCompatActivity() {
 
             viewModel.createProduct(
                 productName,
-                productPrice,
+                productPrice.toDouble(),
                 productDesc,
                 productIsshow,
                 productLemakTotal.toDouble(),

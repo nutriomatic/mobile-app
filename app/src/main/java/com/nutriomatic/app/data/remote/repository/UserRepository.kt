@@ -25,8 +25,9 @@ class UserRepository private constructor(
     private val _registerStatus = MutableLiveData<Result<RegisterResponse>>()
     val registerStatus: LiveData<Result<RegisterResponse>> = _registerStatus
 
-    private val _loginToken = MutableLiveData<Result<String>>()
-    val loginToken: LiveData<Result<String>> = _loginToken
+//    Login Data (token, role)
+    private val _loginData = MutableLiveData<Result<List<String>>>()
+    val loginData: LiveData<Result<List<String>>> = _loginData
 
     private val _detailProfile = MutableLiveData<Result<ProfileResponse>>()
     val detailProfile: LiveData<Result<ProfileResponse>> = _detailProfile
@@ -50,16 +51,16 @@ class UserRepository private constructor(
 
 
     suspend fun login(email: String, password: String) {
-        _loginToken.value = Result.Loading
+        _loginData.value = Result.Loading
         try {
             val request = LoginRequest(email, password)
             val response = apiService.login(request)
-            _loginToken.value = Result.Success(response.token)
+            _loginData.value = Result.Success(listOf(response.token, response.role))
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            _loginToken.value = Result.Error(errorMessage ?: "An error occurred")
+            _loginData.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 
@@ -159,12 +160,16 @@ class UserRepository private constructor(
 //        userPreference.saveToken(token)
 //    }
 
-    suspend fun saveTokenAndEmail(token: String, email: String) {
-        userPreference.saveTokenAndEmail(token, email)
+    suspend fun saveLoginData(token: String, email: String, role: String) {
+        userPreference.saveLoginData(token, email, role)
     }
 
     fun getToken(): LiveData<String?> {
         return userPreference.getToken().asLiveData()
+    }
+
+    fun getTokenAndRole(): LiveData<List<String?>> {
+        return userPreference.getTokenAndRole().asLiveData()
     }
 
     suspend fun logout() {

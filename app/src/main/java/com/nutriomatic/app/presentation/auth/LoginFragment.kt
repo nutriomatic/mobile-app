@@ -3,6 +3,7 @@ package com.nutriomatic.app.presentation.auth
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,7 @@ class LoginFragment : Fragment() {
 
             viewModel.login(email, password)
 
-            viewModel.loginToken.observe(viewLifecycleOwner) {
+            viewModel.loginData.observe(viewLifecycleOwner) {
                 if (it != null) {
                     when (it) {
                         is Result.Error -> {
@@ -67,10 +68,16 @@ class LoginFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
 
-                            viewModel.saveTokenAndUserModel(it.data, email)
+                            viewModel.saveLoginData(it.data[0], email, it.data[1])
 
-                            findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-//                            findNavController().navigate(R.id.action_loginFragment_to_adminActivity)
+                            val destinationId = if (it.data[1] == "admin") {
+                                R.id.action_loginFragment_to_adminActivity
+                            } else {
+                                R.id.action_loginFragment_to_mainActivity
+                            }
+
+                            findNavController().navigate(destinationId)
+
                             requireActivity().finish()
                         }
                     }

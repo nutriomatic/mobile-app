@@ -19,10 +19,13 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Thread.sleep(2000L)
         installSplashScreen()
-        viewModel.getToken().observe(this) { token ->
-            if (token != null) {
-                val intent = Intent(this, MainActivity::class.java)
-//                val intent = Intent(this, AdminActivity::class.java)
+        viewModel.getTokenAndRole().observe(this) { data ->
+            if (data[0] != null) {
+                val intent = if (data[1] == "admin") {
+                    Intent(this, AdminActivity::class.java)
+                } else {
+                    Intent(this, MainActivity::class.java)
+                }
                 intent.flags =
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)

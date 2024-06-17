@@ -10,7 +10,7 @@ import com.nutriomatic.app.data.remote.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
-    val loginToken: LiveData<Result<String>> = userRepository.loginToken
+    val loginData: LiveData<Result<List<String>>> = userRepository.loginData
     val registerStatus: LiveData<Result<RegisterResponse>> = userRepository.registerStatus
 
     fun login(email: String, password: String) {
@@ -25,12 +25,16 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun saveTokenAndUserModel(token: String, email: String) {
+    fun saveLoginData(token: String, email: String, role: String) {
         viewModelScope.launch {
 //            saveToken(token)
-            userRepository.saveTokenAndEmail(token, email)
+            userRepository.saveLoginData(token, email, role)
 //            userRepository.saveUserModel()
         }
+    }
+
+    fun getTokenAndRole(): LiveData<List<String?>> {
+        return userRepository.getTokenAndRole()
     }
 
     fun saveUserModel() {

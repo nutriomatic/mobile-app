@@ -84,8 +84,11 @@ class AddProductActivity : AppCompatActivity() {
 
             args.productId?.let { id ->
                 viewModel.getProductById(id)
+
                 topAppBar.title = "Update Product"
                 deleteItem.isVisible = true
+
+
                 topAppBar.setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.menu_delete_product -> {
@@ -132,7 +135,10 @@ class AddProductActivity : AppCompatActivity() {
 
                                 // update
                                 btnSave.setOnClickListener { updateProduct(product.productId) }
-                                btnAdv.setOnClickListener { advertiseProduct(product.productId) }
+
+                                // advertise
+                                btnAdv.setOnClickListener { createTransaction(product.productId) }
+
                             }
 
                             is Result.Error -> {
@@ -192,10 +198,9 @@ class AddProductActivity : AppCompatActivity() {
         }
     }
 
-    private fun advertiseProduct(productId: String) {
-        viewModel.advertiseProduct(productId)
-
-        viewModel.statusAdvertiseProduct.observe(this) { result ->
+    private fun createTransaction(productId: String) {
+        viewModel.createTransaction(productId)
+        viewModel.statusCreateTransaction.observe(this) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
@@ -211,8 +216,9 @@ class AddProductActivity : AppCompatActivity() {
 
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            this, result.error, Toast.LENGTH_SHORT
+                        Snackbar.make(
+                            binding.root,
+                            result.error, Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }

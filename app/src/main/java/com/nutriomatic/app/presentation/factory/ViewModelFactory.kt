@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.StoreRepository
+import com.nutriomatic.app.data.remote.repository.TransactionRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import com.nutriomatic.app.di.Injection
 import com.nutriomatic.app.presentation.admin.AdminHomeViewModel
@@ -21,6 +22,7 @@ class ViewModelFactory(
     private val userRepository: UserRepository,
     private val productRepository: ProductRepository,
     private val storeRepository: StoreRepository,
+    private val transactionRepository: TransactionRepository,
 ) :
     ViewModelProvider.NewInstanceFactory() {
 
@@ -40,7 +42,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(AddProductViewModel::class.java) -> {
-                AddProductViewModel(productRepository) as T
+                AddProductViewModel(productRepository, transactionRepository) as T
             }
 
             modelClass.isAssignableFrom(ProductDetailViewModel::class.java) -> {
@@ -74,7 +76,9 @@ class ViewModelFactory(
                     INSTANCE = ViewModelFactory(
                         Injection.provideRepository(context),
                         Injection.provideProductRepository(context),
-                        Injection.provideStoreRepository(context)
+                        Injection.provideStoreRepository(context),
+                        Injection.provideTransactionRepository(context)
+
                     )
                 }
             }

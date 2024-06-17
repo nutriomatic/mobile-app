@@ -146,4 +146,11 @@ interface ApiService {
     ): BasicResponse
 
 
+    // transaction
+
+    @POST("transaction/{product_id}")
+    suspend fun createTransaction(
+        @Path("product_id") product_id: String,
+    ): BasicResponse
+
 }

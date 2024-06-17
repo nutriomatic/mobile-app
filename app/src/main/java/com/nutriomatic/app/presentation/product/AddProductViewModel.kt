@@ -8,23 +8,28 @@ import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
+import com.nutriomatic.app.data.remote.repository.TransactionRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class AddProductViewModel(private val repository: ProductRepository) : ViewModel() {
+class AddProductViewModel(
+    private val productRepository: ProductRepository,
+    private val transactionRepository: TransactionRepository
+) : ViewModel() {
     val statusCreateProduct: LiveData<Result<CreateProductResponse>> =
-        repository.statusCreateProduct
+        productRepository.statusCreateProduct
     val statusUpdateProduct: LiveData<Result<BasicResponse>> =
-        repository.statusUpdateProduct
+        productRepository.statusUpdateProduct
     val statusAdvertiseProduct: LiveData<Result<BasicResponse>> =
-        repository.statusAdvertiseProduct
+        productRepository.statusAdvertiseProduct
     val statusDeleteProduct: LiveData<Result<BasicResponse>> =
-        repository.statusDeleteProduct
-    val detailProduct: LiveData<Result<ProductByIdResponse>> = repository.detailProduct
-
+        productRepository.statusDeleteProduct
+    val detailProduct: LiveData<Result<ProductByIdResponse>> = productRepository.detailProduct
+    val statusCreateTransaction: LiveData<Result<BasicResponse>> =
+        transactionRepository.statusCreateTransaction
 
     fun createProduct(
         productName: String,
@@ -54,7 +59,7 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
             val productServingSizeBody = createRequestBody(productServingSize.toString())
             val ptNameBody = createRequestBody(ptType.toString())
 
-            repository.createProduct(
+            productRepository.createProduct(
                 productNameBody,
                 productPriceBody,
                 productDescBody,
@@ -100,7 +105,7 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
             val productServingSizeBody = createRequestBody(productServingSize.toString())
             val ptNameBody = createRequestBody(ptType.toString())
 
-            repository.updateProduct(
+            productRepository.updateProduct(
                 id,
                 productNameBody,
                 productPriceBody,
@@ -121,23 +126,31 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
 
     fun getProductById(id: String) {
         viewModelScope.launch {
-            repository.getProductById(id)
+            productRepository.getProductById(id)
         }
     }
 
     fun advertiseProduct(id: String) {
         viewModelScope.launch {
-            repository.advertiseProduct(id)
+            productRepository.advertiseProduct(id)
         }
     }
 
 
     fun deleteProductById(id: String) {
         viewModelScope.launch {
-            repository.deleteProductById(id)
+            productRepository.deleteProductById(id)
         }
     }
 
+
+    // transaction
+
+    fun createTransaction(product_id: String) {
+        viewModelScope.launch {
+            transactionRepository.createTransaction(product_id)
+        }
+    }
 
     private fun createRequestBody(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())

@@ -63,51 +63,15 @@ class ProfileFragment : Fragment() {
         profileViewModel.getProfile()
 
         with(binding) {
-            txtBirthdayLayout.setEndIconOnClickListener {
-                showDatePicker()
-            }
-
-            val genders = LocalData.getGenderNames(requireContext())
-            val genderAdapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genders)
-            txtGenderInput.setAdapter(genderAdapter)
-
-            val activityLevels = LocalData.getActivityLevelNames(requireContext())
-            val activityLevelAdapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                activityLevels
-            )
-            txtActivityLevelInput.setAdapter(activityLevelAdapter)
-
-            val healthGoals = LocalData.getHealthGoalNames(requireContext())
-            val healthGoalAdapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                healthGoals
-            )
-            txtHealthGoalInput.setAdapter(healthGoalAdapter)
-
-            txtGenderInput.setOnItemClickListener { _, _, position, _ ->
-                genderCode = LocalData.GENDERS[position].code
-            }
-
-            txtActivityLevelInput.setOnItemClickListener { _, _, position, _ ->
-                alCode = LocalData.ACTIVITY_LEVELS[position].type
-            }
-
-            txtHealthGoalInput.setOnItemClickListener { _, _, position, _ ->
-                hgCode = LocalData.HEALTH_GOALS[position].type
-            }
-
-            profileImage.setOnClickListener {
-                startGallery()
-            }
-
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.menu_edit -> {
-                        Snackbar.make(view, "Edit clicked", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            view,
+                            "Edit your profil and don't forget to save!",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        editProfil()
                         true
                     }
 
@@ -174,6 +138,83 @@ class ProfileFragment : Fragment() {
 
             btnSave.setOnClickListener {
                 updateProfile()
+                enabledEditProfil()
+            }
+        }
+    }
+
+    private fun enabledEditProfil() {
+        with(binding) {
+            txtNameInput.isEnabled = false
+            txtEmailInput.isEnabled = false
+            txtTelephoneInput.isEnabled = false
+            txtGenderInput.isEnabled = false
+            txtHeightInput.isEnabled = false
+            txtWeightInput.isEnabled = false
+            txtWeightGoalInput.isEnabled = false
+            profileImage.isClickable = false
+            txtBirthdayInput.isEnabled = false
+            txtActivityLevelInput.isEnabled = false
+            txtHealthGoalInput.isEnabled = false
+            binding.btnSave.visibility = View.GONE
+        }
+    }
+
+    private fun editProfil() {
+        with(binding) {
+            txtNameInput.isEnabled = true
+            txtEmailInput.isEnabled = true
+            txtTelephoneInput.isEnabled = true
+            txtGenderInput.isEnabled = true
+            txtHeightInput.isEnabled = true
+            txtWeightInput.isEnabled = true
+            txtWeightGoalInput.isEnabled = true
+            profileImage.isClickable = true
+            txtBirthdayInput.isEnabled = false
+            txtActivityLevelInput.isEnabled = false
+            txtHealthGoalInput.isEnabled = false
+
+            btnSave.visibility = View.VISIBLE
+
+            txtBirthdayLayout.setEndIconOnClickListener {
+                showDatePicker()
+            }
+
+            val genders = LocalData.getGenderNames(requireContext())
+            val genderAdapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genders)
+            txtGenderInput.setAdapter(genderAdapter)
+
+            val activityLevels = LocalData.getActivityLevelNames(requireContext())
+            val activityLevelAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                activityLevels
+            )
+            txtActivityLevelInput.setAdapter(activityLevelAdapter)
+
+            val healthGoals = LocalData.getHealthGoalNames(requireContext())
+            val healthGoalAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                healthGoals
+            )
+            txtHealthGoalInput.setAdapter(healthGoalAdapter)
+
+            txtGenderInput.setOnItemClickListener { _, _, position, _ ->
+                genderCode = LocalData.GENDERS[position].code
+            }
+
+            txtActivityLevelInput.setOnItemClickListener { _, _, position, _ ->
+                alCode = LocalData.ACTIVITY_LEVELS[position].type
+            }
+
+            txtHealthGoalInput.setOnItemClickListener { _, _, position, _ ->
+                hgCode = LocalData.HEALTH_GOALS[position].type
+            }
+
+            profileImage.setOnClickListener {
+                startGallery()
             }
         }
     }
@@ -288,6 +329,7 @@ class ProfileFragment : Fragment() {
             showImage()
         }
     }
+
 
     private fun showImage() {
         currentImageUri?.let {

@@ -100,24 +100,24 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun showBottomSheetDialog(
-        productLemaktotal: Double,
-        productGaram: Double,
-        productKarbohidrat: Double,
-        productProtein: Double,
-        productServingsize: Int
-    ) {
-        val bottomSheetDialog = BottomSheetDialog(this)
-        val binding = NutritionBottomSheetLayoutBinding.inflate(layoutInflater)
-        bottomSheetDialog.setContentView(binding.root)
-
-
-        BottomSheetBehavior.from(binding.bottomSheetNutritionFact).apply {
-            this.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-
-        bottomSheetDialog.show()
-    }
+//    private fun showBottomSheetDialog(
+//        productLemaktotal: Double,
+//        productGaram: Double,
+//        productKarbohidrat: Double,
+//        productProtein: Double,
+//        productServingsize: Int
+//    ) {
+//        val bottomSheetDialog = BottomSheetDialog(this)
+//        val binding = NutritionBottomSheetLayoutBinding.inflate(layoutInflater)
+//        bottomSheetDialog.setContentView(binding.root)
+//
+//
+//        BottomSheetBehavior.from(binding.bottomSheetNutritionFact).apply {
+//            this.state = BottomSheetBehavior.STATE_COLLAPSED
+//        }
+//
+//        bottomSheetDialog.show()
+//    }
 }
 
 class ModalBottomSheet(

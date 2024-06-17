@@ -37,6 +37,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
+                android:clickable="false"
                 android:src="@drawable/profile_man"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     tools:text="John Doe" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,6 +81,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:textSize="16sp"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     tools:text="john.doe@example.com" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,6 +102,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
+                    android:alpha="1.0"
+                    android:enabled="false"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="+123456" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +126,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="01/01/1990" />
 
@@ -137,6 +150,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:text="@string/gender_male"
                     app:simpleItems="@array/gender_items" />
 
@@ -169,6 +185,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="180" />
 
@@ -191,6 +210,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:textSize="16sp"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     tools:text="75" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -211,6 +233,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="80" />
 
@@ -232,6 +257,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:text="@string/activity_level_sedentary"
                     app:simpleItems="@array/activity_level_items" />
 
@@ -253,6 +281,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
+                    android:enabled="false"
+                    android:alpha="1.0"
+                    android:textColor="@android:color/black"
                     android:text="@string/health_goal_lose_weight"
                     app:simpleItems="@array/health_goal_items" />
 
@@ -266,6 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/save"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_health_goal_layout" />

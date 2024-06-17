@@ -1,10 +1,12 @@
 package com.nutriomatic.app.data.remote.api.retrofit
 
+import com.nutriomatic.app.data.remote.api.request.CreateTransactionRequest
 import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.request.StoreRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateStoreRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
+import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
 import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
@@ -56,6 +58,11 @@ interface ApiService {
         @Part("hg_type") hgType: RequestBody,
         @Part file: MultipartBody.Part? = null,
     ): UpdateProfileResponse
+
+    // user classification and calory
+    @GET("user/cal")
+    suspend fun getClassification(
+    ): ClassificationCaloryResponse
 
 
     //    Store
@@ -150,7 +157,8 @@ interface ApiService {
 
     @POST("transaction/{product_id}")
     suspend fun createTransaction(
-        @Path("product_id") product_id: String,
+        @Path("product_id") id: String,
+        @Body createTransactionRequest: CreateTransactionRequest
     ): BasicResponse
 
 }

@@ -199,6 +199,7 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun createTransaction(productId: String) {
+        Log.d("PRODUCTT_ID", productId)
         viewModel.createTransaction(productId)
         viewModel.statusCreateTransaction.observe(this) { result ->
             if (result != null) {

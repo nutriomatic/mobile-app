@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.request.CreateTransactionRequest
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
@@ -22,8 +23,9 @@ class TransactionRepository private constructor(
     suspend fun createTransaction(product_id: String) {
         _statusCreateTransaction.value = Result.Loading
         try {
+            val request = CreateTransactionRequest("default")
             val response =
-                apiService.createTransaction(product_id)
+                apiService.createTransaction(product_id, request)
             _statusCreateTransaction.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

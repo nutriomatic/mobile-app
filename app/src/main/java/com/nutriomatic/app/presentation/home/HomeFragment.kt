@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
 
         observeProfileLiveData()
         setupProductPagination()
+        setupProfilClassificationHome()
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -97,6 +98,40 @@ class HomeFragment : Fragment() {
 //                }
 //            }
 //        }
+    }
+
+    private fun setupProfilClassificationHome() {
+        homeViewModel.detailClassification.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        binding.tvJenisKategori.text = buildString {
+                            append(result.data.classification.toString())
+                            append(" ")
+                        }
+                        binding.tvJumlahKalori.text = buildString {
+                            append(result.data.calories.toString())
+                            append(" ")
+                        }
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     private fun setupProductPagination() {

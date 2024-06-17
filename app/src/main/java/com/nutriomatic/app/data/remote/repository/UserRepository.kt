@@ -9,6 +9,7 @@ import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
+import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
@@ -25,7 +26,7 @@ class UserRepository private constructor(
     private val _registerStatus = MutableLiveData<Result<RegisterResponse>>()
     val registerStatus: LiveData<Result<RegisterResponse>> = _registerStatus
 
-//    Login Data (token, role)
+    //    Login Data (token, role)
     private val _loginData = MutableLiveData<Result<List<String>>>()
     val loginData: LiveData<Result<List<String>>> = _loginData
 
@@ -34,6 +35,9 @@ class UserRepository private constructor(
 
     private val _updateProfileResponse = MutableLiveData<Result<UpdateProfileResponse>>()
     val updateProfileResponse: LiveData<Result<UpdateProfileResponse>> = _updateProfileResponse
+
+    private val _detailClassification = MutableLiveData<Result<ClassificationCaloryResponse>>()
+    val detailClassification: LiveData<Result<ClassificationCaloryResponse>> = _detailClassification
 
     suspend fun register(name: String, email: String, password: String) {
         _registerStatus.value = Result.Loading
@@ -174,6 +178,19 @@ class UserRepository private constructor(
 
     suspend fun logout() {
         userPreference.logout()
+    }
+
+    suspend fun getClassification() {
+        _detailClassification.value = Result.Loading
+        try {
+            val response = apiService.getClassification()
+            _detailClassification.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _detailClassification.value = Result.Error(errorMessage ?: "An error occurred")
+        }
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package com.nutriomatic.app.data.remote.api.request
 
 import com.google.gson.annotations.SerializedName
+import retrofit2.http.Path
 
 data class RegisterRequest(
     @SerializedName("name")
@@ -25,4 +26,9 @@ data class LoginRequest(
 
     @SerializedName("password")
     val password: String,
+)
+
+data class CreateTransactionRequest(
+    @SerializedName("payment_method")
+    val paymentMethod: String,
 )

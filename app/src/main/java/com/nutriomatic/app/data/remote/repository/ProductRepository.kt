@@ -7,8 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
-import com.nutriomatic.app.data.remote.AdvertisedProductPagingSource
 import com.nutriomatic.app.data.pref.UserPreference
+import com.nutriomatic.app.data.remote.AdvertisedProductPagingSource
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.UserProductPagingSource
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
@@ -38,6 +38,9 @@ class ProductRepository private constructor(
 
     private val _statusUpdateProduct = MutableLiveData<Result<BasicResponse>>()
     val statusUpdateProduct: LiveData<Result<BasicResponse>> = _statusUpdateProduct
+
+    private val _statusDeleteProduct = MutableLiveData<Result<BasicResponse>>()
+    val statusDeleteProduct: LiveData<Result<BasicResponse>> = _statusDeleteProduct
 
     private val _statusAdvertiseProduct = MutableLiveData<Result<BasicResponse>>()
     val statusAdvertiseProduct: LiveData<Result<BasicResponse>> = _statusAdvertiseProduct
@@ -206,6 +209,20 @@ class ProductRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _statusAdvertiseProduct.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun deleteProductById(id: String) {
+        _statusDeleteProduct.value = Result.Loading
+        try {
+            val response =
+                apiService.deleteProductById(id)
+            _statusDeleteProduct.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _statusDeleteProduct.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

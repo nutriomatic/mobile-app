@@ -21,6 +21,8 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
         repository.statusUpdateProduct
     val statusAdvertiseProduct: LiveData<Result<BasicResponse>> =
         repository.statusAdvertiseProduct
+    val statusDeleteProduct: LiveData<Result<BasicResponse>> =
+        repository.statusDeleteProduct
     val detailProduct: LiveData<Result<ProductByIdResponse>> = repository.detailProduct
 
 
@@ -128,6 +130,14 @@ class AddProductViewModel(private val repository: ProductRepository) : ViewModel
             repository.advertiseProduct(id)
         }
     }
+
+
+    fun deleteProductById(id: String) {
+        viewModelScope.launch {
+            repository.deleteProductById(id)
+        }
+    }
+
 
     private fun createRequestBody(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())

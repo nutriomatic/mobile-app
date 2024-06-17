@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
@@ -43,6 +44,10 @@ class AddProductActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+        val menu = binding.topAppBar.menu
+        val deleteItem = menu.findItem(R.id.menu_delete_product)
+        deleteItem.isVisible = false
+
 
         binding.apply {
             topAppBar.setNavigationOnClickListener { onBackPressed() }
@@ -80,6 +85,17 @@ class AddProductActivity : AppCompatActivity() {
             args.productId?.let { id ->
                 viewModel.getProductById(id)
                 topAppBar.title = "Update Product"
+                deleteItem.isVisible = true
+                topAppBar.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.menu_delete_product -> {
+                            deleteProduct(id)
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
 
                 viewModel.detailProduct.observe(this@AddProductActivity) { result ->
                     if (result != null) {
@@ -129,6 +145,50 @@ class AddProductActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun deleteProduct(productId: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Delete Product")
+            setMessage("Are you sure want to delete this product?")
+
+            setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteProductById(productId)
+                viewModel.statusDeleteProduct.observe(this@AddProductActivity) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                            }
+
+                            is Result.Success -> {
+                                binding.progressBar.visibility = View.GONE
+                                Snackbar.make(
+                                    binding.root,
+                                    "Success delete the product!",
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                                finish()
+                            }
+
+                            is Result.Error -> {
+                                binding.progressBar.visibility = View.GONE
+                                Snackbar.make(
+                                    binding.root,
+                                    result.error,
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+
+            setNegativeButton(getString(R.string.dialog_cancel), null)
+
+            create()
+            show()
         }
     }
 

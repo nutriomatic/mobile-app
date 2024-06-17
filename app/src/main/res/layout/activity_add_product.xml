@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/arrow_left"
+            app:menu="@menu/add_product_menu"
             app:title="Add Product" />
 
     </com.google.android.material.appbar.AppBarLayout>

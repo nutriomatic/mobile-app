@@ -160,9 +160,9 @@ class StoreFragment : Fragment() {
                         it.productId
                     )
                 findNavController().navigate(navDirections)
-                view?.let { it1 ->
-                    Snackbar.make(it1, "Edit clicked", Snackbar.LENGTH_SHORT).show()
-                }
+//                view?.let { it1 ->
+//                    Snackbar.make(it1, "Edit clicked", Snackbar.LENGTH_SHORT).show()
+//                }
             })
 
         productAdapter?.addLoadStateListener {

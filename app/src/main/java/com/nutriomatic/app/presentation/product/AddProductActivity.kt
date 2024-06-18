@@ -36,7 +36,7 @@ class AddProductActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private var ptType = 0
-    private var productIsShow = false
+    private var productIsShow = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -311,7 +311,7 @@ class AddProductActivity : AppCompatActivity() {
             val productName = binding.txtNameInput.text.toString()
             val productPrice = binding.txtPriceInput.text.toString().ifEmpty { "0" }
             val productDesc = binding.txtProductDescInput.text.toString()
-            val productIsshow = false
+            val productIsshow = 0
             val productEnergi = binding.txtCaloriesInput.text.toString().ifEmpty { "0" }
             val productGula = binding.txtSugarInput.text.toString().ifEmpty { "0" }
             val productLemakTotal = binding.txtFatInput.text.toString().ifEmpty { "0" }

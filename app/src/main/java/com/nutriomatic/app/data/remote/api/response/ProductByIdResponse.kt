@@ -26,7 +26,7 @@ data class Product(
 	val productLemaktotal: Double,
 
 	@field:SerializedName("product_isshow")
-	val productIsshow: Boolean,
+	val productIsshow: Int,
 
 	@field:SerializedName("product_servingsize")
 	val productServingsize: Int,

@@ -74,20 +74,10 @@ class HomeFragment : Fragment() {
             )
 
             swiperefresh.setOnRefreshListener {
-                Snackbar.make(
-                    requireView(),
-                    "OnRefresh...",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-
+                binding.appBarLayout.visibility = View.INVISIBLE
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    Snackbar.make(
-                        requireView(),
-                        "Success Refresh...",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-
+                    binding.appBarLayout.visibility = View.VISIBLE
 
                     setupProductPagination()
                     setupProfilClassificationHome()

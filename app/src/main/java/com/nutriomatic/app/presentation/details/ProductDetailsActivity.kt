@@ -9,16 +9,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
 import com.nutriomatic.app.databinding.NutritionBottomSheetLayoutBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import com.nutriomatic.app.presentation.helper.util.formatCurrency
 
 class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailsBinding
@@ -65,11 +65,15 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setupProduct(product: Product) {
         with(binding) {
-            Glide.with(this@ProductDetailsActivity).load(product.productPicture).into(itemImage)
+            Glide.with(this@ProductDetailsActivity)
+                .load(product.productPicture)
+                .placeholder(R.drawable.cendol).into(itemImage)
             itemTitle.text = product.productName
-            "Rp. ${product.productPrice.toString()}".also { itemPrice.text = it }
+            itemPrice.text = formatCurrency(product.productPrice)
+//            "Rp. ${product.productPrice.toString()}".also { itemPrice.text = it }
             itemDescription.text = product.productDesc
-
+            val gradeResId = LocalData.getGradeLabelByName(product.productGrade)
+            imgLabel.setImageResource(gradeResId)
             imgLabel.setOnClickListener {
                 val modalBottomSheet = ModalBottomSheet(
                     product.productLemaktotal,
@@ -125,7 +129,7 @@ class ModalBottomSheet(
     private val productGaram: Double,
     private val productKarbohidrat: Double,
     private val productProtein: Double,
-    private val productServingsize: Int
+    private val productServingsize: Int,
 ) : BottomSheetDialogFragment() {
     private var _binding: NutritionBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
@@ -133,7 +137,7 @@ class ModalBottomSheet(
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = NutritionBottomSheetLayoutBinding.inflate(inflater, container, false)
         return binding.root

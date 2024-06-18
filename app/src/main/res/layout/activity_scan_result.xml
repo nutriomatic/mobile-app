@@ -37,7 +37,7 @@
                 android:id="@+id/iv_label"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/labela"
+                android:src="@drawable/label_a"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

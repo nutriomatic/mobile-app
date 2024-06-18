@@ -6,7 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.icu.text.DateFormat
+import android.icu.text.DecimalFormatSymbols
+import android.icu.text.NumberFormat
 import android.icu.text.SimpleDateFormat
+import android.icu.util.Currency
 import android.icu.util.TimeZone
 import android.net.Uri
 import android.os.Build
@@ -211,4 +214,9 @@ fun convertToLocalTimeString(
     val outputFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale)
     outputFormat.timeZone = TimeZone.getDefault()
     return outputFormat.format(date)
+}
+
+fun formatCurrency(value: Double): String {
+    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+    return currencyFormat.format(value)
 }

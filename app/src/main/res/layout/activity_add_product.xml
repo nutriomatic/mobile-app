@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:navigationIcon="@drawable/arrow_left"
             app:menu="@menu/add_product_menu"
+            app:navigationIcon="@drawable/arrow_left"
             app:title="Add Product" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Name"
+                android:hint="@string/hint_product_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_image">
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Type"
+                android:hint="@string/hint_product_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_name_layout">
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Product Description"
+                android:hint="@string/hint_product_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_email_layout">
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Grade"
+                android:hint="@string/hint_grade"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_product_desc_layout">
@@ -128,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Price"
+                android:hint="@string/hint_price"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_grade_layout">
@@ -148,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="Serving size per container"
+                android:hint="@string/hint_serving_size_per_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_price_layout">
@@ -168,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Amount per serving"
+                android:text="@string/amount_per_serving"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
@@ -178,16 +178,61 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_calories_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:hint="@string/hint_calories"
+                app:layout_constraintEnd_toStartOf="@+id/txt_sugar_layout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_amount_per_serving">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_calories_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/txt_sugar_input"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_sugar_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:hint="@string/hint_sugar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txt_calories_layout"
+                app:layout_constraintTop_toTopOf="@+id/txt_calories_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_sugar_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:nextFocusDown="@id/txt_fat_input"
+                    android:textSize="16sp"
+                    tools:text="5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_fat_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                android:hint="Fat (gr)"
+                android:hint="@string/hint_fat"
                 app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_amount_per_serving">
+                app:layout_constraintTop_toBottomOf="@+id/txt_calories_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_fat_input"
@@ -196,7 +241,7 @@
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@id/txt_carbo_input"
                     android:textSize="16sp"
-                    tools:text="180" />
+                    tools:text="1.5" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -205,7 +250,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:hint="Carbohidrat (gr)"
+                android:hint="@string/hint_carbohydrate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/txt_fat_layout"
@@ -218,7 +263,7 @@
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@id/txt_protein_input"
                     android:textSize="16sp"
-                    tools:text="75" />
+                    tools:text="28" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -229,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                android:hint="Protein (gr)"
+                android:hint="@string/hint_protein"
                 app:layout_constraintEnd_toStartOf="@+id/txt_sodium_layout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -242,7 +287,7 @@
                     android:inputType="numberDecimal"
                     android:nextFocusDown="@id/txt_sodium_input"
                     android:textSize="16sp"
-                    tools:text="80" />
+                    tools:text="5" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -251,7 +296,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:hint="Sodium (mg)"
+                android:hint="@string/hint_sodium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/txt_protein_layout"
@@ -263,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="16sp"
-                    tools:text="80" />
+                    tools:text="220" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

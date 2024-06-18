@@ -33,9 +33,9 @@
             android:id="@+id/iv_label"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/labela"
             app:layout_constraintStart_toStartOf="@id/tv_scan_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_scan_name" />
+            app:layout_constraintTop_toBottomOf="@id/tv_scan_name"
+            tools:src="@drawable/label_a" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

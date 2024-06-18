@@ -125,6 +125,8 @@ class ProductRepository private constructor(
         productPrice: RequestBody,
         productDesc: RequestBody,
         productIsshow: RequestBody,
+        productEnergi: RequestBody,
+        productGula: RequestBody,
         productLemakTotal: RequestBody,
         productProtein: RequestBody,
         productKarbohidrat: RequestBody,
@@ -137,18 +139,20 @@ class ProductRepository private constructor(
         _statusCreateProduct.value = Result.Loading
         try {
             val response = apiService.createProduct(
-                productName,
-                productPrice,
-                productDesc,
-                productIsshow,
-                productLemakTotal,
-                productProtein,
-                productKarbohidrat,
-                productGaram,
-                productGrade,
-                productServingSize,
-                ptName,
-                body
+                productName = productName,
+                productPrice = productPrice,
+                productDesc = productDesc,
+                productIsshow = productIsshow,
+                productEnergi = productEnergi,
+                productGula = productGula,
+                productLemakTotal = productLemakTotal,
+                productProtein = productProtein,
+                productKarbohidrat = productKarbohidrat,
+                productGaram = productGaram,
+                productGrade = productGrade,
+                productServingSize = productServingSize,
+                ptType = ptName,
+                file = body
             )
 
             _statusCreateProduct.value = Result.Success(response)
@@ -166,6 +170,8 @@ class ProductRepository private constructor(
         productPrice: RequestBody,
         productDesc: RequestBody,
         productIsshow: RequestBody,
+        productEnergi: RequestBody,
+        productGula: RequestBody,
         productLemakTotal: RequestBody,
         productProtein: RequestBody,
         productKarbohidrat: RequestBody,
@@ -178,19 +184,21 @@ class ProductRepository private constructor(
         _statusUpdateProduct.value = Result.Loading
         try {
             val response = apiService.updateProductById(
-                id,
-                productName,
-                productPrice,
-                productDesc,
-                productIsshow,
-                productLemakTotal,
-                productProtein,
-                productKarbohidrat,
-                productGaram,
-                productGrade,
-                productServingSize,
-                ptName,
-                body
+                id = id,
+                productName = productName,
+                productPrice = productPrice,
+                productDesc = productDesc,
+                productIsshow = productIsshow,
+                productEnergi = productEnergi,
+                productGula = productGula,
+                productLemakTotal = productLemakTotal,
+                productProtein = productProtein,
+                productKarbohidrat = productKarbohidrat,
+                productGaram = productGaram,
+                productGrade = productGrade,
+                productServingSize = productServingSize,
+                ptType = ptName,
+                file = body
             )
 
             _statusUpdateProduct.value = Result.Success(response)

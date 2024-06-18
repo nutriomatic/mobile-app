@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_theme_surfaceContainerLowest">
@@ -39,23 +40,23 @@
                 android:layout_width="0dp"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/cendol"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
+                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
+                tools:src="@drawable/cendol" />
 
             <TextView
                 android:id="@+id/item_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingEnd="20dp"
-                android:text="Es Cendol Pak Doni Enak Banget"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_image" />
+                app:layout_constraintTop_toBottomOf="@+id/item_image"
+                tools:text="Es Cendol Pak Doni Enak Banget" />
 
             <TextView
                 android:id="@+id/item_price"
@@ -64,32 +65,32 @@
                 android:background="@drawable/bg_rounded_price"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="6dp"
-                android:text="Rp. 12.000"
                 android:textColor="@color/md_theme_surfaceContainerLow"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/img_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/img_label" />
+                app:layout_constraintTop_toTopOf="@+id/img_label"
+                tools:text="Rp. 12.000" />
 
             <ImageView
                 android:id="@+id/img_label"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/labela"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_title" />
+                app:layout_constraintTop_toBottomOf="@+id/item_title"
+                tools:src="@drawable/label_a" />
 
             <TextView
                 android:id="@+id/item_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/description_product"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_price" />
+                app:layout_constraintTop_toBottomOf="@+id/item_price"
+                tools:text="@string/description_product" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

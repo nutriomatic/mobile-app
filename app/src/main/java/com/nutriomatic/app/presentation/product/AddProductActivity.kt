@@ -201,8 +201,44 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun createTransaction(productId: String) {
-        Log.d("PRODUCTT_ID", productId)
+//        Log.d("PRODUCTT_ID", productId)
+
         viewModel.createTransaction(productId)
+        viewModel.statusCreateTransaction.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        // update advertise product to onprogress/pending
+                        updateProductIsShow(productId)
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Snackbar.make(
+                            binding.root,
+                            result.error, Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private fun updateProductIsShow(productId: String) {
+        // 0 = isNotAdvertise
+        // 1 = isAdvertise
+        // maybe 2 = isPendingAdvertise
+        // maybe 3 = isDeclinedAdv
+
+        viewModel.updateProductIsShow(productId, 2)
         viewModel.statusCreateTransaction.observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -214,7 +250,7 @@ class AddProductActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         val intent = Intent(this, AdvertiseActivity::class.java)
                         startActivity(intent)
-                        finish()
+//                        finish()
                     }
 
                     is Result.Error -> {

@@ -134,6 +134,20 @@ class AddProductViewModel(
         }
     }
 
+    fun updateProductIsShow(
+        id: String,
+        productIsShow: Int,
+    ) {
+        viewModelScope.launch {
+            val productIsShowBody = createRequestBody(productIsShow.toString())
+
+            productRepository.updateProductIsShow(
+                id = id,
+                productIsshow = productIsShowBody
+            )
+        }
+    }
+
 
     fun getProductById(id: String) {
         viewModelScope.launch {

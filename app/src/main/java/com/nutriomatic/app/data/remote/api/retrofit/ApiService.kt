@@ -148,6 +148,13 @@ interface ApiService {
         @Part file: MultipartBody.Part?,
     ): BasicResponse
 
+    @PATCH("product/{id}")
+    @Multipart
+    suspend fun updateProductIsShow(
+        @Path("id") id: String,
+        @Part("product_isshow") productIsshow: RequestBody,
+    ): BasicResponse
+
 
     @GET("product/{id}")
     suspend fun getProductById(

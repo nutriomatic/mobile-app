@@ -94,10 +94,8 @@ class ProductRepository private constructor(
 
 
     fun getAdvertisedProductsPaging(): LiveData<PagingData<ProductsItem>> {
-        return Pager(
-            config = PagingConfig(pageSize = 4),
-            pagingSourceFactory = { AdvertisedProductPagingSource(apiService) }
-        ).liveData
+        return Pager(config = PagingConfig(pageSize = 4),
+            pagingSourceFactory = { AdvertisedProductPagingSource(apiService) }).liveData
     }
 
     suspend fun getSearchProductsAdvertise(query: String) {
@@ -114,10 +112,8 @@ class ProductRepository private constructor(
     }
 
     fun getUserProductsPaging(storeId: String): LiveData<PagingData<ProductsItem>> {
-        return Pager(
-            config = PagingConfig(pageSize = 4),
-            pagingSourceFactory = { UserProductPagingSource(apiService, storeId) }
-        ).liveData
+        return Pager(config = PagingConfig(pageSize = 4),
+            pagingSourceFactory = { UserProductPagingSource(apiService, storeId) }).liveData
     }
 
     suspend fun createProduct(
@@ -210,11 +206,30 @@ class ProductRepository private constructor(
         }
     }
 
+    suspend fun updateProductIsShow(
+        id: String,
+        productIsshow: RequestBody,
+    ) {
+        _statusUpdateProduct.value = Result.Loading
+        try {
+            val response = apiService.updateProductIsShow(
+                id = id,
+                productIsshow = productIsshow,
+            )
+            _statusUpdateProduct.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _statusUpdateProduct.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+
     suspend fun getProductById(id: String) {
         _detailProduct.value = Result.Loading
         try {
-            val response =
-                apiService.getProductById(id)
+            val response = apiService.getProductById(id)
             _detailProduct.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
@@ -227,8 +242,7 @@ class ProductRepository private constructor(
     suspend fun advertiseProduct(id: String) {
         _statusAdvertiseProduct.value = Result.Loading
         try {
-            val response =
-                apiService.advertiseProduct(id)
+            val response = apiService.advertiseProduct(id)
             _statusAdvertiseProduct.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
@@ -241,8 +255,7 @@ class ProductRepository private constructor(
     suspend fun deleteProductById(id: String) {
         _statusDeleteProduct.value = Result.Loading
         try {
-            val response =
-                apiService.deleteProductById(id)
+            val response = apiService.deleteProductById(id)
             _statusDeleteProduct.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
@@ -259,9 +272,8 @@ class ProductRepository private constructor(
         fun getInstance(
             userPreference: UserPreference,
             apiService: ApiService,
-        ): ProductRepository =
-            instance ?: synchronized(this) {
-                instance ?: ProductRepository(userPreference, apiService)
-            }.also { instance = it }
+        ): ProductRepository = instance ?: synchronized(this) {
+            instance ?: ProductRepository(userPreference, apiService)
+        }.also { instance = it }
     }
 }

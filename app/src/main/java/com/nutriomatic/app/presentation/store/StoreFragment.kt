@@ -17,11 +17,13 @@ import com.nutriomatic.app.databinding.FragmentStoreBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
+import com.nutriomatic.app.presentation.helper.adapter.ProductStorePagingDataAdapter
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private var productAdapter: ProductDataAdapter? = null
+    private var productStorePagingDataAdapter: ProductStorePagingDataAdapter? = null
     private var store_id: String? = null
 
 
@@ -152,7 +154,7 @@ class StoreFragment : Fragment() {
 //            binding.messageEmpty.visibility = View.GONE
 //        }
 
-        productAdapter = ProductDataAdapter(
+        productStorePagingDataAdapter = ProductStorePagingDataAdapter(
             true,
             onIconClick = {
                 val navDirections =
@@ -165,8 +167,9 @@ class StoreFragment : Fragment() {
 //                }
             })
 
-        productAdapter?.addLoadStateListener {
-            val isEmpty = it.refresh is LoadState.NotLoading && productAdapter?.itemCount == 0
+        productStorePagingDataAdapter?.addLoadStateListener {
+            val isEmpty =
+                it.refresh is LoadState.NotLoading && productStorePagingDataAdapter?.itemCount == 0
 
             if (isEmpty) {
                 binding.messageEmpty.visibility = View.VISIBLE
@@ -175,7 +178,7 @@ class StoreFragment : Fragment() {
             }
         }
 
-        binding.rvMyProducts.adapter = productAdapter
+        binding.rvMyProducts.adapter = productStorePagingDataAdapter
         binding.rvMyProducts.layoutManager = GridLayoutManager(activity, 2)
         binding.rvMyProducts.addItemDecoration(
             GridSpacingItemDecoration(
@@ -194,8 +197,9 @@ class StoreFragment : Fragment() {
         binding.btnScrollTop.setOnClickListener {
             binding.nestedScrollView.smoothScrollTo(0, 0)
         }
+
         viewModel.getUserProductsPaging(storeId).observe(viewLifecycleOwner) {
-            productAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
+            productStorePagingDataAdapter?.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 

@@ -53,8 +53,6 @@ class HomeFragment : Fragment() {
         setupProfilClassificationHome()
 
 
-
-
         with(binding) {
 
             searchView.setupWithSearchBar(searchBar)
@@ -81,6 +79,7 @@ class HomeFragment : Fragment() {
 
                     setupProductPagination()
                     setupProfilClassificationHome()
+                    homeViewModel.getProductsAdvertisePaging()
 
                     binding.appBarLayout.setExpanded(true, true)
                     binding.nestedScrollView.smoothScrollTo(0, 0)
@@ -149,9 +148,7 @@ class HomeFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
 
                         Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
+                            requireView(), result.error, Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -172,15 +169,12 @@ class HomeFragment : Fragment() {
             ).show()
         } else {
             binding.messageEmpty.visibility = View.GONE
-            val adapter = ListProductAdapter(
-                listProduct = data,
-                showEdit = false,
-                onItemClick = { product ->
+            val adapter =
+                ListProductAdapter(listProduct = data, showEdit = false, onItemClick = { product ->
                     val navDirections =
                         HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(product.productId)
                     findNavController().navigate(navDirections)
-                }
-            )
+                })
 
             binding.rvProduct.adapter = adapter
             binding.rvProduct.layoutManager = GridLayoutManager(activity, 2)
@@ -208,9 +202,7 @@ class HomeFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
 
                         Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
+                            requireView(), result.error, Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -267,14 +259,17 @@ class HomeFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
 
                         Snackbar.make(
-                            requireView(),
-                            result.error,
-                            Snackbar.LENGTH_SHORT
+                            requireView(), result.error, Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getProductsAdvertisePaging()
     }
 
     override fun onDestroyView() {

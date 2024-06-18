@@ -122,6 +122,8 @@ class AddProductActivity : AppCompatActivity() {
                                 txtProductDescInput.setText(product.productDesc)
                                 txtPriceInput.setText(product.productPrice.toString())
                                 txtServingSizePerContInput.setText(product.productServingsize.toString())
+                                txtCaloriesInput.setText(product.productEnergi.toString())
+                                txtSugarInput.setText(product.productGula.toString())
                                 txtFatInput.setText(product.productLemaktotal.toString())
                                 txtCarboInput.setText(product.productKarbohidrat.toString())
                                 txtProteinInput.setText(product.productProtein.toString())
@@ -240,6 +242,8 @@ class AddProductActivity : AppCompatActivity() {
         val productDesc = binding.txtProductDescInput.text.toString()
         val productPrice = binding.txtPriceInput.text.toString()
         val productIsshow = productIsShow
+        val productEnergi = binding.txtCaloriesInput.text.toString()
+        val productGula = binding.txtSugarInput.text.toString()
         val productLemakTotal = binding.txtFatInput.text.toString()
         val productProtein = binding.txtCarboInput.text.toString()
         val productKarbohidrat = binding.txtProteinInput.text.toString()
@@ -260,6 +264,8 @@ class AddProductActivity : AppCompatActivity() {
             productPrice = productPrice.toDouble(),
             productDesc = productDesc,
             productIsShow = productIsshow,
+            productEnergi = productEnergi.toDouble(),
+            productGula = productGula.toDouble(),
             productLemakTotal = productLemakTotal.toDouble(),
             productProtein = productProtein.toDouble(),
             productKarbohidrat = productKarbohidrat.toDouble(),
@@ -306,6 +312,8 @@ class AddProductActivity : AppCompatActivity() {
             val productPrice = binding.txtPriceInput.text.toString().ifEmpty { "0" }
             val productDesc = binding.txtProductDescInput.text.toString()
             val productIsshow = false
+            val productEnergi = binding.txtCaloriesInput.text.toString().ifEmpty { "0" }
+            val productGula = binding.txtSugarInput.text.toString().ifEmpty { "0" }
             val productLemakTotal = binding.txtFatInput.text.toString().ifEmpty { "0" }
             val productProtein = binding.txtCarboInput.text.toString().ifEmpty { "0" }
             val productKarbohidrat = binding.txtProteinInput.text.toString().ifEmpty { "0" }
@@ -319,18 +327,20 @@ class AddProductActivity : AppCompatActivity() {
             Log.d("TYPE", ptType.toString())
 
             viewModel.createProduct(
-                productName,
-                productPrice.toDouble(),
-                productDesc,
-                productIsshow,
-                productLemakTotal.toDouble(),
-                productProtein.toDouble(),
-                productKarbohidrat.toDouble(),
-                productGaram.toDouble(),
-                productGrade,
-                productServingSize.toInt(),
-                ptType,
-                body
+                productName = productName,
+                productPrice = productPrice.toDouble(),
+                productDesc = productDesc,
+                productIsshow = productIsshow,
+                productEnergi = productEnergi.toDouble(),
+                productGula = productGula.toDouble(),
+                productLemakTotal = productLemakTotal.toDouble(),
+                productProtein = productProtein.toDouble(),
+                productKarbohidrat = productKarbohidrat.toDouble(),
+                productGaram = productGaram.toDouble(),
+                productGrade = productGrade,
+                productServingSize = productServingSize.toInt(),
+                ptType = ptType,
+                file = body
             )
 
             viewModel.statusCreateProduct.observe(this) { result ->

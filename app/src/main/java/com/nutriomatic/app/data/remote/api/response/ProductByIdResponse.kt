@@ -16,6 +16,12 @@ data class Product(
 	@field:SerializedName("store_id")
 	val storeId: String,
 
+	@field:SerializedName("product_energi")
+	val productEnergi: Double,
+
+	@field:SerializedName("product_gula")
+	val productGula: Double,
+
 	@field:SerializedName("product_lemaktotal")
 	val productLemaktotal: Double,
 

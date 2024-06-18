@@ -4,6 +4,7 @@ import android.content.Context
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.model.ActivityLevel
 import com.nutriomatic.app.data.local.model.Gender
+import com.nutriomatic.app.data.local.model.Grade
 import com.nutriomatic.app.data.local.model.HealthGoal
 import com.nutriomatic.app.data.local.model.ProductType
 
@@ -41,7 +42,13 @@ object LocalData {
         HealthGoal(3, R.string.health_goal_gain_weight),
     )
 
-    val GRADES = listOf("A", "B", "C", "D")
+    //    val GRADES = listOf("A", "B", "C", "D")
+    val GRADES = listOf(
+        Grade("A", R.drawable.label_a),
+        Grade("B", R.drawable.label_b),
+        Grade("C", R.drawable.label_c),
+        Grade("D", R.drawable.label_d),
+    )
 
     fun getGenderNames(context: Context): List<String> {
         return GENDERS.map { context.getString(it.name) }
@@ -99,6 +106,10 @@ object LocalData {
     }
 
     fun getGradeNames(): List<String> {
-        return GRADES
+        return GRADES.map { it.name }
+    }
+
+    fun getGradeLabelByName(name: String): Int {
+        return GRADES.find { it.name.lowercase() == name.lowercase() }?.label ?: GRADES.first().label
     }
 }

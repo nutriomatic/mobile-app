@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.data.fake.model.NutritionScan
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.databinding.ItemScanHistoryBinding
 
 class ListScanHistoryAdapter(
@@ -21,7 +22,9 @@ class ListScanHistoryAdapter(
                 .into(binding.ivScanPhoto)
 
             with(binding) {
-                tvScanName.text = "${item.name} - ${item.grade}"
+                tvScanName.text = item.name
+                val gradeResId = LocalData.getGradeLabelByName(item.grade)
+                ivLabel.setImageResource(gradeResId)
             }
 
             itemView.setOnClickListener {

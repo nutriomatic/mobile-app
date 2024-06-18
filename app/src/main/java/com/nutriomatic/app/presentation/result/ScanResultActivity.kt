@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.fake.FakeDataSource
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.databinding.ActivityScanResultBinding
 import java.util.UUID
 
@@ -31,6 +32,9 @@ class ScanResultActivity : AppCompatActivity() {
             edtScanName.setText(nutritionScan?.name)
             btnOkay.setOnClickListener { finish() }
             btnSave.setOnClickListener { finish() }
+
+            val gradeDrawableRes = LocalData.getGradeLabelByName(nutritionScan?.grade!!)
+            ivLabel.setImageResource(gradeDrawableRes)
 
             topAppBar.setNavigationOnClickListener { onBackPressed() }
             topAppBar.setOnMenuItemClickListener {

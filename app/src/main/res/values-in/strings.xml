@@ -53,6 +53,6 @@
     <string name="profile_update_success">Sukses mengubah profil</string>
     <string name="please_choose_a_valid_image">Mohon pilih gambar!</string>
     <string name="search_transaction">Cari Transaksi</string>
-    <string name="your_category">Kamu kategori</string>
-    <string name="daily_calorie_needs">Kalori harianmu</string>
+    <string name="your_category">Kamu kategori </string>
+    <string name="daily_calorie_needs">Kalori harianmu </string>
 </resources>

@@ -4,8 +4,8 @@
     <string name="description_product" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque habitant morbi tristique senectus et netus et. Facilisis sed odio morbi quis commodo. Imperdiet sed euismod nisi porta lorem mollis. Ut enim blandit volutpat maecenas volutpat.</string>
 
     <string name="greet_user">Hi, %1$s</string>
-    <string name="your_category">Your category</string>
-    <string name="daily_calorie_needs">Daily calorie needs</string>
+    <string name="your_category">Your category </string>
+    <string name="daily_calorie_needs">Daily calorie needs </string>
     <string name="calorie">%1$d calories</string>
 
     <string name="minimum_password_length">Must be at least 8 characters</string>

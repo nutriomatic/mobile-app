@@ -1,6 +1,8 @@
 package com.nutriomatic.app.presentation.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.FragmentHomeBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
+import com.nutriomatic.app.presentation.helper.adapter.ListProductAdapter
 import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
 
 class HomeFragment : Fragment() {
@@ -48,16 +52,52 @@ class HomeFragment : Fragment() {
         setupProductPagination()
         setupProfilClassificationHome()
 
+
+
+
         with(binding) {
+
             searchView.setupWithSearchBar(searchBar)
             searchView.editText.setOnEditorActionListener { textView, actionId, event ->
                 searchView.hide()
                 val query = binding.searchView.text.toString().trim()
-                Snackbar.make(
-                    requireContext(), view, "Search query: $query", Snackbar.LENGTH_SHORT
-                ).show()
+                setupSearchProduct(query)
 
                 false
+            }
+
+
+            rvProduct.addItemDecoration(
+                GridSpacingItemDecoration(
+                    2, resources.getDimensionPixelSize(R.dimen.grid_item_offset), false
+                )
+            )
+
+            swiperefresh.setOnRefreshListener {
+                Snackbar.make(
+                    requireView(),
+                    "OnRefresh...",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Snackbar.make(
+                        requireView(),
+                        "Success Refresh...",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+
+                    setupProductPagination()
+                    setupProfilClassificationHome()
+
+                    binding.appBarLayout.setExpanded(true, true)
+                    binding.nestedScrollView.smoothScrollTo(0, 0)
+
+                    swiperefresh.isRefreshing = false
+                }, 1000L)
+
             }
 
             searchBar.setOnMenuItemClickListener {
@@ -100,6 +140,63 @@ class HomeFragment : Fragment() {
 //        }
     }
 
+    private fun setupSearchProduct(query: String) {
+        homeViewModel.getSearchProductsAdvertise(query)
+
+        homeViewModel.searchProductsAdvertise.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    is Result.Success -> {
+                        setupAdapter(result.data.products.toMutableList())
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+
+                        Snackbar.make(
+                            requireView(),
+                            result.error,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun setupAdapter(data: MutableList<ProductsItem>) {
+        if (data.isEmpty()) {
+            binding.messageEmpty.visibility = View.VISIBLE
+
+            Snackbar.make(
+                requireContext(),
+                binding.root,
+                "Products not found, search another products!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        } else {
+            binding.messageEmpty.visibility = View.GONE
+            val adapter = ListProductAdapter(
+                listProduct = data,
+                showEdit = false,
+                onItemClick = { product ->
+                    val navDirections =
+                        HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(product.productId)
+                    findNavController().navigate(navDirections)
+                }
+            )
+
+            binding.rvProduct.adapter = adapter
+            binding.rvProduct.layoutManager = GridLayoutManager(activity, 2)
+        }
+    }
+
     private fun setupProfilClassificationHome() {
         homeViewModel.detailClassification.observe(viewLifecycleOwner) { result ->
             if (result != null) {
@@ -135,11 +232,7 @@ class HomeFragment : Fragment() {
         with(binding) {
             rvProduct.adapter = productAdapter
             rvProduct.layoutManager = GridLayoutManager(activity, 2)
-            rvProduct.addItemDecoration(
-                GridSpacingItemDecoration(
-                    2, resources.getDimensionPixelSize(R.dimen.grid_item_offset), false
-                )
-            )
+
             nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
                 if (scrollY > 0) {
                     btnScrollTop.show()
@@ -156,6 +249,7 @@ class HomeFragment : Fragment() {
                 if (pagingData != null) {
                     Log.d("HomeFragment", "Paging data received: $pagingData")
                     productAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+
                 } else {
                     Log.e("HomeFragment", "No paging data received")
                 }

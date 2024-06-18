@@ -48,6 +48,10 @@ class ProductRepository private constructor(
     private val _detailProduct = MutableLiveData<Result<ProductByIdResponse>>()
     val detailProduct: LiveData<Result<ProductByIdResponse>> = _detailProduct
 
+    private val _searchProductsAdvertise = MutableLiveData<Result<ProductAdvertiseResponse>>()
+    val searchProductsAdvertise: LiveData<Result<ProductAdvertiseResponse>> =
+        _searchProductsAdvertise
+
 
 //    suspend fun getProducts() {
 //        _products.value = Result.Loading
@@ -88,11 +92,25 @@ class ProductRepository private constructor(
         }
     }
 
+
     fun getAdvertisedProductsPaging(): LiveData<PagingData<ProductsItem>> {
         return Pager(
             config = PagingConfig(pageSize = 4),
             pagingSourceFactory = { AdvertisedProductPagingSource(apiService) }
         ).liveData
+    }
+
+    suspend fun getSearchProductsAdvertise(query: String) {
+        _searchProductsAdvertise.value = Result.Loading
+        try {
+            val response = apiService.searchProductAdvertiseByName(query)
+            _searchProductsAdvertise.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _searchProductsAdvertise.value = Result.Error(errorMessage ?: "An error occurred")
+        }
     }
 
     fun getUserProductsPaging(storeId: String): LiveData<PagingData<ProductsItem>> {
@@ -225,8 +243,6 @@ class ProductRepository private constructor(
             _statusDeleteProduct.value = Result.Error(errorMessage ?: "An error occurred")
         }
     }
-
-
 
 
     companion object {

@@ -26,6 +26,8 @@ class HomeViewModel(
 
     val advertisedProductPaging: LiveData<PagingData<ProductsItem>> =
         productRepository.getAdvertisedProductsPaging().cachedIn(viewModelScope)
+    val searchProductsAdvertise: LiveData<Result<ProductAdvertiseResponse>> =
+        productRepository.searchProductsAdvertise
 
     init {
 //        getProductsAdvertise()
@@ -36,6 +38,12 @@ class HomeViewModel(
     fun getProductsAdvertise() {
         viewModelScope.launch {
             productRepository.getProductsAdvertise()
+        }
+    }
+
+    fun getSearchProductsAdvertise(query: String) {
+        viewModelScope.launch {
+            productRepository.getSearchProductsAdvertise(query)
         }
     }
 

@@ -93,6 +93,12 @@ dependencies {
 //    Paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 
+    // swiper refresh
+//    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -10,6 +10,7 @@ import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
+import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
 import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
@@ -17,7 +18,6 @@ import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
-import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -149,6 +149,11 @@ interface ApiService {
     suspend fun getProductById(
         @Path("id") id: String,
     ): ProductByIdResponse
+
+    @GET("product/advertise")
+    suspend fun searchProductAdvertiseByName(
+        @Query("search") search: String,
+    ): ProductAdvertiseResponse
 
     @DELETE("product/{id}")
     suspend fun deleteProductById(

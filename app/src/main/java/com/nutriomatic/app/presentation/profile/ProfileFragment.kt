@@ -170,12 +170,15 @@ class ProfileFragment : Fragment() {
             txtWeightInput.isEnabled = true
             txtWeightGoalInput.isEnabled = true
             profileImage.isClickable = true
-            txtBirthdayInput.isEnabled = false
+            txtBirthdayInput.isEnabled = true
             txtActivityLevelInput.isEnabled = false
             txtHealthGoalInput.isEnabled = false
 
             btnSave.visibility = View.VISIBLE
 
+            txtBirthdayInput.setOnClickListener {
+                showDatePicker()
+            }
             txtBirthdayLayout.setEndIconOnClickListener {
                 showDatePicker()
             }

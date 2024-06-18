@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.databinding.ItemTransactionBinding
+import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
 
 class ListTransactionAdapter(
     private val onItemClick: ((Transaction) -> Unit)? = null,
@@ -17,7 +18,7 @@ class ListTransactionAdapter(
             with(binding) {
                 tvId.text = item.tscId
                 tvStatus.text = item.tscStatus
-                tvCreatedAt.text = item.createdAt
+                tvCreatedAt.text = convertToLocalDateTimeString(item.createdAt)
             }
 
             itemView.setOnClickListener {

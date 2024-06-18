@@ -2,22 +2,21 @@ package com.nutriomatic.app.presentation.helper.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nutriomatic.app.data.fake.model.Transaction
+import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.databinding.ItemTransactionBinding
 
 class ListTransactionAdapter(
-    private val transactions: List<Transaction>,
     private val onItemClick: ((Transaction) -> Unit)? = null,
-) : ListAdapter<Transaction, ListTransactionAdapter.ViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<Transaction, ListTransactionAdapter.ViewHolder>(DIFF_CALLBACK) {
     inner class ViewHolder(private val binding: ItemTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Transaction) {
             with(binding) {
-                tvId.text = item.id
-                tvStatus.text = item.status
+                tvId.text = item.tscId
+                tvStatus.text = item.tscStatus
                 tvCreatedAt.text = item.createdAt
             }
 
@@ -34,18 +33,19 @@ class ListTransactionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = transactions[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return transactions.size
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Transaction>() {
-            override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-                return oldItem.id == newItem.id
+            override fun areItemsTheSame(
+                oldItem: Transaction,
+                newItem: Transaction,
+            ): Boolean {
+                return oldItem.tscId == newItem.tscId
             }
 
             override fun areContentsTheSame(

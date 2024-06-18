@@ -3,16 +3,21 @@ package com.nutriomatic.app.presentation.admin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nutriomatic.app.data.fake.FakeDataSource
-import com.nutriomatic.app.data.fake.model.Transaction
+import androidx.paging.PagingData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
+import com.nutriomatic.app.data.remote.repository.TransactionRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class AdminHomeViewModel(private val userRepository: UserRepository) : ViewModel() {
-    val transactions: List<Transaction> = FakeDataSource.generateFakeTransactions()
+class AdminHomeViewModel(
+    private val userRepository: UserRepository,
+    private val transactionRepository: TransactionRepository,
+) : ViewModel() {
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
+
+    fun getAllTransactionsPaging(): LiveData<PagingData<com.nutriomatic.app.data.remote.api.response.Transaction>> =
+        transactionRepository.getAllTransactionPaging()
 
     init {
         getProfile()

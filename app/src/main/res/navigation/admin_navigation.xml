@@ -36,5 +36,9 @@
         <argument
             android:name="transactionId"
             app:argType="string" />
+        <argument
+            android:name="forAdmin"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </activity>
 </navigation>

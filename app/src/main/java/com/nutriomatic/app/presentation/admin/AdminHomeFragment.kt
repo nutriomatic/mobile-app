@@ -44,10 +44,10 @@ class AdminHomeFragment : Fragment() {
         with(binding) {
             progressBar.visibility = View.GONE
 
-            adapter = ListTransactionAdapter(viewModel.transactions) {
+            adapter = ListTransactionAdapter {
                 val navDirections =
                     AdminHomeFragmentDirections.actionAdminHomeFragmentToTransactionDetailActivity(
-                        it.id
+                        it.tscId, true
                     )
                 findNavController().navigate(navDirections)
             }
@@ -58,6 +58,9 @@ class AdminHomeFragment : Fragment() {
             rvTransaction.addItemDecoration(DefaultItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_offset)))
         }
 
+        viewModel.getAllTransactionsPaging().observe(viewLifecycleOwner) {
+            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
     }
 
     private fun observeProfileLiveData() {

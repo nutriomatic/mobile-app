@@ -16,6 +16,7 @@ import com.nutriomatic.app.presentation.home.HomeViewModel
 import com.nutriomatic.app.presentation.product.AddProductViewModel
 import com.nutriomatic.app.presentation.profile.ProfileViewModel
 import com.nutriomatic.app.presentation.store.StoreViewModel
+import com.nutriomatic.app.presentation.transaction_detail.TransactionDetailViewModel
 
 
 class ViewModelFactory(
@@ -58,7 +59,11 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(AdminHomeViewModel::class.java) -> {
-                AdminHomeViewModel(userRepository) as T
+                AdminHomeViewModel(userRepository, transactionRepository) as T
+            }
+
+            modelClass.isAssignableFrom(TransactionDetailViewModel::class.java) -> {
+                TransactionDetailViewModel(transactionRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

@@ -5,6 +5,8 @@ import com.nutriomatic.app.data.remote.api.request.LoginRequest
 import com.nutriomatic.app.data.remote.api.request.RegisterRequest
 import com.nutriomatic.app.data.remote.api.request.StoreRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateStoreRequest
+import com.nutriomatic.app.data.remote.api.request.UpdateTransactionRequest
+import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
@@ -15,6 +17,7 @@ import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
 import com.nutriomatic.app.data.remote.api.response.RegisterResponse
 import com.nutriomatic.app.data.remote.api.response.StoreResponse
+import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.UpdateProfileResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -155,10 +158,26 @@ interface ApiService {
 
     // transaction
 
+    @GET("transaction/")
+    suspend fun getAllTransactions(
+        @Query("pageSize") pageSize: Int = 20,
+        @Query("page") page: Int = 1,
+    ): AllTransactionsResponse
+
+    @GET("transaction/{id}")
+    suspend fun getTransactionById(
+        @Path("id") id: String,
+    ): GetTransactionByIdResponse
+
     @POST("transaction/{product_id}")
     suspend fun createTransaction(
         @Path("product_id") id: String,
         @Body createTransactionRequest: CreateTransactionRequest
     ): BasicResponse
 
+    @PATCH("transaction/status/{id}")
+    suspend fun updateTransactionStatus(
+        @Path("id") id: String,
+        @Body updateTransactionRequest: UpdateTransactionRequest
+    ): BasicResponse
 }

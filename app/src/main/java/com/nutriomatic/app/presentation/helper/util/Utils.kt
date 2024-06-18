@@ -5,6 +5,9 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.icu.text.DateFormat
+import android.icu.text.SimpleDateFormat
+import android.icu.util.TimeZone
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -24,10 +27,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timestamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
@@ -171,4 +172,43 @@ fun createRequestBodyText(value: String): RequestBody {
 
 fun createRequestBodyInt(value: Int): RequestBody {
     return value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+}
+
+fun convertToLocalDateTimeString(
+    utcDateTimeString: String,
+    locale: Locale = Locale.getDefault(),
+): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", locale)
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date: Date = inputFormat.parse(utcDateTimeString)!!
+
+    val outputFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, locale)
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
+fun convertToLocalDateString(
+    utcDateTimeString: String,
+    locale: Locale = Locale.getDefault(),
+): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", locale)
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date: Date = inputFormat.parse(utcDateTimeString)!!
+
+    val outputFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale)
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
+}
+
+fun convertToLocalTimeString(
+    utcDateTimeString: String,
+    locale: Locale = Locale.getDefault(),
+): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", locale)
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date: Date = inputFormat.parse(utcDateTimeString)!!
+
+    val outputFormat = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale)
+    outputFormat.timeZone = TimeZone.getDefault()
+    return outputFormat.format(date)
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="greet_user">Halo, %1$s</string>
+    <string name="calorie">%1$d kalori</string>
     <string name="minimum_password_length">Minimal 8 karakter</string>
     <string name="passwords_do_not_match">Kata sandi tidak sama</string>
     <string name="minimum_name_length">Minimal 3 karakter</string>
@@ -51,4 +52,7 @@
     <string name="birthdate">Tanggal Lahir</string>
     <string name="profile_update_success">Sukses mengubah profil</string>
     <string name="please_choose_a_valid_image">Mohon pilih gambar!</string>
+    <string name="search_transaction">Cari Transaksi</string>
+    <string name="your_category">Kamu kategori</string>
+    <string name="daily_calorie_needs">Kalori harianmu</string>
 </resources>

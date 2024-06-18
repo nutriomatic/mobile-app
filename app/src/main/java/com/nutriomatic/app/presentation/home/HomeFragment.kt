@@ -109,14 +109,11 @@ class HomeFragment : Fragment() {
                     }
 
                     is Result.Success -> {
-                        binding.tvJenisKategori.text = buildString {
+                        binding.btnCategory.text = buildString {
                             append(result.data.classification.toString())
                             append(" ")
                         }
-                        binding.tvJumlahKalori.text = buildString {
-                            append(result.data.calories.toString())
-                            append(" ")
-                        }
+                        binding.tvCalorie.text = getString(R.string.calorie, result.data.calories)
                         binding.progressBar.visibility = View.GONE
                     }
 

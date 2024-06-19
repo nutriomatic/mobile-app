@@ -17,6 +17,7 @@ import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 import com.nutriomatic.app.data.remote.paging.AllTransactionPagingSource
+import okhttp3.MultipartBody
 import retrofit2.HttpException
 
 class TransactionRepository private constructor(
@@ -25,6 +26,9 @@ class TransactionRepository private constructor(
 ) {
     private val _statusCreateTransaction = MutableLiveData<Result<BasicResponse>>()
     val statusCreateTransaction: LiveData<Result<BasicResponse>> = _statusCreateTransaction
+
+    private val _statusUploadProof = MutableLiveData<Result<BasicResponse>>()
+    val statusUploadProof: LiveData<Result<BasicResponse>> = _statusUploadProof
 
     private val _updateTransactionStatusResponse = MutableLiveData<Result<BasicResponse>>()
     val updateTransactionStatusResponse: LiveData<Result<BasicResponse>> =
@@ -81,6 +85,21 @@ class TransactionRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _updateTransactionStatusResponse.value =
+                Result.Error(errorMessage ?: "An error occurred")
+        }
+
+    }
+
+    suspend fun uploadProofTransaction(id: String, photo: MultipartBody.Part) {
+        _statusUploadProof.value = Result.Loading
+        try {
+            val response = apiService.uploadProofTransaction(id, photo)
+            _statusUploadProof.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _statusUploadProof.value =
                 Result.Error(errorMessage ?: "An error occurred")
         }
 

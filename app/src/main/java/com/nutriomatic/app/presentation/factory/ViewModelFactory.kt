@@ -80,7 +80,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(PaymentViewModel::class.java) -> {
-                PaymentViewModel(productRepository, storeRepository) as T
+                PaymentViewModel(productRepository, storeRepository, transactionRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

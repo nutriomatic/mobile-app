@@ -15,6 +15,7 @@ import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.convertToLocalDateString
 import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
 import com.nutriomatic.app.presentation.helper.util.convertToLocalTimeString
+import java.util.Locale
 
 class TransactionDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionDetailBinding
@@ -50,6 +51,7 @@ class TransactionDetailActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.topAppBar.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun setupTransaction(transaction: Transaction) {
@@ -61,7 +63,18 @@ class TransactionDetailActivity : AppCompatActivity() {
 
             tvId.text = transaction.tscId
             tvCreatedAt.text = convertToLocalDateTimeString(transaction.createdAt)
-            tvStatus.text = transaction.tscStatus.capitalize()
+            tvStatus.text = transaction.tscStatus.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            }
+            tvStatus.backgroundTintList = tvStatus.context.getColorStateList(
+                when (transaction.tscStatus.lowercase()) {
+                    "accepted", "paid" -> R.color.label_green
+                    "declined" -> R.color.label_red
+                    else -> R.color.label_yellow
+                }
+            )
             tvPrice.text = transaction.tscPrice.toString()
             tvVa.text = transaction.tscVirtualaccount.ifEmpty { "-" }
             tvStart.text = convertToLocalDateString(transaction.tscStart)

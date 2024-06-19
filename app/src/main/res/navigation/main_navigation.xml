@@ -122,7 +122,8 @@
             app:destination="@id/scanResultActivity" />
         <action
             android:id="@+id/action_previewFragment_to_historyFragment"
-            app:destination="@id/historyFragment" />
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <activity
         android:id="@+id/paymentActivity"

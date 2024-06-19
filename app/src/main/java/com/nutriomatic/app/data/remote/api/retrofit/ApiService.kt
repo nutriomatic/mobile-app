@@ -193,11 +193,6 @@ interface ApiService {
         @Body createTransactionRequest: CreateTransactionRequest,
     ): BasicResponse
 
-    @POST("transaction/proof/{id}")
-    suspend fun uploadProofTransaction(
-        @Path("id") id: String,
-        @Part photo: MultipartBody.Part,
-    ): BasicResponse
 
     @PATCH("transaction/status/{id}")
     suspend fun updateTransactionStatus(
@@ -205,6 +200,11 @@ interface ApiService {
         @Body updateTransactionRequest: UpdateTransactionRequest,
     ): BasicResponse
 
+    @POST("transaction/proof/{id}")
+    suspend fun uploadProofTransaction(
+        @Path("id") id: String,
+        @Part file: MultipartBody.Part,
+    ): BasicResponse
 
 
     // nutrition scan

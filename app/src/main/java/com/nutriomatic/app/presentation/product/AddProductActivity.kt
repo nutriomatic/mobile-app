@@ -360,7 +360,6 @@ class AddProductActivity : AppCompatActivity() {
             val imageFile = uriToFile(this, uri).reduceFileSize()
             val requestFile = imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
-            Log.d("TYPE", ptType.toString())
 
             viewModel.createProduct(
                 productName = productName,

@@ -4,21 +4,34 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.ActivityUploadBinding
 import com.nutriomatic.app.presentation.advertise.AdvertiseActivity
+import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import com.nutriomatic.app.presentation.helper.util.reduceFileSize
+import com.nutriomatic.app.presentation.helper.util.uriToFile
+import com.nutriomatic.app.presentation.store.PaymentViewModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class UploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadBinding
     private var currentImageUri: Uri? = null
     private var countdownMillis: Long = 300000 // 5 menit dalam milidetik
     private lateinit var countDownTimer: CountDownTimer
-
+    private val viewModel by viewModels<PaymentViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,51 +43,86 @@ class UploadActivity : AppCompatActivity() {
         with(binding) {
             topAppBar.setNavigationOnClickListener { onBackPressed() }
 
-
+            ivBuktiBayar.setOnClickListener {
+                startGallery()
+            }
         }
 
         val storeId = intent.getStringExtra(STORE_ID)
 
-        if (storeId !== null) {
+        countDownTimer = object : CountDownTimer(countdownMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val minutes = (millisUntilFinished / 1000) / 60
+                val seconds = (millisUntilFinished / 1000) % 60
+                binding.tvLabelWarning.text = resources.getString(
+                    R.string.this_qr_code_will_expired_in_05_00,
+                    minutes,
+                    seconds
+                )
+            }
 
+            override fun onFinish() {
+                Toast.makeText(
+                    this@UploadActivity,
+                    "Sorry, QR Code expired",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                finish()
+            }
+        }.start()
+
+
+        if (storeId !== null) {
             Glide.with(this)
                 .load("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${storeId}")
                 .placeholder(R.drawable.loading_bar)
                 .into(binding.ivQris)
 
-            binding.ivBuktiBayar.setOnClickListener {
-                startGallery()
-            }
             binding.btnProses.setOnClickListener {
-                val intent = Intent(this@UploadActivity, AdvertiseActivity::class.java)
-                startActivity(intent)
-                finish()
+                currentImageUri?.let { uri ->
+                    val imageFile = uriToFile(this, uri).reduceFileSize()
+                    val requestFile =
+                        imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    val body =
+                        MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+
+                    viewModel.uploadProofTransaction(storeId, body)
+
+                    viewModel.statusUploadProof.observe(this@UploadActivity) { result ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> {
+                                    binding.progressBar.visibility = View.VISIBLE
+                                }
+
+                                is Result.Success -> {
+                                    binding.progressBar.visibility = View.GONE
+                                    Snackbar.make(
+                                        binding.root,
+                                        result.data.message.toString(),
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
+                                    val intent =
+                                        Intent(this@UploadActivity, AdvertiseActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+                                is Result.Error -> {
+                                    binding.progressBar.visibility = View.GONE
+
+                                    Snackbar.make(
+                                        binding.root,
+                                        result.error,
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-
-
-            countDownTimer = object : CountDownTimer(countdownMillis, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val minutes = (millisUntilFinished / 1000) / 60
-                    val seconds = (millisUntilFinished / 1000) % 60
-                    binding.tvLabelWarning.text = resources.getString(
-                        R.string.this_qr_code_will_expired_in_05_00,
-                        minutes,
-                        seconds
-                    )
-                }
-
-                override fun onFinish() {
-                    // Lakukan sesuatu saat countdown selesai
-                    Toast.makeText(
-                        this@UploadActivity,
-                        "Sorrt, QR Code expired",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                    finish()
-                }
-            }.start()
         }
     }
 

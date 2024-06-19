@@ -18,7 +18,6 @@ class PaymentViewModel(
     private val transactionRepository: TransactionRepository
 ) : ViewModel() {
     val productsStore: LiveData<Result<ProductsResponse>> = productRepository.productsStore
-
     val statusUploadProof: LiveData<Result<BasicResponse>> =
         transactionRepository.statusUploadProof
 

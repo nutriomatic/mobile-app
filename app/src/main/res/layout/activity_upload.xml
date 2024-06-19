@@ -65,10 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingVertical="8dp"
                 android:background="@drawable/bg_warning"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp"
                 android:text="@string/this_qr_code_will_expired_in_05_00"
                 app:layout_constraintTop_toBottomOf="@+id/iv_qris" />
 
@@ -126,6 +126,19 @@
                     android:minLines="3"
                     tools:text="@string/description_product" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/dot_loading" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

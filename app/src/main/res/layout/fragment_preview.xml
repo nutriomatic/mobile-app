@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/md_theme_surfaceContainerLowest"
     android:padding="16dp"
-    tools:context=".presentation.preview.PreviewActivity">
+    tools:context=".presentation.scan.PreviewFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_photo_preview"
@@ -22,7 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_retake"

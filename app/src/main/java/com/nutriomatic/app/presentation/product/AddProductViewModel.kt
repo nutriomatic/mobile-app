@@ -9,11 +9,9 @@ import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.TransactionRepository
+import com.nutriomatic.app.presentation.helper.util.createRequestBodyText
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddProductViewModel(
     private val productRepository: ProductRepository,
@@ -48,19 +46,19 @@ class AddProductViewModel(
         file: MultipartBody.Part,
     ) {
         viewModelScope.launch {
-            val productNameBody = createRequestBody(productName)
-            val productPriceBody = createRequestBody(productPrice.toString())
-            val productDescBody = createRequestBody(productDesc)
-            val productIsshowBody = createRequestBody(productIsshow.toString())
-            val productEnergiBody = createRequestBody(productEnergi.toString())
-            val productGulaBody = createRequestBody(productGula.toString())
-            val productLemakTotalBody = createRequestBody(productLemakTotal.toString())
-            val productProteinBody = createRequestBody(productProtein.toString())
-            val productKarbohidratBody = createRequestBody(productKarbohidrat.toString())
-            val productGaramBody = createRequestBody(productGaram.toString())
-            val productGradeBody = createRequestBody(productGrade)
-            val productServingSizeBody = createRequestBody(productServingSize.toString())
-            val ptNameBody = createRequestBody(ptType.toString())
+            val productNameBody = createRequestBodyText(productName)
+            val productPriceBody = createRequestBodyText(productPrice.toString())
+            val productDescBody = createRequestBodyText(productDesc)
+            val productIsshowBody = createRequestBodyText(productIsshow.toString())
+            val productEnergiBody = createRequestBodyText(productEnergi.toString())
+            val productGulaBody = createRequestBodyText(productGula.toString())
+            val productLemakTotalBody = createRequestBodyText(productLemakTotal.toString())
+            val productProteinBody = createRequestBodyText(productProtein.toString())
+            val productKarbohidratBody = createRequestBodyText(productKarbohidrat.toString())
+            val productGaramBody = createRequestBodyText(productGaram.toString())
+            val productGradeBody = createRequestBodyText(productGrade)
+            val productServingSizeBody = createRequestBodyText(productServingSize.toString())
+            val ptNameBody = createRequestBodyText(ptType.toString())
 
             productRepository.createProduct(
                 productName = productNameBody,
@@ -100,19 +98,19 @@ class AddProductViewModel(
         file: MultipartBody.Part?,
     ) {
         viewModelScope.launch {
-            val productNameBody = createRequestBody(productName)
-            val productPriceBody = createRequestBody(productPrice.toString())
-            val productDescBody = createRequestBody(productDesc)
-            val productIsShowBody = createRequestBody(productIsShow.toString())
-            val productEnergiBody = createRequestBody(productEnergi.toString())
-            val productGulaBody = createRequestBody(productGula.toString())
-            val productLemakTotalBody = createRequestBody(productLemakTotal.toString())
-            val productProteinBody = createRequestBody(productProtein.toString())
-            val productKarbohidratBody = createRequestBody(productKarbohidrat.toString())
-            val productGaramBody = createRequestBody(productGaram.toString())
-            val productGradeBody = createRequestBody(productGrade)
-            val productServingSizeBody = createRequestBody(productServingSize.toString())
-            val ptNameBody = createRequestBody(ptType.toString())
+            val productNameBody = createRequestBodyText(productName)
+            val productPriceBody = createRequestBodyText(productPrice.toString())
+            val productDescBody = createRequestBodyText(productDesc)
+            val productIsShowBody = createRequestBodyText(productIsShow.toString())
+            val productEnergiBody = createRequestBodyText(productEnergi.toString())
+            val productGulaBody = createRequestBodyText(productGula.toString())
+            val productLemakTotalBody = createRequestBodyText(productLemakTotal.toString())
+            val productProteinBody = createRequestBodyText(productProtein.toString())
+            val productKarbohidratBody = createRequestBodyText(productKarbohidrat.toString())
+            val productGaramBody = createRequestBodyText(productGaram.toString())
+            val productGradeBody = createRequestBodyText(productGrade)
+            val productServingSizeBody = createRequestBodyText(productServingSize.toString())
+            val ptNameBody = createRequestBodyText(ptType.toString())
 
             productRepository.updateProduct(
                 id = id,
@@ -139,7 +137,7 @@ class AddProductViewModel(
         productIsShow: Int,
     ) {
         viewModelScope.launch {
-            val productIsShowBody = createRequestBody(productIsShow.toString())
+            val productIsShowBody = createRequestBodyText(productIsShow.toString())
 
             productRepository.updateProductIsShow(
                 id = id,
@@ -176,9 +174,4 @@ class AddProductViewModel(
             transactionRepository.createTransaction(product_id)
         }
     }
-
-    private fun createRequestBody(value: String): RequestBody {
-        return value.toRequestBody("text/plain".toMediaTypeOrNull())
-    }
-
 }

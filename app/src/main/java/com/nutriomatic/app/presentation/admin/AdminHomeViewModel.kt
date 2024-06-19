@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProfileResponse
+import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.data.remote.repository.TransactionRepository
 import com.nutriomatic.app.data.remote.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ class AdminHomeViewModel(
 ) : ViewModel() {
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
 
-    fun getAllTransactionsPaging(): LiveData<PagingData<com.nutriomatic.app.data.remote.api.response.Transaction>> =
+    fun getAllTransactionsPaging(): LiveData<PagingData<Transaction>> =
         transactionRepository.getAllTransactionPaging()
 
     init {

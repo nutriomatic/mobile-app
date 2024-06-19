@@ -2,28 +2,27 @@ package com.nutriomatic.app.presentation.helper.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nutriomatic.app.data.fake.model.NutritionScan
 import com.nutriomatic.app.data.local.LocalData
+import com.nutriomatic.app.data.remote.api.response.NutritionScan
 import com.nutriomatic.app.databinding.ItemScanHistoryBinding
 
 class ListScanHistoryAdapter(
-    private val nutritionScans: List<NutritionScan>,
     private val onItemClick: ((NutritionScan) -> Unit)? = null,
-) : ListAdapter<NutritionScan, ListScanHistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<NutritionScan, ListScanHistoryAdapter.ViewHolder>(DIFF_CALLBACK) {
     inner class ViewHolder(private val binding: ItemScanHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NutritionScan) {
             Glide.with(itemView.context)
-                .load(item.photoUrl)
+                .load(item.snPicture)
                 .into(binding.ivScanPhoto)
 
             with(binding) {
-                tvScanName.text = item.name
-                val gradeResId = LocalData.getGradeLabelByName(item.grade)
+                tvScanName.text = item.snProductName
+                val gradeResId = LocalData.getGradeLabelByName(item.snGrade)
                 ivLabel.setImageResource(gradeResId)
             }
 
@@ -40,18 +39,16 @@ class ListScanHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = nutritionScans[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int {
-        return nutritionScans.size
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<NutritionScan>() {
             override fun areItemsTheSame(oldItem: NutritionScan, newItem: NutritionScan): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.snId == newItem.snId
             }
 
             override fun areContentsTheSame(

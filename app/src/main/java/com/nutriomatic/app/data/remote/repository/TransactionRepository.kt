@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserPreference
-import com.nutriomatic.app.data.remote.AllTransactionPagingSource
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.request.CreateTransactionRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateTransactionRequest
@@ -17,6 +16,7 @@ import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
+import com.nutriomatic.app.data.remote.paging.AllTransactionPagingSource
 import retrofit2.HttpException
 
 class TransactionRepository private constructor(

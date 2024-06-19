@@ -3,6 +3,7 @@ package com.nutriomatic.app.presentation.factory
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.nutriomatic.app.data.remote.repository.NutritionScanRepository
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.StoreRepository
 import com.nutriomatic.app.data.remote.repository.TransactionRepository
@@ -15,6 +16,8 @@ import com.nutriomatic.app.presentation.history.HistoryViewModel
 import com.nutriomatic.app.presentation.home.HomeViewModel
 import com.nutriomatic.app.presentation.product.AddProductViewModel
 import com.nutriomatic.app.presentation.profile.ProfileViewModel
+import com.nutriomatic.app.presentation.result.ScanResultViewModel
+import com.nutriomatic.app.presentation.scan.PreviewViewModel
 import com.nutriomatic.app.presentation.store.StoreViewModel
 import com.nutriomatic.app.presentation.transaction_detail.TransactionDetailViewModel
 
@@ -24,6 +27,7 @@ class ViewModelFactory(
     private val productRepository: ProductRepository,
     private val storeRepository: StoreRepository,
     private val transactionRepository: TransactionRepository,
+    private val nutritionScanRepository: NutritionScanRepository,
 ) :
     ViewModelProvider.NewInstanceFactory() {
 
@@ -55,7 +59,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
-                HistoryViewModel() as T
+                HistoryViewModel(nutritionScanRepository) as T
             }
 
             modelClass.isAssignableFrom(AdminHomeViewModel::class.java) -> {
@@ -64,6 +68,14 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(TransactionDetailViewModel::class.java) -> {
                 TransactionDetailViewModel(transactionRepository) as T
+            }
+
+            modelClass.isAssignableFrom(PreviewViewModel::class.java) -> {
+                PreviewViewModel(nutritionScanRepository) as T
+            }
+
+            modelClass.isAssignableFrom(ScanResultViewModel::class.java) -> {
+                ScanResultViewModel(nutritionScanRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
@@ -82,8 +94,8 @@ class ViewModelFactory(
                         Injection.provideRepository(context),
                         Injection.provideProductRepository(context),
                         Injection.provideStoreRepository(context),
-                        Injection.provideTransactionRepository(context)
-
+                        Injection.provideTransactionRepository(context),
+                        Injection.provideNutritionScanRepository(context)
                     )
                 }
             }

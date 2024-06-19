@@ -83,4 +83,16 @@
     <string name="please_choose_a_valid_image">Please choose a valid image!</string>
 
     <string name="search_transaction">Search Transaction</string>
+
+    <string name="nutrition_facts">Nutrition Facts</string>
+    <string name="protein">Protein</string>
+    <string name="total_fat">Total Fat</string>
+    <string name="total_calories">Total Calories</string>
+    <string name="total_carbohydrate">Total Carbohydrate</string>
+    <string name="total_sugar">Total Sugar</string>
+    <string name="sodium">Sodium</string>
+
+    <string name="nutrition_value_kcal">%1$d kcal</string>
+    <string name="nutrition_value_g" translatable="false">%1$dg</string>
+    <string name="nutrition_value_mg" translatable="false">%1$dmg</string>
 </resources>

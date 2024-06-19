@@ -10,6 +10,8 @@ import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
+import com.nutriomatic.app.data.remote.api.response.GetNutritionScanByIdResponse
+import com.nutriomatic.app.data.remote.api.response.GetNutritionScanByUserIdResponse
 import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.LoginResponse
 import com.nutriomatic.app.data.remote.api.response.ProductAdvertiseResponse
@@ -78,7 +80,7 @@ interface ApiService {
 
     @PATCH("store/")
     suspend fun updateStore(
-        @Body updateStoreRequest: UpdateStoreRequest
+        @Body updateStoreRequest: UpdateStoreRequest,
     ): BasicResponse
 
 
@@ -104,7 +106,7 @@ interface ApiService {
 
     @POST("product/advertise/{id}")
     suspend fun advertiseProduct(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): BasicResponse
 
 
@@ -188,12 +190,31 @@ interface ApiService {
     @POST("transaction/{product_id}")
     suspend fun createTransaction(
         @Path("product_id") id: String,
-        @Body createTransactionRequest: CreateTransactionRequest
+        @Body createTransactionRequest: CreateTransactionRequest,
     ): BasicResponse
 
     @PATCH("transaction/status/{id}")
     suspend fun updateTransactionStatus(
         @Path("id") id: String,
-        @Body updateTransactionRequest: UpdateTransactionRequest
+        @Body updateTransactionRequest: UpdateTransactionRequest,
     ): BasicResponse
+
+    // nutrition scan
+    @POST("scanned-nutrition/")
+    @Multipart
+    suspend fun createNutritionScan(
+        @Part("sn_name") name: RequestBody,
+        @Part photo: MultipartBody.Part,
+    ): BasicResponse
+
+    @GET("scanned-nutrition/{id}")
+    suspend fun getNutritionScanById(
+        @Path("id") id: String,
+    ): GetNutritionScanByIdResponse
+
+    @GET("scanned-nutrition/")
+    suspend fun getNutritionScanByUserId(
+        @Query("pageSize") pageSize: Int = 20,
+        @Query("page") page: Int = 1,
+    ): GetNutritionScanByUserIdResponse
 }

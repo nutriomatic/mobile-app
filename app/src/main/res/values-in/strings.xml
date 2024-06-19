@@ -68,4 +68,12 @@
     <string name="search_transaction">Cari Transaksi</string>
     <string name="your_category">Kamu kategori </string>
     <string name="daily_calorie_needs">Kalori harianmu </string>
+    <string name="protein">Protein</string>
+    <string name="total_fat">Lemak Total</string>
+    <string name="total_calories">Energi Total</string>
+    <string name="total_carbohydrate">Karbohidrat Total</string>
+    <string name="total_sugar">Gula Total</string>
+    <string name="sodium">Garam</string>
+    <string name="nutrition_facts">Informasi Nilai Gizi</string>
+    <string name="nutrition_value_kcal">%1$d kkal</string>
 </resources>

@@ -32,8 +32,9 @@
         android:label="Scan"
         tools:layout="@layout/fragment_scan">
         <action
-            android:id="@+id/action_scanFragment_to_previewActivity"
-            app:destination="@id/previewActivity" />
+            android:id="@+id/action_scanFragment_to_previewFragment"
+            app:destination="@id/previewFragment"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -43,6 +44,10 @@
         <action
             android:id="@+id/action_historyFragment_to_scanResultActivity"
             app:destination="@id/scanResultActivity" />
+        <argument
+            android:name="message"
+            app:argType="string"
+            android:defaultValue="NO_MESSAGE" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -71,15 +76,6 @@
             app:argType="string" />
     </activity>
     <activity
-        android:id="@+id/previewActivity"
-        android:name="com.nutriomatic.app.presentation.preview.PreviewActivity"
-        android:label="activity_preview"
-        tools:layout="@layout/activity_preview">
-        <argument
-            android:name="imageUriString"
-            app:argType="string" />
-    </activity>
-    <activity
         android:id="@+id/addProductActivity"
         android:name="com.nutriomatic.app.presentation.product.AddProductActivity"
         android:label="activity_add_product"
@@ -98,10 +94,30 @@
         android:id="@+id/createStoreActivity"
         android:name="com.nutriomatic.app.presentation.store.CreateStoreActivity"
         android:label="activity_create_store"
-        tools:layout="@layout/activity_create_store" >
+        tools:layout="@layout/activity_create_store">
         <argument
             android:name="storeId"
             app:argType="string"
             app:nullable="true" />
     </activity>
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.nutriomatic.app.presentation.scan.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview">
+        <argument
+            android:name="imageUriString"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_previewFragment_to_scanFragment"
+            app:destination="@id/scanFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/scanFragment" />
+        <action
+            android:id="@+id/action_previewFragment_to_scanResultActivity"
+            app:destination="@id/scanResultActivity" />
+        <action
+            android:id="@+id/action_previewFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+    </fragment>
 </navigation>

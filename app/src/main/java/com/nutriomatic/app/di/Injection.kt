@@ -4,6 +4,7 @@ import android.content.Context
 import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.pref.dataStore
 import com.nutriomatic.app.data.remote.api.retrofit.ApiConfig
+import com.nutriomatic.app.data.remote.repository.NutritionScanRepository
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.StoreRepository
 import com.nutriomatic.app.data.remote.repository.TransactionRepository
@@ -37,5 +38,12 @@ object Injection {
         val apiService = ApiConfig.getApiService(pref)
 
         return TransactionRepository.getInstance(pref, apiService)
+    }
+
+    fun provideNutritionScanRepository(context: Context): NutritionScanRepository {
+        val pref = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getApiService(pref)
+
+        return NutritionScanRepository.getInstance(apiService)
     }
 }

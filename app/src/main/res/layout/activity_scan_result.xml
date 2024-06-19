@@ -81,17 +81,164 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="32dp"
+                    android:paddingVertical="16dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_nutrition_information"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nutrition Information"
+                        android:text="@string/nutrition_facts"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/data_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nutrition_information">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/total_calories" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_total_calory"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="190 kcal" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/total_fat" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_total_fat"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="4g" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/protein" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_protein"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="5g" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/total_carbohydrate" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_total_carbohydrate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="25g" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/total_sugar" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_total_sugar"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="18g" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sodium" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_sodium"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+                                tools:text="220mg" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

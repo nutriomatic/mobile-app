@@ -1,4 +1,4 @@
-package com.nutriomatic.app.data.remote
+package com.nutriomatic.app.data.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

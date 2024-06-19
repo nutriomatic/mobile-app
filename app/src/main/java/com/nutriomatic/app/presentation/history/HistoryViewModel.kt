@@ -3,16 +3,21 @@ package com.nutriomatic.app.presentation.history
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nutriomatic.app.data.fake.FakeDataSource
-import com.nutriomatic.app.data.fake.model.NutritionScan
+import androidx.paging.PagingData
+import com.nutriomatic.app.data.remote.api.response.NutritionScan
+import com.nutriomatic.app.data.remote.repository.NutritionScanRepository
 
-class HistoryViewModel : ViewModel() {
+class HistoryViewModel(
+    private val nutritionScanRepository: NutritionScanRepository,
+) : ViewModel() {
     private var _selected: MutableLiveData<List<Boolean>> = MutableLiveData(List(4) { true })
     var selected: LiveData<List<Boolean>> = _selected
 
-    val scans: List<NutritionScan> = FakeDataSource.generateFakeScans()
-
     fun updateSelected(selected: List<Boolean>) {
         _selected.value = selected
+    }
+
+    fun getNutritionScanPaging(): LiveData<PagingData<NutritionScan>> {
+        return nutritionScanRepository.getNutritionScanByUserIdPaging()
     }
 }

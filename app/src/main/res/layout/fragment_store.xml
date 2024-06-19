@@ -7,6 +7,14 @@
     android:background="@color/md_theme_surfaceContainerLowest"
     tools:context=".presentation.store.StoreFragment">
 
+    <View
+        android:id="@+id/top_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/bg_home" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,6 +58,7 @@
                 android:layout_marginStart="16dp"
                 android:text="Name"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="@color/md_theme_surface"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/iv_store_photo"
                 app:layout_constraintTop_toTopOf="@id/iv_store_photo" />
@@ -61,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Username Store"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_surface"
                 app:layout_constraintStart_toStartOf="@id/tv_store_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_name" />
 
@@ -70,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:text="Contact"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/md_theme_surface"
                 app:layout_constraintStart_toStartOf="@id/tv_store_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_username_store" />
 
@@ -83,18 +94,10 @@
                 android:maxLines="2"
                 android:text="Alamat"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/md_theme_surface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_store_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_contact" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_store_photo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_my_products"
@@ -105,7 +108,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintTop_toBottomOf="@id/guideline"
                 tools:listitem="@layout/item_product"
                 tools:spanCount="2" />
 
@@ -116,11 +119,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/divider"
+                app:layout_constraintTop_toTopOf="@id/guideline"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/empty"
                 tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="184dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

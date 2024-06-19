@@ -1,11 +1,12 @@
-package com.nutriomatic.app.data.remote
+package com.nutriomatic.app.data.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
 
-class AdvertisedProductPagingSource(private val apiService: ApiService) : PagingSource<Int, ProductsItem>() {
+class UserProductPagingSource(private val apiService: ApiService, private val storeId: String) :
+    PagingSource<Int, ProductsItem>() {
     override fun getRefreshKey(state: PagingState<Int, ProductsItem>): Int? {
         return state.anchorPosition?.let {
             val anchorPage = state.closestPageToPosition(it)
@@ -16,7 +17,7 @@ class AdvertisedProductPagingSource(private val apiService: ApiService) : Paging
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductsItem> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = apiService.getProductsAdvertise(params.loadSize, position)
+            val responseData = apiService.getProductsStore(storeId, params.loadSize, position)
 
             LoadResult.Page(
                 data = responseData.products,

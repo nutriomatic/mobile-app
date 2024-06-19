@@ -124,7 +124,7 @@ class ScanFragment : Fragment() {
     private fun showImage() {
         currentImageUri?.let {
             val navDirections =
-                ScanFragmentDirections.actionScanFragmentToPreviewActivity(it.toString())
+                ScanFragmentDirections.actionScanFragmentToPreviewFragment(it.toString())
             findNavController().navigate(navDirections)
         }
     }
@@ -192,13 +192,20 @@ class ScanFragment : Fragment() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val navDirections =
-                        ScanFragmentDirections.actionScanFragmentToPreviewActivity(outputFileResults.savedUri.toString())
+//                        ScanFragmentDirections.actionScanFragmentToPreviewActivity(outputFileResults.savedUri.toString())
+                        ScanFragmentDirections.actionScanFragmentToPreviewFragment(
+                            Uri.fromFile(
+                                photoFile
+                            ).toString()
+                        )
                     findNavController().navigate(navDirections)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Snackbar.make(requireView(),
-                        getString(R.string.failed_to_take_photo), Snackbar.LENGTH_SHORT)
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.failed_to_take_photo), Snackbar.LENGTH_SHORT
+                    )
                         .show()
                     Log.e(TAG, "onError: ${exception.message}")
                 }

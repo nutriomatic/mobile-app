@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
@@ -18,8 +20,8 @@ import com.nutriomatic.app.presentation.helper.adapter.ListScanHistoryAdapter
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var adapter: ListScanHistoryAdapter
+    private val args: HistoryFragmentArgs by navArgs()
+    private var adapter: ListScanHistoryAdapter? = null
 
     private val viewModel: HistoryViewModel by viewModels {
         ViewModelFactory.getInstance(requireActivity())
@@ -37,40 +39,28 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.selected.observe(viewLifecycleOwner) {
-            filterScans(it)
+        args.message.let {
+            if (it != "NO_MESSAGE") {
+                Snackbar.make(requireContext(), view, it, Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         with(binding) {
-            adapter = ListScanHistoryAdapter(viewModel.scans) {
-                val navDirections =
-                    HistoryFragmentDirections.actionHistoryFragmentToScanResultActivity(it.id.toString())
-                Navigation.findNavController(view).navigate(navDirections)
-            }
-            rvScanHistory.adapter = adapter
-            rvScanHistory.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            rvScanHistory.addItemDecoration(DefaultItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_offset)))
 
-            nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-                if (scrollY > 0) {
-                    binding.btnScrollTop.show()
-                } else {
-                    binding.btnScrollTop.hide()
-                }
-            }
-            binding.btnScrollTop.setOnClickListener {
-                binding.nestedScrollView.smoothScrollTo(0, 0)
-            }
+            setupScanPagination()
 
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_sort -> {
+
                         val bottomSheetDialog =
                             HistoryFilterBottomSheet(viewModel.selected.value!!, object :
                                 OnApplyFilterListener {
                                 override fun onApplyFilter(selected: List<Boolean>) {
                                     viewModel.updateSelected(selected)
+                                    viewModel.selected.observe(viewLifecycleOwner) { selections ->
+                                        filterScans(selections)
+                                    }
                                 }
                             })
                         bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)
@@ -83,15 +73,43 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    private fun setupScanPagination() {
+        adapter = ListScanHistoryAdapter {
+            val navDirections =
+                HistoryFragmentDirections.actionHistoryFragmentToScanResultActivity(it.snId)
+            findNavController().navigate(navDirections)
+        }
+
+        viewModel.getNutritionScanPaging().observe(viewLifecycleOwner) {
+            adapter?.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+
+        with(binding) {
+
+            rvScanHistory.adapter = adapter
+            rvScanHistory.layoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            rvScanHistory.addItemDecoration(DefaultItemDecoration(resources.getDimensionPixelSize(R.dimen.list_item_offset)))
+
+            nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+                if (scrollY > 0) {
+                    btnScrollTop.show()
+                } else {
+                    btnScrollTop.hide()
+                }
+            }
+            btnScrollTop.setOnClickListener {
+                nestedScrollView.smoothScrollTo(0, 0)
+            }
+        }
+
+    }
+
     private fun filterScans(selected: List<Boolean>) {
         val grades = listOf("A", "B", "C", "D")
         val selectedGrades = grades.filterIndexed { index, _ -> selected[index] }
-        Snackbar.make(
-            requireContext(),
-            binding.root,
-            "Filter applied: $selectedGrades",
-            Snackbar.LENGTH_SHORT
-        ).show()
+        Toast.makeText(requireContext(), "Filter applied: $selectedGrades", Toast.LENGTH_SHORT)
+            .show()
     }
 
     interface OnApplyFilterListener {

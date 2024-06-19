@@ -8,9 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.google.gson.Gson
 import com.nutriomatic.app.data.pref.UserPreference
-import com.nutriomatic.app.data.remote.AdvertisedProductPagingSource
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.UserProductPagingSource
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
@@ -19,6 +17,8 @@ import com.nutriomatic.app.data.remote.api.response.ProductByIdResponse
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.api.retrofit.ApiService
+import com.nutriomatic.app.data.remote.paging.AdvertisedProductPagingSource
+import com.nutriomatic.app.data.remote.paging.UserProductPagingSource
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException

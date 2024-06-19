@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.databinding.ItemTransactionBinding
 import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
+import java.util.Locale
 
 class ListTransactionAdapter(
     private val onItemClick: ((Transaction) -> Unit)? = null,
@@ -17,8 +19,19 @@ class ListTransactionAdapter(
         fun bind(item: Transaction) {
             with(binding) {
                 tvId.text = item.tscId
-                tvStatus.text = item.tscStatus
                 tvCreatedAt.text = convertToLocalDateTimeString(item.createdAt)
+                tvStatus.text = item.tscStatus.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString()
+                }
+                tvStatus.backgroundTintList = tvStatus.context.getColorStateList(
+                    when (item.tscStatus.lowercase()) {
+                        "accepted", "paid" -> R.color.label_green
+                        "declined" -> R.color.label_red
+                        else -> R.color.label_yellow
+                    }
+                )
             }
 
             itemView.setOnClickListener {

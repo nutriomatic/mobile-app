@@ -185,7 +185,7 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pencarian"
+            android:hint="@string/search_product"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/home_menu"
             app:navigationIcon="@drawable/search" />
@@ -195,7 +195,7 @@
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Pencarian"
+        android:hint="@string/search_product"
         app:layout_anchor="@id/searchBar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

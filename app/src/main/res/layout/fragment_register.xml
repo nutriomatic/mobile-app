@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/register"
         android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
         android:textColor="@color/md_theme_primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Name"
+        android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline"
@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Email"
+        android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="@id/til_name"
         app:layout_constraintStart_toStartOf="@id/til_name"
         app:layout_constraintTop_toBottomOf="@id/til_name"
@@ -81,7 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Password"
+        android:hint="@string/password"
         app:errorIconDrawable="@null"
         app:layout_constraintEnd_toEndOf="@id/til_name"
         app:layout_constraintStart_toStartOf="@id/til_name"
@@ -99,40 +99,40 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_confirmation_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Confirmation Password"
-        app:errorIconDrawable="@null"
-        app:layout_constraintEnd_toEndOf="@id/til_name"
-        app:layout_constraintStart_toStartOf="@id/til_name"
-        app:layout_constraintTop_toBottomOf="@id/til_password"
-        app:passwordToggleEnabled="true"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
-        app:startIconDrawable="@drawable/lock">
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/til_confirmation_password"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:hint="Confirmation Password"-->
+    <!--        app:errorIconDrawable="@null"-->
+    <!--        app:layout_constraintEnd_toEndOf="@id/til_name"-->
+    <!--        app:layout_constraintStart_toStartOf="@id/til_name"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/til_password"-->
+    <!--        app:passwordToggleEnabled="true"-->
+    <!--        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"-->
+    <!--        app:startIconDrawable="@drawable/lock">-->
 
-        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
-            android:id="@+id/edt_confirmation_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:lines="1" />
+    <!--        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword-->
+    <!--            android:id="@+id/edt_confirmation_password"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:inputType="textPassword"-->
+    <!--            android:lines="1" />-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <com.nutriomatic.app.presentation.customview.CustomButton
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_confirmation_password"
+        app:layout_constraintTop_toBottomOf="@+id/til_password"
         app:layout_constraintVertical_bias="0.318"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
 
@@ -141,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Have account? "
+        android:text="@string/have_account"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@id/tv_redirect_login"
@@ -153,7 +153,7 @@
         android:id="@+id/tv_redirect_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login "
+        android:text="@string/login_redirect"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"

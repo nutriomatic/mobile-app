@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ItemProductBinding
+import com.nutriomatic.app.presentation.helper.util.formatCurrency
 
 class ProductDataAdapter(
     private val showEdit: Boolean = false,
@@ -25,7 +26,7 @@ class ProductDataAdapter(
 
             with(binding) {
                 tvName.text = item.productName
-                tvPrice.text = item.productPrice.toString()
+                tvPrice.text = formatCurrency(item.productPrice)
                 ivEdit.visibility = if (showEdit) View.VISIBLE else View.GONE
                 tvStatus.visibility = if (showEdit) View.VISIBLE else View.GONE
                 when (item.productIsshow) {

@@ -20,7 +20,8 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/scan_result_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Scan Result" />
+            app:title="@string/title_scan_result"
+            app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -53,7 +54,7 @@
                     android:id="@+id/edt_scan_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name" />
+                    android:hint="@string/hint_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -250,7 +251,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Okay"
+                android:text="@string/okay"
                 app:layout_constraintBottom_toBottomOf="@id/btn_save"
                 app:layout_constraintEnd_toStartOf="@id/btn_save"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -263,7 +264,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Save"
+                android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btn_okay" />

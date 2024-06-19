@@ -146,11 +146,32 @@ class ModalBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.txtServingSizePerContInput.setText(productServingsize.toString())
-        binding.txtFatInput.setText(productLemaktotal.toString())
-        binding.txtCarboInput.setText(productKarbohidrat.toString())
-        binding.txtProteinInput.setText(productProtein.toString())
-        binding.txtSodiumInput.setText(productGaram.toString())
+//        binding.txtServingSizePerContInput.setText(productServingsize.toString())
+//        binding.txtFatInput.setText(productLemaktotal.toString())
+//        binding.txtCarboInput.setText(productKarbohidrat.toString())
+//        binding.txtProteinInput.setText(productProtein.toString())
+//        binding.txtSodiumInput.setText(productGaram.toString())
+
+        with(binding) {
+//            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy)
+//            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat)
+//            tvProtein.text = getString(R.string.nutrition_value_g, nutritionScan.snProtein)
+//            tvTotalCarbohydrate.text =
+//                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate)
+//            tvTotalSugar.text = getString(R.string.nutrition_value_g, nutritionScan.snSugar)
+//            tvSodium.text = getString(R.string.nutrition_value_mg, nutritionScan.snSalt)
+
+            tvYourCategory.text = "Normal Weight"
+            tvYourDailyCalorie.text = getString(R.string.nutrition_value_kcal, 2050)
+
+            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, 120)
+            tvTotalFat.text = getString(R.string.nutrition_value_g, 7)
+            tvProtein.text = getString(R.string.nutrition_value_g, 5)
+            tvTotalCarbohydrate.text =
+                getString(R.string.nutrition_value_g, 28)
+            tvTotalSugar.text = getString(R.string.nutrition_value_g, 6)
+            tvSodium.text = getString(R.string.nutrition_value_mg, 120)
+        }
     }
 
     override fun onDestroyView() {

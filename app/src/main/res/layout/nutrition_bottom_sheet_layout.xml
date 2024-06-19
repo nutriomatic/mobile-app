@@ -13,7 +13,9 @@
     <!-- Bottom sheet contents. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="16dp">
 
         <!-- Drag handle for accessibility -->
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -21,140 +23,202 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/title"
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_your_category_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            android:text="Detail Nutrition Fact"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="@string/your_category"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_serving_size_per_cont_layout"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_your_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Serving size per container"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:layout_editor_absoluteX="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_serving_size_per_cont_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:text="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/label_amount_per_serving"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Amount per serving"
-            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/md_theme_primary"
             android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_your_category_title"
+            tools:text="Normal Weight" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_your_daily_calorie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/daily_calorie_needs"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintTop_toBottomOf="@+id/tv_your_category" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_your_daily_calorie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/md_theme_primary"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_your_daily_calorie_title"
+            tools:text="2120 kcal" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/nutrition_facts"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_your_daily_calorie" />
+
+        <LinearLayout
+            android:id="@+id/data_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_serving_size_per_cont_layout" />
+            app:layout_constraintTop_toBottomOf="@id/title">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_fat_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:hint="Fat (gr)"
-            app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_amount_per_serving">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_fat_input"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:text="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_carbo_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:hint="Carbohidrat (gr)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_fat_layout"
-            app:layout_constraintTop_toBottomOf="@id/label_amount_per_serving">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_calories" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_carbo_input"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_total_calory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="190 kcal" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:text="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_protein_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:hint="Protein (gr)"
-            app:layout_constraintEnd_toStartOf="@+id/txt_sodium_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_fat_layout">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_fat" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_protein_input"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_total_fat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="4g" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:text="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_sodium_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:hint="Sodium (mg)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_protein_layout"
-            app:layout_constraintTop_toBottomOf="@+id/txt_carbo_layout">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/protein" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_sodium_input"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_protein"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="5g" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:text="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_carbohydrate" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_total_carbohydrate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="25g" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_sugar" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_total_sugar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="18g" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sodium" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_sodium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    tools:text="220mg" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

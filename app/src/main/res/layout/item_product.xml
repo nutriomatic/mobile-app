@@ -72,15 +72,15 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_status"
                 style="@style/Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="2dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
                 tools:text="Pending" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -44,6 +44,7 @@ object LocalData {
 
     //    val GRADES = listOf("A", "B", "C", "D")
     val GRADES = listOf(
+        Grade("?", R.drawable.label_default),
         Grade("A", R.drawable.label_a),
         Grade("B", R.drawable.label_b),
         Grade("C", R.drawable.label_c),
@@ -106,10 +107,11 @@ object LocalData {
     }
 
     fun getGradeNames(): List<String> {
-        return GRADES.map { it.name }
+        return GRADES.map { it.name }.drop(1)
     }
 
     fun getGradeLabelByName(name: String): Int {
-        return GRADES.find { it.name.lowercase() == name.lowercase() }?.label ?: GRADES.first().label
+        return GRADES.find { it.name.lowercase() == name.lowercase() }?.label
+            ?: GRADES.first().label
     }
 }

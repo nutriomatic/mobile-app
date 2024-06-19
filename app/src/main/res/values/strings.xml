@@ -96,4 +96,44 @@
     <string name="nutrition_value_g" translatable="false">%1$dg</string>
     <string name="nutrition_value_mg" translatable="false">%1$dmg</string>
     <string name="this_qr_code_will_expired_in_05_00">This QR Code will expired in %1$02d:%2$02d</string>
+    <string name="title_add_product">Add Product</string>
+    <string name="advertise">Advertise</string>
+    <string name="title_checkout">Checkout</string>
+    <string name="pay">Pay</string>
+    <string name="title_product_detail">Product Detail</string>
+    <string name="hint_name">Name</string>
+    <string name="okay">Okay</string>
+    <string name="transaction_status">Transaction Status</string>
+    <string name="amount">Amount</string>
+    <string name="virtual_account">Virtual Account</string>
+    <string name="transaction_start">Transaction Start</string>
+    <string name="transaction_end">Transaction End</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="scan_this_qr_code">Scan this QR Code to proccess the transaction</string>
+    <string name="upload_proof_of_payment">Upload proof of payment!</string>
+    <string name="your_message">Your message</string>
+    <string name="process">Process</string>
+    <string name="title_payment">Payment</string>
+    <string name="pending">Pending</string>
+    <string name="accepted">Accepted</string>
+    <string name="declined">Declined</string>
+    <string name="search_product">Search Product</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="don_t_have_account">"Don't have account? "</string>
+    <string name="register_redirect">"Register "</string>
+    <string name="retake">Retake</string>
+    <string name="submit">Submit</string>
+    <string name="register">Register</string>
+    <string name="have_account">"Have account? "</string>
+    <string name="login_redirect">Login</string>
+    <string name="title_scan">Scan</string>
+    <string name="title_scan_result">Scan Result</string>
+    <string name="title_transaction_detail">Transaction Detail</string>
+    <string name="title_history">History</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_my_store">My Store</string>
+    <string name="apply">Apply</string>
+    <string name="ttile_update_product">Update Product</string>
 </resources>

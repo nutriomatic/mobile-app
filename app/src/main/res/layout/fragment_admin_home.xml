@@ -31,6 +31,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Hi, John Doe" />
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_greet_user"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPending"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAccepted"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accepted" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDeclined"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Declined" />
+
+            </com.google.android.material.chip.ChipGroup>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_transaction"
                 android:layout_width="match_parent"
@@ -40,7 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_greet_user"
+                app:layout_constraintTop_toBottomOf="@id/chipGroup"
                 tools:listitem="@layout/item_transaction" />
 
             <com.airbnb.lottie.LottieAnimationView

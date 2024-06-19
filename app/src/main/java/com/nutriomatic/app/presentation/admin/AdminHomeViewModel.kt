@@ -1,6 +1,7 @@
 package com.nutriomatic.app.presentation.admin
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -16,12 +17,19 @@ class AdminHomeViewModel(
     private val transactionRepository: TransactionRepository,
 ) : ViewModel() {
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
+    private var _selected: MutableLiveData<List<Boolean>> =
+        MutableLiveData(listOf(true, false, false))
+    var selected: LiveData<List<Boolean>> = _selected
 
     fun getAllTransactionsPaging(): LiveData<PagingData<Transaction>> =
         transactionRepository.getAllTransactionPaging()
 
     init {
         getProfile()
+    }
+
+    fun updateSelected(selected: List<Boolean>) {
+        _selected.value = selected
     }
 
     private fun getProfile() {

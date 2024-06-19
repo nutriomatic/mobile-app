@@ -18,21 +18,14 @@ class HomeViewModel(
     private val userRepository: UserRepository,
     private val productRepository: ProductRepository,
 ) : ViewModel() {
-    val productsAdvertise: LiveData<Result<ProductAdvertiseResponse>> =
-        productRepository.productsAdvertise
     val detailProfile: LiveData<Result<ProfileResponse>> = userRepository.detailProfile
     val detailClassification: LiveData<Result<ClassificationCaloryResponse>> =
         userRepository.detailClassification
-
-    val advertisedProductPaging: LiveData<PagingData<ProductsItem>> =
-        productRepository.getAdvertisedProductsPaging().cachedIn(viewModelScope)
-
 
     val searchProductsAdvertise: LiveData<Result<ProductAdvertiseResponse>> =
         productRepository.searchProductsAdvertise
 
     init {
-//        getProductsAdvertise()
         getClassification()
         getProfile()
     }
@@ -40,12 +33,6 @@ class HomeViewModel(
 
     fun getProductsAdvertisePaging(): LiveData<PagingData<ProductsItem>> =
         productRepository.getAdvertisedProductsPaging()
-
-    fun getProductsAdvertise() {
-        viewModelScope.launch {
-            productRepository.getProductsAdvertise()
-        }
-    }
 
     fun getSearchProductsAdvertise(query: String) {
         viewModelScope.launch {

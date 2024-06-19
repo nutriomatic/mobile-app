@@ -1,73 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:cardBackgroundColor="@color/md_theme_surfaceContainer"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp"
-    app:cardMaxElevation="4dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@color/md_theme_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:gravity="start"
             android:maxLines="3"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_photo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title product" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:gravity="start"
-            android:textSize="20sp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_item_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
-            tools:text="Rp. 50000" />
+            tools:text="Rp. 5000,00" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_item_published_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:gravity="start"
-            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             app:layout_constraintStart_toStartOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_price"
             tools:text="20 Juli 2020" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

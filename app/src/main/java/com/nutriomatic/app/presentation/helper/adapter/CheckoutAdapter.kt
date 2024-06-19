@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ItemProductPaymentBinding
+import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
+import com.nutriomatic.app.presentation.helper.util.formatCurrency
 
 class CheckoutAdapter(
     private val listProduct: List<ProductsItem>,
@@ -20,9 +22,8 @@ class CheckoutAdapter(
 
             with(binding) {
                 tvItemTitle.text = item.productName
-                tvPrice.text = item.productPrice.toString()
-                tvItemPublishedDate.text = item.updatedAt.toString()
-
+                tvPrice.text = formatCurrency(item.productPrice)
+                tvItemPublishedDate.text = convertToLocalDateTimeString(item.updatedAt)
             }
 
         }

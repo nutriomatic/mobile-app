@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.api.response.NutritionScan
 import com.nutriomatic.app.databinding.ItemScanHistoryBinding
+import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
 
 class ListScanHistoryAdapter(
     private val onItemClick: ((NutritionScan) -> Unit)? = null,
@@ -24,6 +25,7 @@ class ListScanHistoryAdapter(
                 tvScanName.text = item.snProductName
                 val gradeResId = LocalData.getGradeLabelByName(item.snGrade)
                 ivLabel.setImageResource(gradeResId)
+                tvScanCreatedAt.text = convertToLocalDateTimeString(item.createdAt)
             }
 
             itemView.setOnClickListener {

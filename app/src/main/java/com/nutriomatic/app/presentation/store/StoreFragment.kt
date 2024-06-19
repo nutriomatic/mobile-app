@@ -17,13 +17,12 @@ import com.nutriomatic.app.databinding.FragmentStoreBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.GridSpacingItemDecoration
 import com.nutriomatic.app.presentation.helper.adapter.ProductDataAdapter
-import com.nutriomatic.app.presentation.helper.adapter.ProductStorePagingDataAdapter
 
 class StoreFragment : Fragment() {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private var productAdapter: ProductDataAdapter? = null
-    private var productStorePagingDataAdapter: ProductStorePagingDataAdapter? = null
+    private var productStorePagingDataAdapter: ProductDataAdapter? = null
     private var store_id: String? = null
 
 
@@ -167,7 +166,7 @@ class StoreFragment : Fragment() {
 //            binding.messageEmpty.visibility = View.GONE
 //        }
 
-        productStorePagingDataAdapter = ProductStorePagingDataAdapter(
+        productStorePagingDataAdapter = ProductDataAdapter(
             true,
             onIconClick = {
                 val navDirections =

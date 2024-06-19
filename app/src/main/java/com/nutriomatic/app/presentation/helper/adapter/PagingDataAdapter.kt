@@ -7,6 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ItemProductBinding
 
@@ -26,6 +27,39 @@ class ProductDataAdapter(
                 tvName.text = item.productName
                 tvPrice.text = item.productPrice.toString()
                 ivEdit.visibility = if (showEdit) View.VISIBLE else View.GONE
+                tvStatus.visibility = if (showEdit) View.VISIBLE else View.GONE
+                when (item.productIsshow) {
+                    0 -> {
+                        tvStatus.text = "Not Advertise"
+                        tvStatus.backgroundTintList =
+                            tvStatus.context.getColorStateList(R.color.label_blue)
+                    }
+
+                    1 -> {
+                        tvStatus.text = "Advertise"
+                        tvStatus.backgroundTintList =
+                            tvStatus.context.getColorStateList(R.color.label_green)
+                    }
+
+                    2 -> {
+                        tvStatus.text = "Process Advertise"
+                        tvStatus.backgroundTintList =
+                            tvStatus.context.getColorStateList(R.color.label_yellow)
+                    }
+
+                    3 -> {
+                        tvStatus.text = "Decline Advertise"
+                        tvStatus.backgroundTintList =
+                            tvStatus.context.getColorStateList(R.color.label_red)
+                    }
+
+                    else -> {
+                        tvStatus.text = "Error Advertise"
+                        tvStatus.backgroundTintList =
+                            tvStatus.context.getColorStateList(R.color.label_red)
+                    }
+
+                }
                 ivEdit.setOnClickListener {
                     onIconClick?.invoke(item)
                 }

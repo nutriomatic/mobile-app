@@ -29,11 +29,6 @@ class HomeFragment : Fragment() {
         ViewModelFactory.getInstance(requireActivity())
     }
 
-    val productAdapter = ProductDataAdapter {
-        val navDirections =
-            HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.productId)
-        findNavController().navigate(navDirections)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +74,6 @@ class HomeFragment : Fragment() {
 
                     setupProductPagination()
                     setupProfilClassificationHome()
-                    homeViewModel.getProductsAdvertisePaging()
 
                     binding.appBarLayout.setExpanded(true, true)
                     binding.nestedScrollView.smoothScrollTo(0, 0)
@@ -100,33 +94,7 @@ class HomeFragment : Fragment() {
 
                 true
             }
-
         }
-
-//        homeViewModel.productsAdvertise.observe(viewLifecycleOwner) { result ->
-//            if (result != null) {
-//                when (result) {
-//                    is Result.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
-//                    }
-//
-//                    is Result.Success -> {
-////                        setupAdapter(result.data.products.toMutableList())
-//                        binding.progressBar.visibility = View.GONE
-//                    }
-//
-//                    is Result.Error -> {
-//                        binding.progressBar.visibility = View.GONE
-//
-//                        Snackbar.make(
-//                            requireView(),
-//                            result.error,
-//                            Snackbar.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
     }
 
     private fun setupSearchProduct(query: String) {
@@ -212,6 +180,11 @@ class HomeFragment : Fragment() {
 
     private fun setupProductPagination() {
         with(binding) {
+            val productAdapter = ProductDataAdapter {
+                val navDirections =
+                    HomeFragmentDirections.actionHomeFragmentToProductDetailsActivity(it.productId)
+                findNavController().navigate(navDirections)
+            }
             rvProduct.adapter = productAdapter
             rvProduct.layoutManager = GridLayoutManager(activity, 2)
 
@@ -227,14 +200,8 @@ class HomeFragment : Fragment() {
                 binding.nestedScrollView.smoothScrollTo(0, 0)
             }
 
-            homeViewModel.advertisedProductPaging.observe(viewLifecycleOwner) { pagingData ->
-                if (pagingData != null) {
-                    Log.d("HomeFragment", "Paging data received: $pagingData")
-                    productAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-
-                } else {
-                    Log.e("HomeFragment", "No paging data received")
-                }
+            homeViewModel.getProductsAdvertisePaging().observe(viewLifecycleOwner) {
+                productAdapter.submitData(viewLifecycleOwner.lifecycle, it)
             }
 
         }
@@ -265,11 +232,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.getProductsAdvertisePaging()
     }
 
     override fun onDestroyView() {

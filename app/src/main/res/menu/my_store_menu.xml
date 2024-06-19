@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_payment_store"
-        android:icon="@drawable/money"
+        android:icon="@drawable/credit_card"
         android:title="Payment"
         app:showAsAction="always" />
     <item

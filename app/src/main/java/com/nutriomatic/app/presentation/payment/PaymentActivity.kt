@@ -6,13 +6,16 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ActivityPaymentBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
+import com.nutriomatic.app.presentation.helper.DefaultItemDecoration
 import com.nutriomatic.app.presentation.helper.adapter.CheckoutAdapter
+import com.nutriomatic.app.presentation.helper.util.formatCurrency
 import com.nutriomatic.app.presentation.store.PaymentViewModel
 
 class PaymentActivity : AppCompatActivity() {
@@ -36,6 +39,7 @@ class PaymentActivity : AppCompatActivity() {
         }
 
         args.storeId?.let { id ->
+            binding.btnPay.text = formatCurrency(20000.0)
             binding.btnPay.setOnClickListener {
                 val intent = Intent(this@PaymentActivity, UploadActivity::class.java)
                 intent.putExtra("store_id", id)
@@ -81,6 +85,14 @@ class PaymentActivity : AppCompatActivity() {
             )
 
         binding.rvProductPay.adapter = adapter
-        binding.rvProductPay.layoutManager = GridLayoutManager(this, 1)
+        binding.rvProductPay.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvProductPay.addItemDecoration(
+            DefaultItemDecoration(
+                resources.getDimensionPixelSize(
+                    R.dimen.list_item_offset
+                )
+            )
+        )
     }
 }

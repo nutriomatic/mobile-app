@@ -9,19 +9,20 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:background="@android:color/transparent"
-            app:menu="@menu/profil_menu" />
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:menu="@menu/profil_menu"
+            app:navigationIcon="@drawable/arrow_left"
+            app:title="Profile"
+            app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Note: A RecyclerView can also be used -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,8 +37,8 @@
                 android:id="@+id/profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"
                 android:clickable="false"
+                android:scaleType="centerCrop"
                 android:src="@drawable/profile_man"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +58,11 @@
                     android:id="@+id/txt_name_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:textSize="16sp"
-                    android:enabled="false"
                     android:alpha="1.0"
+                    android:enabled="false"
+                    android:inputType="textPersonName"
                     android:textColor="@android:color/black"
+                    android:textSize="16sp"
                     tools:text="John Doe" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,11 +80,11 @@
                     android:id="@+id/txt_email_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textSize="16sp"
-                    android:enabled="false"
                     android:alpha="1.0"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
                     android:textColor="@android:color/black"
+                    android:textSize="16sp"
                     tools:text="john.doe@example.com" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,9 +102,9 @@
                     android:id="@+id/txt_telephone_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
                     android:alpha="1.0"
                     android:enabled="false"
+                    android:inputType="phone"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="+123456" />
@@ -125,9 +126,9 @@
                     android:id="@+id/txt_birthday_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:alpha="1.0"
                     android:editable="false"
                     android:enabled="false"
-                    android:alpha="1.0"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="01/01/1990" />
@@ -149,11 +150,11 @@
                     android:id="@+id/txt_gender_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:enabled="false"
                     android:alpha="1.0"
-                    android:textColor="@android:color/black"
+                    android:enabled="false"
+                    android:inputType="none"
                     android:text="@string/gender_male"
+                    android:textColor="@android:color/black"
                     app:simpleItems="@array/gender_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -184,9 +185,9 @@
                     android:id="@+id/txt_height_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:enabled="false"
                     android:alpha="1.0"
+                    android:enabled="false"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="180" />
@@ -208,11 +209,11 @@
                     android:id="@+id/txt_weight_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:textSize="16sp"
-                    android:enabled="false"
                     android:alpha="1.0"
+                    android:enabled="false"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
+                    android:textSize="16sp"
                     tools:text="75" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -232,9 +233,9 @@
                     android:id="@+id/txt_weight_goal_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:enabled="false"
                     android:alpha="1.0"
+                    android:enabled="false"
+                    android:inputType="number"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     tools:text="80" />
@@ -256,11 +257,11 @@
                     android:id="@+id/txt_activity_level_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:enabled="false"
                     android:alpha="1.0"
-                    android:textColor="@android:color/black"
+                    android:enabled="false"
+                    android:inputType="none"
                     android:text="@string/activity_level_sedentary"
+                    android:textColor="@android:color/black"
                     app:simpleItems="@array/activity_level_items" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -280,11 +281,11 @@
                     android:id="@+id/txt_health_goal_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:enabled="false"
                     android:alpha="1.0"
-                    android:textColor="@android:color/black"
+                    android:enabled="false"
+                    android:inputType="none"
                     android:text="@string/health_goal_lose_weight"
+                    android:textColor="@android:color/black"
                     app:simpleItems="@array/health_goal_items" />
 
             </com.google.android.material.textfield.TextInputLayout>

@@ -18,6 +18,12 @@
         android:theme="@style/Theme.NutriOMatic"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.payment.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.payment.PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.transaction_detail.TransactionDetailActivity"
             android:exported="false" />
         <activity

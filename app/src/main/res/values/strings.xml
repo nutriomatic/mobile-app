@@ -95,4 +95,5 @@
     <string name="nutrition_value_kcal">%1$d kcal</string>
     <string name="nutrition_value_g" translatable="false">%1$dg</string>
     <string name="nutrition_value_mg" translatable="false">%1$dmg</string>
+    <string name="this_qr_code_will_expired_in_05_00">This QR Code will expired in %1$02d:%2$02d</string>
 </resources>

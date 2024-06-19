@@ -57,6 +57,15 @@ class StoreFragment : Fragment() {
                         true
                     }
 
+                    R.id.menu_payment_store -> {
+                        val navDirections =
+                            StoreFragmentDirections.actionStoreFragmentToPaymentActivity(
+                                store_id
+                            )
+                        findNavController().navigate(navDirections)
+                        true
+                    }
+
                     else -> false
                 }
             }

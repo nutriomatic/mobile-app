@@ -25,7 +25,11 @@
         <action
             android:id="@+id/action_storeFragment_to_createStoreActivity"
             app:destination="@id/createStoreActivity" />
+        <action
+            android:id="@+id/action_storeFragment_to_paymentActivity"
+            app:destination="@id/paymentActivity" />
     </fragment>
+
     <fragment
         android:id="@+id/scanFragment"
         android:name="com.nutriomatic.app.presentation.scan.ScanFragment"
@@ -46,8 +50,8 @@
             app:destination="@id/scanResultActivity" />
         <argument
             android:name="message"
-            app:argType="string"
-            android:defaultValue="NO_MESSAGE" />
+            android:defaultValue="NO_MESSAGE"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -120,4 +124,14 @@
             android:id="@+id/action_previewFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
     </fragment>
+    <activity
+        android:id="@+id/paymentActivity"
+        android:name="com.nutriomatic.app.presentation.payment.PaymentActivity"
+        android:label="activity_payment"
+        tools:layout="@layout/activity_payment">
+        <argument
+            android:name="storeId"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 </navigation>

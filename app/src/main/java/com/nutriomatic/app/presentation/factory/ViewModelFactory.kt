@@ -18,6 +18,7 @@ import com.nutriomatic.app.presentation.product.AddProductViewModel
 import com.nutriomatic.app.presentation.profile.ProfileViewModel
 import com.nutriomatic.app.presentation.result.ScanResultViewModel
 import com.nutriomatic.app.presentation.scan.PreviewViewModel
+import com.nutriomatic.app.presentation.store.PaymentViewModel
 import com.nutriomatic.app.presentation.store.StoreViewModel
 import com.nutriomatic.app.presentation.transaction_detail.TransactionDetailViewModel
 
@@ -76,6 +77,10 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(ScanResultViewModel::class.java) -> {
                 ScanResultViewModel(nutritionScanRepository) as T
+            }
+
+            modelClass.isAssignableFrom(PaymentViewModel::class.java) -> {
+                PaymentViewModel(productRepository, storeRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

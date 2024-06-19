@@ -81,5 +81,4 @@
         <item name="android:paddingBottom">16dp</item>
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Small</item>
     </style>
-
 </resources>

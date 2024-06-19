@@ -78,6 +78,10 @@ class StoreFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun observeStore() {
         viewModel.store.observe(viewLifecycleOwner) { result ->

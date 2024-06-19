@@ -56,6 +56,11 @@ class PreviewFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun submit() {
         val name = "scan_${System.currentTimeMillis()}"
         val imageFile = uriToFile(requireContext(), currentImageUri!!).reduceFileSize()

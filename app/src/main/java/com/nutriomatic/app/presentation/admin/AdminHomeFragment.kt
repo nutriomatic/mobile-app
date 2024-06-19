@@ -89,6 +89,11 @@ class AdminHomeFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun observeProfileLiveData() {
         viewModel.detailProfile.observe(viewLifecycleOwner) { result ->
             if (result != null) {

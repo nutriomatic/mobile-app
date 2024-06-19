@@ -73,6 +73,11 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupScanPagination() {
         adapter = ListScanHistoryAdapter {
             val navDirections =

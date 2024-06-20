@@ -18,7 +18,9 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/product_detail_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Product Detail" />
+            app:title="@string/title_product_detail"
+            app:titleCentered="true" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -27,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp"
+        android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,27 +47,27 @@
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
                 tools:src="@drawable/cendol" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingEnd="20dp"
-                android:textSize="24sp"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_image"
                 tools:text="Es Cendol Pak Doni Enak Banget" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rounded_price"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="6dp"
-                android:textColor="@color/md_theme_surfaceContainerLow"
-                android:textSize="22sp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/md_theme_surfaceContainerLowest"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/img_label"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,12 +82,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_title"
                 tools:src="@drawable/label_a" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_price"

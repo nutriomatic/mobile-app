@@ -18,7 +18,7 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/profil_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Profile"
+            app:title="@string/title_profile"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>

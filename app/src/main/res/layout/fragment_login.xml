@@ -27,10 +27,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
         android:textColor="@color/md_theme_primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:hint="Email"
+        android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline"
@@ -64,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Password"
+        android:hint="@string/password"
         app:errorIconDrawable="@null"
         app:layout_constraintEnd_toEndOf="@id/til_email_log"
         app:layout_constraintStart_toStartOf="@id/til_email_log"
@@ -86,7 +86,7 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,12 +94,12 @@
         app:layout_constraintTop_toBottomOf="@+id/til_password"
         app:layout_constraintVertical_bias="0.127" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_dont_have_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Don't have account? "
+        android:text="@string/don_t_have_account"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic"
         app:layout_constraintEnd_toStartOf="@id/tv_redirect_register"
@@ -107,11 +107,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_redirect_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register "
+        android:text="@string/register_redirect"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"

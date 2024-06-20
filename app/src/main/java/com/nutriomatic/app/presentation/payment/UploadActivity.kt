@@ -1,6 +1,5 @@
 package com.nutriomatic.app.presentation.payment
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.ActivityUploadBinding
-import com.nutriomatic.app.presentation.advertise.AdvertiseActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.reduceFileSize
 import com.nutriomatic.app.presentation.helper.util.uriToFile
@@ -81,13 +79,13 @@ class UploadActivity : AppCompatActivity() {
 
             binding.btnProses.setOnClickListener {
                 currentImageUri?.let { uri ->
-                    val imageFile = uriToFile(this, uri).reduceFileSize()
+                    val imageFile = uriToFile(this@UploadActivity, uri).reduceFileSize()
                     val requestFile =
                         imageFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val body =
+                    val bodyPhoto =
                         MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
 
-                    viewModel.uploadProofTransaction(storeId, body)
+                    viewModel.uploadProofTransaction(file = bodyPhoto)
 
                     viewModel.statusUploadProof.observe(this@UploadActivity) { result ->
                         if (result != null) {
@@ -103,10 +101,11 @@ class UploadActivity : AppCompatActivity() {
                                         result.data.message.toString(),
                                         Snackbar.LENGTH_SHORT
                                     ).show()
-                                    val intent =
-                                        Intent(this@UploadActivity, AdvertiseActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
+
+//                                    val intent =
+//                                        Intent(this@UploadActivity, AdvertiseActivity::class.java)
+//                                    startActivity(intent)
+//                                    finish()
                                 }
 
                                 is Result.Error -> {
@@ -121,7 +120,7 @@ class UploadActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }?: showToast(getString(R.string.please_choose_a_valid_image))
+                } ?: showToast(getString(R.string.please_choose_a_valid_image))
             }
         }
     }

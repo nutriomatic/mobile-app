@@ -200,9 +200,8 @@ interface ApiService {
         @Body updateTransactionRequest: UpdateTransactionRequest,
     ): BasicResponse
 
-    @POST("transaction/proof/{id}")
+    @POST("transaction/proof")
     suspend fun uploadProofTransaction(
-        @Path("id") id: String,
         @Part file: MultipartBody.Part,
     ): BasicResponse
 

@@ -28,10 +28,10 @@ class PaymentViewModel(
     }
 
     fun uploadProofTransaction(
-        storeId: String, photo: MultipartBody.Part,
+        file: MultipartBody.Part,
     ) {
         viewModelScope.launch {
-            transactionRepository.uploadProofTransaction(storeId, photo)
+            transactionRepository.uploadProofTransaction(file)
         }
     }
 

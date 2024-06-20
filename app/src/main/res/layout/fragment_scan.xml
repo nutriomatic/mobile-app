@@ -19,7 +19,7 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/scan_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Scan"
+            app:title="@string/title_scan"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>

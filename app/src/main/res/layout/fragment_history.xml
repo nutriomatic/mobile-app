@@ -18,7 +18,7 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/history_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="History"
+            app:title="@string/title_history"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>

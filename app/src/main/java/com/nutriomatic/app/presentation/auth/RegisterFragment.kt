@@ -77,23 +77,23 @@ class RegisterFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {}
         })
 
-        binding.edtConfirmationPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val confirmationPassword = s.toString()
-                val password = binding.edtPassword.text.toString()
-
-                if (password != confirmationPassword) {
-                    binding.tilConfirmationPassword.error =
-                        getString(R.string.passwords_do_not_match)
-                } else {
-                    binding.tilConfirmationPassword.error = null
-                }
-            }
-
-            override fun afterTextChanged(s: Editable) {}
-        })
+//        binding.edtConfirmationPassword.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//                val confirmationPassword = s.toString()
+//                val password = binding.edtPassword.text.toString()
+//
+//                if (password != confirmationPassword) {
+//                    binding.tilConfirmationPassword.error =
+//                        getString(R.string.passwords_do_not_match)
+//                } else {
+//                    binding.tilConfirmationPassword.error = null
+//                }
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {}
+//        })
     }
 
 

@@ -18,7 +18,9 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/product_detail_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="Transaction Detail" />
+            app:title="@string/title_transaction_detail"
+            app:titleCentered="true" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -92,7 +94,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Transaction Status" />
+                            android:text="@string/transaction_status" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_status"
@@ -114,7 +116,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Amount" />
+                            android:text="@string/amount" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@id/tv_price"
@@ -135,7 +137,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Virtual Account" />
+                            android:text="@string/virtual_account" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_va"
@@ -161,7 +163,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Transaction Start" />
+                            android:text="@string/transaction_start" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_start"
@@ -182,7 +184,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Transaction End" />
+                            android:text="@string/transaction_end" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_end"
@@ -204,7 +206,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="16dp"
-                    android:text="Decline"
+                    android:text="@string/decline"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_accept"
                     app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Accept"
+                    android:text="@string/accept"
                     app:layout_constraintBottom_toBottomOf="@id/btn_decline"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btn_decline"

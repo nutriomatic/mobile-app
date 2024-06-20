@@ -85,7 +85,7 @@ class AddProductActivity : AppCompatActivity() {
             args.productId?.let { id ->
                 viewModel.getProductById(id)
 
-                topAppBar.title = "Update Product"
+                topAppBar.title = getString(R.string.ttile_update_product)
                 deleteItem.isVisible = true
 
 

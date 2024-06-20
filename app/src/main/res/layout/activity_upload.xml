@@ -8,18 +8,21 @@
     android:background="@color/md_theme_surfaceContainerLowest"
     tools:context=".presentation.product.AddProductActivity">
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
 
-<!--        <com.google.android.material.appbar.MaterialToolbar-->
-<!--            android:id="@+id/topAppBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:minHeight="?attr/actionBarSize"-->
-<!--            app:title="Payment" />-->
 
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <!--    -->
+    <!--        <com.google.android.material.appbar.MaterialToolbar-->
+    <!--            android:id="@+id/topAppBar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:minHeight="?attr/actionBarSize"-->
+    <!--            app:title="@string/title_payment"-->
+    <!--            app:titleCentered="true" />-->
+
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
 
     <!-- Note: A RecyclerView can also be used -->
@@ -33,17 +36,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="72dp"
-            android:paddingHorizontal="16dp">
+            android:padding="16dp">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_label_scan"
+
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_shape_container"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
-                android:text="Scan this QR Code to proccess the transaction"
+                android:text="@string/scan_this_qr_code"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="16dp" />
 
@@ -88,7 +92,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_shape_container"
                 android:paddingHorizontal="10dp"
-                android:text="Upload proof of payment!"
+                android:text="@string/upload_proof_of_payment"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -112,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Your message"
+                android:hint="@string/your_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_bukti_bayar">
@@ -151,9 +155,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginHorizontal="16dp"
-        android:contentDescription="Process"
-        android:fontFamily="@font/worksans_bold"
-        android:text="Process"
-        android:textSize="20sp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/process"
+        android:text="@string/process"
         android:textStyle="bold" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -90,10 +90,10 @@ class TransactionRepository private constructor(
 
     }
 
-    suspend fun uploadProofTransaction(id: String, photo: MultipartBody.Part) {
+    suspend fun uploadProofTransaction(file: MultipartBody.Part) {
         _statusUploadProof.value = Result.Loading
         try {
-            val response = apiService.uploadProofTransaction(id, photo)
+            val response = apiService.uploadProofTransaction(file)
             _statusUploadProof.value = Result.Success(response)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()

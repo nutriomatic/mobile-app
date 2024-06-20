@@ -18,7 +18,7 @@
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/my_store_menu"
             app:navigationIcon="@drawable/arrow_left"
-            app:title="My Store"
+            app:title="@string/title_my_store"
             app:titleCentered="true" />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -3,7 +3,6 @@ package com.nutriomatic.app.presentation.product
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -18,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.response.Product
 import com.nutriomatic.app.databinding.ActivityAddProductBinding
 import com.nutriomatic.app.presentation.advertise.AdvertiseActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
@@ -109,7 +107,7 @@ class AddProductActivity : AppCompatActivity() {
 
                             is Result.Success -> {
                                 binding.progressBar.visibility = View.GONE
-                                val product: Product = result.data.product
+                                val product = result.data.product
 
                                 Glide.with(this@AddProductActivity)
                                     .load(product.productPicture)
@@ -124,8 +122,10 @@ class AddProductActivity : AppCompatActivity() {
                                 txtServingSizePerContInput.setText(product.productServingsize.toString())
                                 txtCaloriesInput.setText(product.productEnergi.toString())
                                 txtSugarInput.setText(product.productGula.toString())
+                                txtDietaryFiberInput.setText(product.productFiber.toString())
+                                txtSaturatedFatInput.setText(product.productLemakJenuh.toString())
                                 txtFatInput.setText(product.productLemaktotal.toString())
-                                txtCarboInput.setText(product.productKarbohidrat.toString())
+                                txtCarbohydrateInput.setText(product.productKarbohidrat.toString())
                                 txtProteinInput.setText(product.productProtein.toString())
                                 txtSodiumInput.setText(product.productGaram.toString())
                                 val productTypeName = LocalData.getProductTypeNameByCode(
@@ -280,8 +280,10 @@ class AddProductActivity : AppCompatActivity() {
         val productIsshow = productIsShow
         val productEnergi = binding.txtCaloriesInput.text.toString()
         val productGula = binding.txtSugarInput.text.toString()
+        val productFiber = binding.txtDietaryFiberInput.text.toString()
+        val productLemakJenuh = binding.txtSaturatedFatInput.text.toString()
         val productLemakTotal = binding.txtFatInput.text.toString()
-        val productProtein = binding.txtCarboInput.text.toString()
+        val productProtein = binding.txtCarbohydrateInput.text.toString()
         val productKarbohidrat = binding.txtProteinInput.text.toString()
         val productGaram = binding.txtSodiumInput.text.toString()
         val productGrade = binding.selectGrade.text.toString()
@@ -302,6 +304,8 @@ class AddProductActivity : AppCompatActivity() {
             productIsShow = productIsshow,
             productEnergi = productEnergi.toDouble(),
             productGula = productGula.toDouble(),
+            productFiber = productFiber.toDouble(),
+            productLemakJenuh = productLemakJenuh.toDouble(),
             productLemakTotal = productLemakTotal.toDouble(),
             productProtein = productProtein.toDouble(),
             productKarbohidrat = productKarbohidrat.toDouble(),
@@ -350,8 +354,10 @@ class AddProductActivity : AppCompatActivity() {
             val productIsshow = 0
             val productEnergi = binding.txtCaloriesInput.text.toString().ifEmpty { "0" }
             val productGula = binding.txtSugarInput.text.toString().ifEmpty { "0" }
+            val productFiber = binding.txtDietaryFiberInput.text.toString().ifEmpty { "0" }
+            val productLemakJenuh = binding.txtSaturatedFatInput.text.toString().ifEmpty { "0" }
             val productLemakTotal = binding.txtFatInput.text.toString().ifEmpty { "0" }
-            val productProtein = binding.txtCarboInput.text.toString().ifEmpty { "0" }
+            val productProtein = binding.txtCarbohydrateInput.text.toString().ifEmpty { "0" }
             val productKarbohidrat = binding.txtProteinInput.text.toString().ifEmpty { "0" }
             val productGaram = binding.txtSodiumInput.text.toString().ifEmpty { "0" }
             val productGrade = binding.selectGrade.text.toString()
@@ -368,6 +374,8 @@ class AddProductActivity : AppCompatActivity() {
                 productIsshow = productIsshow,
                 productEnergi = productEnergi.toDouble(),
                 productGula = productGula.toDouble(),
+                productFiber = productFiber.toDouble(),
+                productLemakJenuh = productLemakJenuh.toDouble(),
                 productLemakTotal = productLemakTotal.toDouble(),
                 productProtein = productProtein.toDouble(),
                 productKarbohidrat = productKarbohidrat.toDouble(),

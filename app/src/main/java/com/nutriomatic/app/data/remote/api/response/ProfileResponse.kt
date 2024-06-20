@@ -14,6 +14,18 @@ data class ProfileResponse(
 	val status: String
 )
 
+data class UpdateProfileResponse(
+
+	@field:SerializedName("code")
+	val code: Int? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
+)
+
 data class User(
 
 	@field:SerializedName("weight_goal")

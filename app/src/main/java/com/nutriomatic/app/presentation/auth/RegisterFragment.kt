@@ -124,7 +124,7 @@ class RegisterFragment : Fragment() {
 
                             is Result.Success -> {
                                 binding.progressBar.visibility = View.GONE
-                                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                findNavController().navigateUp()
                                 Snackbar.make(
                                     requireView(),
                                     result.data.message,

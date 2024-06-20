@@ -149,4 +149,5 @@
     <string name="store_id">Store ID</string>
     <string name="product_id">Product ID</string>
     <string name="saturated_fat">Saturated Fat</string>
+    <string name="confirmation_password">Confirmation Password</string>
 </resources>

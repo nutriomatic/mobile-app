@@ -99,28 +99,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:id="@+id/til_confirmation_password"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:hint="Confirmation Password"-->
-    <!--        app:errorIconDrawable="@null"-->
-    <!--        app:layout_constraintEnd_toEndOf="@id/til_name"-->
-    <!--        app:layout_constraintStart_toStartOf="@id/til_name"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/til_password"-->
-    <!--        app:passwordToggleEnabled="true"-->
-    <!--        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"-->
-    <!--        app:startIconDrawable="@drawable/lock">-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_confirmation_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/confirmation_password"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@id/til_name"
+        app:layout_constraintStart_toStartOf="@id/til_name"
+        app:layout_constraintTop_toBottomOf="@id/til_password"
+        app:passwordToggleEnabled="true"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:startIconDrawable="@drawable/lock">
 
-    <!--        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword-->
-    <!--            android:id="@+id/edt_confirmation_password"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:inputType="textPassword"-->
-    <!--            android:lines="1" />-->
+        <com.nutriomatic.app.presentation.customview.CustomEditTextPassword
+            android:id="@+id/edt_confirmation_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:lines="1" />
 
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.nutriomatic.app.presentation.customview.CustomButton
@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_password"
+        app:layout_constraintTop_toBottomOf="@+id/til_confirmation_password"
         app:layout_constraintVertical_bias="0.318"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
 

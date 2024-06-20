@@ -77,60 +77,70 @@ class RegisterFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {}
         })
 
-//        binding.edtConfirmationPassword.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-//                val confirmationPassword = s.toString()
-//                val password = binding.edtPassword.text.toString()
-//
-//                if (password != confirmationPassword) {
-//                    binding.tilConfirmationPassword.error =
-//                        getString(R.string.passwords_do_not_match)
-//                } else {
-//                    binding.tilConfirmationPassword.error = null
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable) {}
-//        })
+        binding.edtConfirmationPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val confirmationPassword = s.toString()
+                val password = binding.edtPassword.text.toString()
+
+                if (password != confirmationPassword) {
+                    binding.tilConfirmationPassword.error =
+                        getString(R.string.passwords_do_not_match)
+                } else {
+                    binding.tilConfirmationPassword.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
     }
 
 
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
-
-            val username = binding.edtName.text.toString()
-            val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
+            val confirmationPassword = binding.edtConfirmationPassword.text.toString()
+            if (password != confirmationPassword) {
+                binding.tilConfirmationPassword.error = getString(R.string.passwords_do_not_match)
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.passwords_do_not_match),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
 
-            viewModel.register(username, email, password)
+                val username = binding.edtName.text.toString()
+                val email = binding.edtEmail.text.toString()
 
-            viewModel.registerStatus.observe(viewLifecycleOwner) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                        }
+                viewModel.register(username, email, password)
 
-                        is Result.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                            Snackbar.make(
-                                requireView(),
-                                result.data.message,
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
+                viewModel.registerStatus.observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                            }
 
-                        is Result.Error -> {
-                            binding.progressBar.visibility = View.GONE
+                            is Result.Success -> {
+                                binding.progressBar.visibility = View.GONE
+                                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                                Snackbar.make(
+                                    requireView(),
+                                    result.data.message,
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
 
-                            Snackbar.make(
-                                requireView(),
-                                result.error,
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                            is Result.Error -> {
+                                binding.progressBar.visibility = View.GONE
+
+                                Snackbar.make(
+                                    requireView(),
+                                    result.error,
+                                    Snackbar.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }

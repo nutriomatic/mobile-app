@@ -127,7 +127,7 @@ class AddProductActivity : AppCompatActivity() {
                                 txtFatInput.setText(product.productLemaktotal.toString())
                                 txtCarbohydrateInput.setText(product.productKarbohidrat.toString())
                                 txtProteinInput.setText(product.productProtein.toString())
-                                txtSodiumInput.setText(product.productGaram.toString())
+                                txtSodiumInput.setText(product.productGaram.times(1000).toString())
                                 val productTypeName = LocalData.getProductTypeNameByCode(
                                     this@AddProductActivity,
                                     product.ptCode
@@ -314,7 +314,7 @@ class AddProductActivity : AppCompatActivity() {
             productLemakTotal = productLemakTotal.toDouble(),
             productProtein = productProtein.toDouble(),
             productKarbohidrat = productKarbohidrat.toDouble(),
-            productGaram = productGaram.toDouble(),
+            productGaram = productGaram.toDouble() / 1000,
             productGrade = productGrade,
             productServingSize = productServingSize.toInt(),
             ptType = ptType,
@@ -384,7 +384,7 @@ class AddProductActivity : AppCompatActivity() {
                 productLemakTotal = productLemakTotal.toDouble(),
                 productProtein = productProtein.toDouble(),
                 productKarbohidrat = productKarbohidrat.toDouble(),
-                productGaram = productGaram.toDouble(),
+                productGaram = productGaram.toDouble() / 1000,
                 productGrade = productGrade,
                 productServingSize = productServingSize.toInt(),
                 ptType = ptType,

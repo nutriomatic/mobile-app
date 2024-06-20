@@ -8,18 +8,18 @@
     android:background="@color/md_theme_surfaceContainerLowest"
     tools:context=".presentation.product.AddProductActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="?attr/actionBarSize"
-            app:title="Payment" />
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/topAppBar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:minHeight="?attr/actionBarSize"-->
+<!--            app:title="Payment" />-->
 
-    </com.google.android.material.appbar.AppBarLayout>
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
 
     <!-- Note: A RecyclerView can also be used -->
@@ -38,6 +38,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_label_scan"
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_shape_container"
                 android:gravity="center"

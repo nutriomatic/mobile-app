@@ -41,7 +41,7 @@ class UploadActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         with(binding) {
-            topAppBar.setNavigationOnClickListener { onBackPressed() }
+//            topAppBar.setNavigationOnClickListener { onBackPressed() }
 
             ivBuktiBayar.setOnClickListener {
                 startGallery()
@@ -121,7 +121,7 @@ class UploadActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }
+                }?: showToast(getString(R.string.please_choose_a_valid_image))
             }
         }
     }
@@ -147,6 +147,10 @@ class UploadActivity : AppCompatActivity() {
 
     companion object {
         private val STORE_ID = "store_id"
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {

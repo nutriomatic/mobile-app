@@ -21,8 +21,8 @@ class AdminHomeViewModel(
         MutableLiveData(listOf(true, false, false))
     var selected: LiveData<List<Boolean>> = _selected
 
-    fun getAllTransactionsPaging(): LiveData<PagingData<Transaction>> =
-        transactionRepository.getAllTransactionPaging()
+    fun getAllTransactionsPaging(status: String): LiveData<PagingData<Transaction>> =
+        transactionRepository.getAllTransactionPaging(status)
 
     init {
         getProfile()

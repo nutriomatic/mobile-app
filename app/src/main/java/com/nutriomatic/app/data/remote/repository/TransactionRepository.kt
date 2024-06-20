@@ -60,10 +60,10 @@ class TransactionRepository private constructor(
         }
     }
 
-    fun getAllTransactionPaging(): LiveData<PagingData<Transaction>> {
+    fun getAllTransactionPaging(status: String): LiveData<PagingData<Transaction>> {
         return Pager(
             config = PagingConfig(pageSize = 6),
-            pagingSourceFactory = { AllTransactionPagingSource(apiService) }
+            pagingSourceFactory = { AllTransactionPagingSource(apiService, status) }
         ).liveData
     }
 

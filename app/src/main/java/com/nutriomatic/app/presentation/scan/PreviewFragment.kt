@@ -73,16 +73,18 @@ class PreviewFragment : Fragment() {
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
-
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
                     is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
                         val navDirection =
                             PreviewFragmentDirections.actionPreviewFragmentToHistoryFragment(result.data.message.toString())
                         findNavController().navigate(navDirection)
                     }
 
                     is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
                         Snackbar.make(
                             requireView(),
                             result.error,

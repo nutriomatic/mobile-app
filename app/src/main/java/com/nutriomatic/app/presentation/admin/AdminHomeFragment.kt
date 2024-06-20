@@ -1,6 +1,8 @@
 package com.nutriomatic.app.presentation.admin
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +45,6 @@ class AdminHomeFragment : Fragment() {
 
         observeProfileLiveData()
 
-
         with(binding) {
             progressBar.visibility = View.GONE
 
@@ -67,12 +69,64 @@ class AdminHomeFragment : Fragment() {
                 }
             }
             btnScrollTop.setOnClickListener {
-                binding.appBarLayout.setExpanded(true, true)
+//                binding.appBarLayout.setExpanded(true, true)
                 binding.nestedScrollView.smoothScrollTo(0, 0)
             }
+
+            val selections = listOf("pending", "accepted", "declined")
+
+            swiperefresh.setOnRefreshListener {
+//                binding.appBarLayout.visibility = View.INVISIBLE
+
+                Handler(Looper.getMainLooper()).postDelayed({
+//                    binding.appBarLayout.visibility = View.VISIBLE
+
+                    viewModel.selected.value?.forEachIndexed { index, b ->
+                        if (b) {
+                            viewModel.getAllTransactionsPaging(selections[index])
+                                .observe(viewLifecycleOwner) {
+                                    adapter.submitData(viewLifecycleOwner.lifecycle, it)
+                                }
+                        }
+                    }
+//                    binding.appBarLayout.setExpanded(true, true)
+                    binding.nestedScrollView.smoothScrollTo(0, 0)
+
+                    swiperefresh.isRefreshing = false
+                }, 1000L)
+
+            }
+
             viewModel.selected.observe(viewLifecycleOwner) { selected ->
                 chipGroup.children.forEachIndexed { index, view ->
                     (view as Chip).isChecked = selected[index]
+                }
+                selections.forEachIndexed { index, s ->
+                    if (selected[index]) {
+                        adapter = ListTransactionAdapter {
+                            val navDirections =
+                                AdminHomeFragmentDirections.actionAdminHomeFragmentToTransactionDetailActivity(
+                                    it.tscId, true
+                                )
+                            findNavController().navigate(navDirections)
+                        }
+
+                        rvTransaction.adapter = adapter
+                        viewModel.getAllTransactionsPaging(s).observe(viewLifecycleOwner) {
+                            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+                        }
+
+                        adapter.addLoadStateListener {
+                            val isEmpty =
+                                it.refresh is LoadState.NotLoading && adapter.itemCount == 0
+
+                            if (isEmpty) {
+                                binding.messageEmpty.visibility = View.VISIBLE
+                            } else {
+                                binding.messageEmpty.visibility = View.GONE
+                            }
+                        }
+                    }
                 }
             }
             chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
@@ -82,10 +136,6 @@ class AdminHomeFragment : Fragment() {
                 }
                 viewModel.updateSelected(selected)
             }
-        }
-
-        viewModel.getAllTransactionsPaging().observe(viewLifecycleOwner) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
+import com.nutriomatic.app.data.remote.api.response.CheckoutResponse
 import com.nutriomatic.app.data.remote.api.response.ProductsResponse
 import com.nutriomatic.app.data.remote.repository.ProductRepository
 import com.nutriomatic.app.data.remote.repository.StoreRepository
@@ -23,6 +24,8 @@ class PaymentViewModel(
         transactionRepository.statusUploadProof
     val transactionByStoreIdResponse: LiveData<Result<AllTransactionsResponse>> =
         transactionRepository.getTransactionByStoreIdResponse
+    val checkoutData: LiveData<Result<CheckoutResponse>> =
+        transactionRepository.getDataCheckout
 
     fun getProductsByStore(storeId: String) {
         viewModelScope.launch {
@@ -33,6 +36,12 @@ class PaymentViewModel(
     fun getTransactionByStoreId(storeId: String) {
         viewModelScope.launch {
             transactionRepository.getTransactionByStoreId(storeId)
+        }
+    }
+
+    fun getCheckout() {
+        viewModelScope.launch {
+            transactionRepository.getCheckout()
         }
     }
 

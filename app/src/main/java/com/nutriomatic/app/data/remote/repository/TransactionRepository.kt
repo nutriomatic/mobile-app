@@ -13,6 +13,7 @@ import com.nutriomatic.app.data.remote.api.request.CreateTransactionRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateTransactionRequest
 import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
+import com.nutriomatic.app.data.remote.api.response.CheckoutResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
 import com.nutriomatic.app.data.remote.api.response.Transaction
@@ -43,6 +44,11 @@ class TransactionRepository private constructor(
         MutableLiveData<Result<AllTransactionsResponse>>()
     val getTransactionByStoreIdResponse: LiveData<Result<AllTransactionsResponse>> =
         _getTransactionByStoreIdResponse
+
+    private val _getDataCheckout =
+        MutableLiveData<Result<CheckoutResponse>>()
+    val getDataCheckout: LiveData<Result<CheckoutResponse>> =
+        _getDataCheckout
 
 
     suspend fun createTransaction(productId: String) {
@@ -90,6 +96,20 @@ class TransactionRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _getTransactionByStoreIdResponse.value =
+                Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun getCheckout() {
+        _getDataCheckout.value = Result.Loading
+        try {
+            val response = apiService.getCheckout()
+            _getDataCheckout.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _getDataCheckout.value =
                 Result.Error(errorMessage ?: "An error occurred")
         }
     }

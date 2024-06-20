@@ -8,6 +8,7 @@ import com.nutriomatic.app.data.remote.api.request.UpdateStoreRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateTransactionRequest
 import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
+import com.nutriomatic.app.data.remote.api.response.CheckoutResponse
 import com.nutriomatic.app.data.remote.api.response.ClassificationCaloryResponse
 import com.nutriomatic.app.data.remote.api.response.CreateProductResponse
 import com.nutriomatic.app.data.remote.api.response.GetNutritionScanByIdResponse
@@ -204,12 +205,15 @@ interface ApiService {
         @Path("id") id: String,
     ): AllTransactionsResponse
 
+    @GET("transaction/checkout")
+    suspend fun getCheckout(
+    ): CheckoutResponse
+
     @POST("transaction/{product_id}")
     suspend fun createTransaction(
         @Path("product_id") id: String,
         @Body createTransactionRequest: CreateTransactionRequest,
     ): BasicResponse
-
 
     @PATCH("transaction/status/{id}")
     suspend fun updateTransactionStatus(

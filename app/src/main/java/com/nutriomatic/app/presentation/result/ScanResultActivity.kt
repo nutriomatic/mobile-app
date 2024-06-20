@@ -66,16 +66,16 @@ class ScanResultActivity : AppCompatActivity() {
             ivLabel.setImageResource(gradeDrawableRes)
 
             tvTotalCalory.text =
-                getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy.toDouble())
-            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat.toDouble())
+                getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy)
+            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat)
             tvProtein.text =
-                getString(R.string.nutrition_value_g, nutritionScan.snProtein.toDouble())
+                getString(R.string.nutrition_value_g, nutritionScan.snProtein)
             tvTotalCarbohydrate.text =
-                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate.toDouble())
+                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate)
             tvTotalSugar.text =
-                getString(R.string.nutrition_value_g, nutritionScan.snSugar.toDouble())
+                getString(R.string.nutrition_value_g, nutritionScan.snSugar)
             tvSodium.text =
-                getString(R.string.nutrition_value_mg, nutritionScan.snSalt.toDouble().times(1000))
+                getString(R.string.nutrition_value_mg, nutritionScan.snSalt.times(1000))
 
 
             topAppBar.setNavigationOnClickListener { onBackPressed() }

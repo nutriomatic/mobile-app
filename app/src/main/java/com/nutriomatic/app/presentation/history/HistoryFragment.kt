@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
@@ -87,7 +89,18 @@ class HistoryFragment : Fragment() {
 
         viewModel.getNutritionScanPaging().observe(viewLifecycleOwner) {
             adapter?.submitData(viewLifecycleOwner.lifecycle, it)
+
+            adapter?.addLoadStateListener { loadState ->
+                if (loadState.refresh is LoadState.NotLoading && adapter?.itemCount == 0) {
+                    // Data is empty
+                    binding.messageEmpty.isVisible = true
+                } else {
+                    // Data is not empty
+                    binding.messageEmpty.isVisible = false
+                }
+            }
         }
+
 
         with(binding) {
 

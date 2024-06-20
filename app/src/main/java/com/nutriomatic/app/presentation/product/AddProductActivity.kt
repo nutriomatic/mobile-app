@@ -255,7 +255,7 @@ class AddProductActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         val intent = Intent(this, AdvertiseActivity::class.java)
                         startActivity(intent)
-//                        finish()
+                        finish()
                     }
 
                     is Result.Error -> {

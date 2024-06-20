@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
-import com.nutriomatic.app.data.remote.api.response.Transaction
+import com.nutriomatic.app.data.remote.api.response.TransactionsItem
 import com.nutriomatic.app.databinding.ActivityPaymentBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.DefaultItemDecoration
@@ -49,9 +49,9 @@ class PaymentActivity : AppCompatActivity() {
                 finish()
             }
 
-            viewModel.getTransactionByStoreId(id)
+            viewModel.getCheckout()
 
-            viewModel.transactionByStoreIdResponse.observe(this@PaymentActivity) { result ->
+            viewModel.checkoutData.observe(this@PaymentActivity) { result ->
                 if (result != null) {
                     when (result) {
                         is Result.Loading -> {
@@ -107,7 +107,7 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun setupAdapter(
-        transactionItem: MutableList<Transaction>,
+        transactionItem: MutableList<TransactionsItem>,
         productsItem: MutableList<ProductsItem>
     ) {
         var total = 0

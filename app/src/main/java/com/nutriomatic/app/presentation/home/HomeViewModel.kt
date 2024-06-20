@@ -46,7 +46,7 @@ class HomeViewModel(
         }
     }
 
-    private fun getClassification() {
+    fun getClassification() {
         viewModelScope.launch {
             userRepository.getClassification()
         }

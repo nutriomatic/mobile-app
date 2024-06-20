@@ -148,22 +148,25 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     private fun setupProfilClassificationHome() {
+        homeViewModel.getClassification()
         homeViewModel.detailClassification.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBarClass.visibility = View.VISIBLE
                     }
 
                     is Result.Success -> {
+                        binding.progressBarClass.visibility = View.GONE
                         binding.btnCategory.text = result.data.classification
-                        binding.tvCalorie.text = getString(R.string.calorie, result.data.calories.toInt())
-                        binding.progressBar.visibility = View.GONE
+                        binding.tvCalorie.text =
+                            getString(R.string.calorie, result.data.calories.toInt())
                     }
 
                     is Result.Error -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarClass.visibility = View.GONE
 
                         Snackbar.make(
                             requireView(), result.error, Snackbar.LENGTH_SHORT

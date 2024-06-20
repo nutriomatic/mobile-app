@@ -55,6 +55,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/shapeableImageView"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:src="@drawable/cooking"
@@ -124,6 +125,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_your_daily_calorie"
                             tools:text="2122 calories" />
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/progress_bar_class"
+                            android:layout_width="100dp"
+                            android:layout_height="200dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+                            app:layout_constraintStart_toStartOf="@+id/btn_category"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/dot_loading" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

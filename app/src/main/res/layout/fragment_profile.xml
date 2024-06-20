@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/profil_menu"
-            app:navigationIcon="@drawable/arrow_left"
+            app:navigationIcon="@drawable/logo_new"
             app:title="@string/title_profile"
             app:titleCentered="true" />
 

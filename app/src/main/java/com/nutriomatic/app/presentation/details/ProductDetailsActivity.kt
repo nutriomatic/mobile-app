@@ -77,13 +77,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             val gradeResId = LocalData.getGradeLabelByName(product.productGrade)
             imgLabel.setImageResource(gradeResId)
             imgLabel.setOnClickListener {
-                val modalBottomSheet = ModalBottomSheet(
-                    product.productLemaktotal,
-                    product.productGaram,
-                    product.productKarbohidrat,
-                    product.productProtein,
-                    product.productServingsize
-                )
+                val modalBottomSheet = ModalBottomSheet(product)
                 modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
             }
 
@@ -162,11 +156,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 }
 
 class ModalBottomSheet(
-    private val productLemaktotal: Double,
-    private val productGaram: Double,
-    private val productKarbohidrat: Double,
-    private val productProtein: Double,
-    private val productServingsize: Int,
+    val product: ProductsItem,
 ) : BottomSheetDialogFragment() {
     private var _binding: NutritionBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
@@ -183,32 +173,19 @@ class ModalBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.txtServingSizePerContInput.setText(productServingsize.toString())
-//        binding.txtFatInput.setText(productLemaktotal.toString())
-//        binding.txtCarboInput.setText(productKarbohidrat.toString())
-//        binding.txtProteinInput.setText(productProtein.toString())
-//        binding.txtSodiumInput.setText(productGaram.toString())
-
         with(binding) {
-//            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy)
-//            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat)
-//            tvProtein.text = getString(R.string.nutrition_value_g, nutritionScan.snProtein)
-//            tvTotalCarbohydrate.text =
-//                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate)
-//            tvTotalSugar.text = getString(R.string.nutrition_value_g, nutritionScan.snSugar)
-//            tvSodium.text = getString(R.string.nutrition_value_mg, nutritionScan.snSalt)
-
-            tvYourCategory.text = "Normal Weight"
-            tvYourDailyCalorie.text = getString(R.string.nutrition_value_kcal, 2050)
-
-            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, 120)
-            tvTotalFat.text = getString(R.string.nutrition_value_g, 7)
-            tvProtein.text = getString(R.string.nutrition_value_g, 5)
-            tvTotalCarbohydrate.text = getString(R.string.nutrition_value_g, 28)
-            tvTotalSugar.text = getString(R.string.nutrition_value_g, 6)
-            tvSodium.text = getString(R.string.nutrition_value_mg, 120)
+            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, product.productEnergi)
+            tvTotalFat.text = getString(R.string.nutrition_value_g, product.productLemaktotal)
+            tvSaturatedFat.text = getString(R.string.nutrition_value_g, product.productLemakJenuh)
+            tvProtein.text = getString(R.string.nutrition_value_g, product.productProtein)
+            tvTotalCarbohydrate.text =
+                getString(R.string.nutrition_value_g, product.productKarbohidrat)
+            tvFiber.text = getString(R.string.nutrition_value_g, product.productFiber)
+            tvTotalSugar.text = getString(R.string.nutrition_value_g, product.productGula)
+            tvSodium.text = getString(R.string.nutrition_value_mg, product.productGaram.times(1000))
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

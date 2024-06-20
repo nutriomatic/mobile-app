@@ -95,9 +95,9 @@
     <string name="total_sugar">Total Sugar</string>
     <string name="sodium">Sodium</string>
 
-    <string name="nutrition_value_kcal">%1$d kcal</string>
-    <string name="nutrition_value_g" translatable="false">%1$dg</string>
-    <string name="nutrition_value_mg" translatable="false">%1$dmg</string>
+    <string name="nutrition_value_kcal">%1$.1f kcal</string>
+    <string name="nutrition_value_g" translatable="false">%1$.1fg</string>
+    <string name="nutrition_value_mg" translatable="false">%1$.1fmg</string>
     <string name="this_qr_code_will_expired_in_05_00">This QR Code will expired in %1$02d:%2$02d</string>
     <string name="title_add_product">Add Product</string>
     <string name="advertise">Advertise</string>
@@ -139,13 +139,14 @@
     <string name="title_my_store">My Store</string>
     <string name="apply">Apply</string>
     <string name="ttile_update_product">Update Product</string>
-    <string name="tsc_status_unadvertise">Unadvertised</string>
-    <string name="tsc_status_advertise">Advertised</string>
-    <string name="tsc_status_process">Process</string>
-    <string name="tsc_status_decline">Declined</string>
+    <string name="tsc_status_unadvertise" translatable="false">Unadvertised</string>
+    <string name="tsc_status_advertise" translatable="false">Advertised</string>
+    <string name="tsc_status_process" translatable="false">Process</string>
+    <string name="tsc_status_decline" translatable="false">Declined</string>
 
     <string name="updated_at">Updated at %1$s</string>
     <string name="payment_id">Payment ID</string>
     <string name="store_id">Store ID</string>
     <string name="product_id">Product ID</string>
+    <string name="saturated_fat">Saturated Fat</string>
 </resources>

@@ -120,4 +120,9 @@
     <string name="title_my_store">Toko Saya</string>
     <string name="apply">Terapkan</string>
     <string name="ttile_update_product">Ubah Produk</string>
+    <string name="updated_at">Diubah pada %1$s</string>
+    <string name="payment_id">ID Pembayaran</string>
+    <string name="store_id">ID Toko</string>
+    <string name="product_id">ID Produk</string>
+    <string name="saturated_fat">Lemak Jenuh</string>
 </resources>

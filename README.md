@@ -6,18 +6,12 @@
 
 ## About :
 
-Nutri-O-Matic is a mobile app that simplifies tracking dietary intake by scanning nutrition labels,
-making it easier for
-users to make healthier food choices. With rising health concerns like obesity, hypertension, and
-diabetes in Indonesia,
-the app aims to promote healthier lifestyles. It provides detailed nutritional information such as
-calories, fats, and
-sodium content by scanning food labels. The app is designed to help reduce the number of patients
-suffering from these
-health issues in Indonesia, which ranks high globally in terms of diabetes, hypertension, and
-obesity prevalence.
-Nutri-O-Matic leverages technology to simplify healthy eating, striving for better health and
-happiness for all
+Nutri-O-Matic is a mobile app that simplifies tracking dietary intake by scanning nutrition labels, making it easier for
+users to make healthier food choices. With rising health concerns like obesity, hypertension, and diabetes in Indonesia,
+the app aims to promote healthier lifestyles. It provides detailed nutritional information such as calories, fats, and
+sodium content by scanning food labels. The app is designed to help reduce the number of patients suffering from these
+health issues in Indonesia, which ranks high globally in terms of diabetes, hypertension, and obesity prevalence.
+Nutri-O-Matic leverages technology to simplify healthy eating, striving for better health and happiness for all
 Indonesians.
 
 ## Setup App Development Environment

@@ -17,7 +17,7 @@ Indonesians.
 ## Setup App Development Environment
 
 1. Download and install [Android Studio](https://developer.android.com/studio)
-3. Download / clone this repository to a folder on your computer
+3. Download / clone `git clone https://github.com/nutriomatic/mobile-app.git` this repository to a folder on your computer
 4. Start Android Studio, open your source code folder and check if the Gradle build will be
    successful using Build/Make
    Module "App". You might have to install the right Android SDK via Tools/SDK Manager first.

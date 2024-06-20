@@ -53,6 +53,21 @@ class StoreRepository(private val apiService: ApiService) {
         }
     }
 
+    suspend fun getStoreById(
+        id: String,
+    ) {
+        _store.value = Result.Loading
+        try {
+            val response = apiService.getStoreById(id)
+            _store.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _store.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
 
     suspend fun updateStore(
         storeName: String,

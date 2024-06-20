@@ -1,5 +1,7 @@
 package com.nutriomatic.app.presentation.details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
@@ -19,6 +20,8 @@ import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
 import com.nutriomatic.app.databinding.NutritionBottomSheetLayoutBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.formatCurrency
+import java.net.URLEncoder
+
 
 class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailsBinding
@@ -65,8 +68,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setupProduct(product: ProductsItem) {
         with(binding) {
-            Glide.with(this@ProductDetailsActivity)
-                .load(product.productPicture)
+            Glide.with(this@ProductDetailsActivity).load(product.productPicture)
                 .placeholder(R.drawable.cendol).into(itemImage)
             itemTitle.text = product.productName
             itemPrice.text = formatCurrency(product.productPrice)
@@ -89,12 +91,47 @@ class ProductDetailsActivity : AppCompatActivity() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.menu_share -> {
-                        Snackbar.make(
-                            this@ProductDetailsActivity,
-                            binding.root,
-                            "Share: ${product.productName}",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                        val phoneNumber = "+6281234567890"
+                        val encodedMessage = URLEncoder.encode(
+                            "Hallo kak\nNew Product Launch\nIts is ${product.productName}\n${product.productDesc}\nHanya ${
+                                formatCurrency(product.productPrice.toDouble())
+                            }", "UTF-8"
+                        )
+
+                        val url =
+                            "https://api.whatsapp.com/send?phone=$phoneNumber&text=$encodedMessage"
+
+                        val i = Intent(Intent.ACTION_VIEW)
+                        i.setData(Uri.parse(url))
+                        startActivity(i)
+
+//                        viewModel.getStoreById(product.storeId) // masih null
+//                        viewModel.storeDetail.observe(this@ProductDetailsActivity) { result ->
+//                            if (result != null) {
+//                                when (result) {
+//                                    is Result.Loading -> {
+////                        binding.progressBar.visibility = View.VISIBLE
+//                                    }
+//
+//                                    is Result.Success -> {
+//                                        val url =
+//                                            "https://api.whatsapp.com/send?phone=${result.data.store.storeContact}"
+//                                        val i = Intent(Intent.ACTION_VIEW)
+//                                        i.setData(Uri.parse(url))
+//                                        startActivity(i)
+//                                    }
+//
+//                                    is Result.Error -> {
+////                        binding.progressBar.visibility = View.GONE
+//                                        Toast.makeText(
+//                                            this@ProductDetailsActivity,
+//                                            result.error,
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//                                    }
+//                                }
+//                            }
+//                        }
                         true
                     }
 
@@ -167,8 +204,7 @@ class ModalBottomSheet(
             tvTotalCalory.text = getString(R.string.nutrition_value_kcal, 120)
             tvTotalFat.text = getString(R.string.nutrition_value_g, 7)
             tvProtein.text = getString(R.string.nutrition_value_g, 5)
-            tvTotalCarbohydrate.text =
-                getString(R.string.nutrition_value_g, 28)
+            tvTotalCarbohydrate.text = getString(R.string.nutrition_value_g, 28)
             tvTotalSugar.text = getString(R.string.nutrition_value_g, 6)
             tvSodium.text = getString(R.string.nutrition_value_mg, 120)
         }

@@ -52,7 +52,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(ProductDetailViewModel::class.java) -> {
-                ProductDetailViewModel(productRepository) as T
+                ProductDetailViewModel(productRepository, storeRepository) as T
             }
 
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {

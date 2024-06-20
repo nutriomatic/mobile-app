@@ -78,6 +78,11 @@ interface ApiService {
     suspend fun getStore(
     ): StoreResponse
 
+    @GET("store/{id}")
+    suspend fun getStoreById(
+        @Path("id") id: String,
+    ): StoreResponse
+
     @PATCH("store/")
     suspend fun updateStore(
         @Body updateStoreRequest: UpdateStoreRequest,

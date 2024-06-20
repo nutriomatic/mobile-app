@@ -22,7 +22,7 @@ android {
         val properties = Properties()
         properties.load(rootProject.file("local.properties").inputStream())
 
-        buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+        buildConfigField("String", "BASE_URL", "\"https://c241-ps219.et.r.appspot.com/api/\"")
     }
 
     buildTypes {

@@ -139,4 +139,13 @@
     <string name="title_my_store">My Store</string>
     <string name="apply">Apply</string>
     <string name="ttile_update_product">Update Product</string>
+    <string name="tsc_status_unadvertise">Unadvertised</string>
+    <string name="tsc_status_advertise">Advertised</string>
+    <string name="tsc_status_process">Process</string>
+    <string name="tsc_status_decline">Declined</string>
+
+    <string name="updated_at">Updated at %1$s</string>
+    <string name="payment_id">Payment ID</string>
+    <string name="store_id">Store ID</string>
+    <string name="product_id">Product ID</string>
 </resources>

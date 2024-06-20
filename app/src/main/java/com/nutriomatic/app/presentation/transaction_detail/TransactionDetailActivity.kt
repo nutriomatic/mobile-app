@@ -62,7 +62,8 @@ class TransactionDetailActivity : AppCompatActivity() {
                 .into(ivProof)
 
             tvId.text = transaction.tscId
-            tvCreatedAt.text = convertToLocalDateTimeString(transaction.createdAt)
+            tvUpdatedAt.text =
+                getString(R.string.updated_at, convertToLocalDateTimeString(transaction.updatedAt))
             tvStatus.text = transaction.tscStatus.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(
                     Locale.getDefault()
@@ -77,13 +78,20 @@ class TransactionDetailActivity : AppCompatActivity() {
             )
             tvPrice.text = transaction.tscPrice.toString()
             tvVa.text = transaction.tscVirtualaccount.ifEmpty { "-" }
-            tvStart.text = convertToLocalDateString(transaction.tscStart)
-            tvEnd.text = convertToLocalTimeString(transaction.tscEnd)
-
+            tvStart.text = convertToLocalDateTimeString(transaction.tscStart)
+            tvEnd.text = convertToLocalDateTimeString(transaction.tscEnd)
+            tvPaymentId.text = transaction.paymentId
+            tvStoreId.text = transaction.storeId
+            tvProductId.text = transaction.productId
             btnAccept.setOnClickListener { acceptTransaction() }
             btnDecline.setOnClickListener { declineTransaction() }
 
             if (args.forAdmin) {
+                if (transaction.tscStatus.lowercase() in listOf("accepted", "declined")) {
+                    btnAccept.isEnabled = false
+                    btnDecline.isEnabled = false
+                }
+
                 btnAccept.visibility = View.VISIBLE
                 btnDecline.visibility = View.VISIBLE
             }
@@ -109,8 +117,8 @@ class TransactionDetailActivity : AppCompatActivity() {
                             binding.root,
                             result.data.message.toString(),
                             Snackbar.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
+                        viewModel.getTransactionById(args.transactionId)
                     }
                 }
             }

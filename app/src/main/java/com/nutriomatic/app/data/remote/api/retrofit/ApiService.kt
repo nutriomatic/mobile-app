@@ -182,6 +182,9 @@ interface ApiService {
 
     @GET("transaction/")
     suspend fun getAllTransactions(
+        @Query("desc") desc: Int = 1,
+        @Query("sort") sort: String = "created_at",
+        @Query("status") search: String = "pending",
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 1,
     ): AllTransactionsResponse

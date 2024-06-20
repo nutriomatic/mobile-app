@@ -7,6 +7,7 @@ import com.nutriomatic.app.data.local.model.Gender
 import com.nutriomatic.app.data.local.model.Grade
 import com.nutriomatic.app.data.local.model.HealthGoal
 import com.nutriomatic.app.data.local.model.ProductType
+import com.nutriomatic.app.data.local.model.TransactionStatus
 
 object LocalData {
     val GENDERS = listOf(
@@ -49,6 +50,13 @@ object LocalData {
         Grade("B", R.drawable.label_b),
         Grade("C", R.drawable.label_c),
         Grade("D", R.drawable.label_d),
+    )
+
+    val TRANSACTION_STATUS = listOf(
+        TransactionStatus(0, "unadvertise", R.string.tsc_status_unadvertise),
+        TransactionStatus(1, "advertise", R.string.tsc_status_advertise),
+        TransactionStatus(2, "process", R.string.tsc_status_process),
+        TransactionStatus(3, "decline", R.string.tsc_status_decline),
     )
 
     fun getGenderNames(context: Context): List<String> {
@@ -113,5 +121,20 @@ object LocalData {
     fun getGradeLabelByName(name: String): Int {
         return GRADES.find { it.name.lowercase() == name.lowercase() }?.label
             ?: GRADES.first().label
+    }
+
+    fun getTransactionStatusNameByCode(context: Context, code: Int): String {
+        return TRANSACTION_STATUS.find { it.id == code }?.let { context.getString(it.nameRes) }
+            ?: context.getString(TRANSACTION_STATUS.first().nameRes)
+    }
+
+    fun getTransactionStatusCodeByName(context: Context, name: String): Int {
+        return TRANSACTION_STATUS.find { context.getString(it.nameRes) == name }?.id
+            ?: TRANSACTION_STATUS.first().id
+    }
+
+    fun getTransactionStatusCodeNameByName(context: Context, name: String): String {
+        return TRANSACTION_STATUS.find { context.getString(it.nameRes) == name }?.codeName
+            ?: TRANSACTION_STATUS.first().codeName
     }
 }

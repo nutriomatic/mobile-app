@@ -11,6 +11,7 @@ import com.nutriomatic.app.data.pref.UserPreference
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.request.CreateTransactionRequest
 import com.nutriomatic.app.data.remote.api.request.UpdateTransactionRequest
+import com.nutriomatic.app.data.remote.api.response.AllTransactionsResponse
 import com.nutriomatic.app.data.remote.api.response.BasicResponse
 import com.nutriomatic.app.data.remote.api.response.ErrorResponse
 import com.nutriomatic.app.data.remote.api.response.GetTransactionByIdResponse
@@ -37,6 +38,11 @@ class TransactionRepository private constructor(
     private val _getTransactionByIdResponse = MutableLiveData<Result<GetTransactionByIdResponse>>()
     val getTransactionByIdResponse: LiveData<Result<GetTransactionByIdResponse>> =
         _getTransactionByIdResponse
+
+    private val _getTransactionByStoreIdResponse =
+        MutableLiveData<Result<AllTransactionsResponse>>()
+    val getTransactionByStoreIdResponse: LiveData<Result<AllTransactionsResponse>> =
+        _getTransactionByStoreIdResponse
 
 
     suspend fun createTransaction(productId: String) {
@@ -71,6 +77,20 @@ class TransactionRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _getTransactionByIdResponse.value = Result.Error(errorMessage ?: "An error occurred")
+        }
+    }
+
+    suspend fun getTransactionByStoreId(id: String) {
+        _getTransactionByStoreIdResponse.value = Result.Loading
+        try {
+            val response = apiService.getTransactionByStoreId(id)
+            _getTransactionByStoreIdResponse.value = Result.Success(response)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            _getTransactionByStoreIdResponse.value =
+                Result.Error(errorMessage ?: "An error occurred")
         }
     }
 

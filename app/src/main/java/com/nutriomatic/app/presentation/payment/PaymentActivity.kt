@@ -2,6 +2,7 @@ package com.nutriomatic.app.presentation.payment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
+import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.databinding.ActivityPaymentBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.DefaultItemDecoration
@@ -47,9 +49,9 @@ class PaymentActivity : AppCompatActivity() {
                 finish()
             }
 
-            viewModel.getProductsByStore(id)
+            viewModel.getTransactionByStoreId(id)
 
-            viewModel.productsStore.observe(this@PaymentActivity) { result ->
+            viewModel.transactionByStoreIdResponse.observe(this@PaymentActivity) { result ->
                 if (result != null) {
                     when (result) {
                         is Result.Loading -> {
@@ -57,8 +59,34 @@ class PaymentActivity : AppCompatActivity() {
                         }
 
                         is Result.Success -> {
-                            setupAdapter(result.data.products.toMutableList())
-                            binding.progressBar.visibility = View.GONE
+                            viewModel.getProductsByStore(id)
+                            viewModel.productsStore.observe(this@PaymentActivity) { res ->
+                                if (res != null) {
+                                    when (res) {
+                                        is Result.Loading -> {
+                                            binding.progressBar.visibility = View.VISIBLE
+                                        }
+
+                                        is Result.Success -> {
+                                            setupAdapter(
+                                                result.data.transactions.toMutableList(),
+                                                res.data.products.toMutableList(),
+                                            )
+                                            binding.progressBar.visibility = View.GONE
+                                        }
+
+                                        is Result.Error -> {
+                                            binding.progressBar.visibility = View.GONE
+
+                                            Snackbar.make(
+                                                binding.root,
+                                                res.error,
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         is Result.Error -> {
@@ -78,11 +106,34 @@ class PaymentActivity : AppCompatActivity() {
 
     }
 
-    private fun setupAdapter(productsItem: MutableList<ProductsItem>) {
+    private fun setupAdapter(
+        transactionItem: MutableList<Transaction>,
+        productsItem: MutableList<ProductsItem>
+    ) {
+        var total = 0
+
+        for (i in 0 until transactionItem.size) {
+            total += transactionItem[i].tscPrice
+        }
+
+        for (i in 0 until productsItem.size) {
+            for (j in 0 until transactionItem.size) {
+                if (productsItem[i].productId == transactionItem[j].productId) {
+                    transactionItem[j].productId = productsItem[i].productName
+                    transactionItem[j].tscBukti = productsItem[i].productPicture
+                }
+            }
+        }
+
+        binding.btnPay.text = formatCurrency(total.toDouble()).toString()
+
+        Log.d("TOTAL", total.toString())
+
         val adapter =
             CheckoutAdapter(
-                listProduct = productsItem
+                listProduct = transactionItem
             )
+
 
         binding.rvProductPay.adapter = adapter
         binding.rvProductPay.layoutManager =

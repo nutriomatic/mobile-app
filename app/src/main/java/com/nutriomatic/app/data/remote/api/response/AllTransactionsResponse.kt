@@ -36,10 +36,10 @@ data class Transaction(
     val paymentId: String,
 
     @field:SerializedName("product_id")
-    val productId: String,
+    var productId: String,
 
     @field:SerializedName("tsc_bukti")
-    val tscBukti: String,
+    var tscBukti: String,
 
     @field:SerializedName("tsc_virtualaccount")
     val tscVirtualaccount: String,

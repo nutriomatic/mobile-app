@@ -31,7 +31,7 @@ class ProductDataAdapter(
                 tvStatus.visibility = if (showEdit) View.VISIBLE else View.GONE
                 when (item.productIsshow) {
                     0 -> {
-                        tvStatus.text = "Not Advertise"
+                        tvStatus.text = "UnAdvertise"
                         tvStatus.backgroundTintList =
                             tvStatus.context.getColorStateList(R.color.label_blue)
                     }
@@ -43,19 +43,19 @@ class ProductDataAdapter(
                     }
 
                     2 -> {
-                        tvStatus.text = "Process Advertise"
+                        tvStatus.text = "Process"
                         tvStatus.backgroundTintList =
                             tvStatus.context.getColorStateList(R.color.label_yellow)
                     }
 
                     3 -> {
-                        tvStatus.text = "Decline Advertise"
+                        tvStatus.text = "Decline"
                         tvStatus.backgroundTintList =
                             tvStatus.context.getColorStateList(R.color.label_red)
                     }
 
                     else -> {
-                        tvStatus.text = "Error Advertise"
+                        tvStatus.text = "Error"
                         tvStatus.backgroundTintList =
                             tvStatus.context.getColorStateList(R.color.label_red)
                     }

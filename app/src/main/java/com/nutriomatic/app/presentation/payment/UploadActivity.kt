@@ -1,5 +1,6 @@
 package com.nutriomatic.app.presentation.payment
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -14,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.databinding.ActivityUploadBinding
+import com.nutriomatic.app.presentation.advertise.AdvertiseActivity
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
 import com.nutriomatic.app.presentation.helper.util.reduceFileSize
 import com.nutriomatic.app.presentation.helper.util.uriToFile
@@ -102,10 +104,10 @@ class UploadActivity : AppCompatActivity() {
                                         Snackbar.LENGTH_SHORT
                                     ).show()
 
-//                                    val intent =
-//                                        Intent(this@UploadActivity, AdvertiseActivity::class.java)
-//                                    startActivity(intent)
-//                                    finish()
+                                    val intent =
+                                        Intent(this@UploadActivity, AdvertiseActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
                                 }
 
                                 is Result.Error -> {

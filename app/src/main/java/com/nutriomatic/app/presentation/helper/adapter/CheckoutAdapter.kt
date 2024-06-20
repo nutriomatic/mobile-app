@@ -4,26 +4,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nutriomatic.app.data.remote.api.response.ProductsItem
+import com.nutriomatic.app.data.remote.api.response.Transaction
 import com.nutriomatic.app.databinding.ItemProductPaymentBinding
 import com.nutriomatic.app.presentation.helper.util.convertToLocalDateTimeString
 import com.nutriomatic.app.presentation.helper.util.formatCurrency
 
 class CheckoutAdapter(
-    private val listProduct: List<ProductsItem>,
+    private val listProduct: List<Transaction>,
 ) :
     RecyclerView.Adapter<CheckoutAdapter.ViewHolder>() {
     inner class ViewHolder(private val binding: ItemProductPaymentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductsItem) {
+        fun bind(item: Transaction) {
             Glide.with(itemView.context)
-                .load(item.productPicture)
+                .load(item.tscBukti)
                 .into(binding.imgPhoto)
 
             with(binding) {
-                tvItemTitle.text = item.productName
-                tvPrice.text = formatCurrency(item.productPrice)
-                tvItemPublishedDate.text = convertToLocalDateTimeString(item.updatedAt)
+                tvItemTitle.text = item.productId
+                tvPrice.text = formatCurrency(item.tscPrice.toDouble())
+                tvItemPublishedDate.text = convertToLocalDateTimeString(item.tscStart)
+
             }
 
         }

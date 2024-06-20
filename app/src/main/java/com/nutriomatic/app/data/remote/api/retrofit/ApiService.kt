@@ -187,6 +187,11 @@ interface ApiService {
         @Path("id") id: String,
     ): GetTransactionByIdResponse
 
+    @GET("transaction/store/{id}")
+    suspend fun getTransactionByStoreId(
+        @Path("id") id: String,
+    ): AllTransactionsResponse
+
     @POST("transaction/{product_id}")
     suspend fun createTransaction(
         @Path("product_id") id: String,
@@ -201,6 +206,7 @@ interface ApiService {
     ): BasicResponse
 
     @POST("transaction/proof")
+    @Multipart
     suspend fun uploadProofTransaction(
         @Part file: MultipartBody.Part,
     ): BasicResponse

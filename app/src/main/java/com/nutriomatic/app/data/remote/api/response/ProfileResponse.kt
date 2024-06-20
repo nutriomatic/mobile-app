@@ -83,5 +83,5 @@ data class User(
 	val profpic: String,
 
 	@field:SerializedName("height")
-	val height: Int
+	val height: Double
 )

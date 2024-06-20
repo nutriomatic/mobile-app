@@ -83,41 +83,6 @@ class UserRepository private constructor(
         }
     }
 
-    suspend fun saveUserModel() {
-        try {
-            val response = apiService.getProfile()
-            with(response.user) {
-                userPreference.saveUserModel(
-                    UserModel(
-                        id = id,
-                        name = name,
-                        email = email,
-                        gender = gender,
-                        role = role,
-                        telp = telp,
-                        profpic = profpic,
-                        birthdate = birthdate,
-                        place = place,
-                        height = height,
-                        weight = weight,
-                        weightGoal = weightGoal,
-                        hgId = hgId,
-                        hgType = hgType,
-                        hgDesc = hgDesc,
-                        alId = alId,
-                        alType = alType,
-                        alDesc = alDesc,
-                        alValue = alValue
-                    )
-                )
-            }
-        } catch (e: HttpException) {
-            val jsonString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
-            val errorMessage = errorBody.message
-        }
-    }
-
     suspend fun updateProfile(
         name: RequestBody,
         email: RequestBody,

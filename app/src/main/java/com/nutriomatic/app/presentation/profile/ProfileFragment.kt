@@ -105,7 +105,7 @@ class ProfileFragment : Fragment() {
                                 val genderName =
                                     LocalData.getGenderNameByCode(requireContext(), this.gender)
                                 binding.txtGenderInput.setText(genderName, false)
-                                binding.txtHeightInput.setText(this.height.toString())
+                                binding.txtHeightInput.setText(this.height.times(100).toInt().toString())
                                 binding.txtWeightInput.setText(this.weight.toString())
                                 binding.txtWeightGoalInput.setText(this.weightGoal.toString())
                                 val alName = LocalData.getActivityLevelNameByCode(

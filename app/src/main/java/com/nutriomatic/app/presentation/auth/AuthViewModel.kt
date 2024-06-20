@@ -37,24 +37,6 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
         return userRepository.getTokenAndRole()
     }
 
-    fun saveUserModel() {
-        viewModelScope.launch {
-            userRepository.saveUserModel()
-        }
-    }
-
-    fun getUserModel(): LiveData<UserModel> {
-        return userRepository.getUserModel()
-    }
-
-//    suspend fun saveToken(token: String) {
-//        userRepository.saveToken(token)
-//    }
-
-    fun getToken(): LiveData<String?> {
-        return userRepository.getToken()
-    }
-
     fun logout() {
         viewModelScope.launch {
             userRepository.logout()

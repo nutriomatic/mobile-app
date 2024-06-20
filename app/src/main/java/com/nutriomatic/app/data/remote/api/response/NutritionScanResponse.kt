@@ -8,28 +8,28 @@ data class NutritionScan(
     val snGrade: String,
 
     @field:SerializedName("sn_salt")
-    val snSalt: Int,
+    val snSalt: Double,
 
     @field:SerializedName("created_at")
     val createdAt: String,
 
     @field:SerializedName("sn_energy")
-    val snEnergy: Int,
+    val snEnergy: Double,
 
     @field:SerializedName("sn_fat")
-    val snFat: Int,
+    val snFat: Double,
 
     @field:SerializedName("sn_sugar")
-    val snSugar: Int,
+    val snSugar: Double,
 
     @field:SerializedName("sn_carbohydrate")
-    val snCarbohydrate: Int,
+    val snCarbohydrate: Double,
 
     @field:SerializedName("updated_at")
     val updatedAt: String,
 
     @field:SerializedName("sn_protein")
-    val snProtein: Int,
+    val snProtein: Double,
 
     @field:SerializedName("user_id")
     val userId: String,

@@ -8,10 +8,10 @@ data class ClassificationCaloryResponse(
 	val code: Int,
 
 	@field:SerializedName("calories")
-	val calories: Int,
+	val calories: Double,
 
 	@field:SerializedName("classification")
-	val classification: Int,
+	val classification: String,
 
 	@field:SerializedName("status")
 	val status: String

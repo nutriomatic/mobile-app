@@ -24,28 +24,28 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grade A" />
+            android:text="@string/grade_a" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipB"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grade B" />
+            android:text="@string/grade_b" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipC"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grade C" />
+            android:text="@string/grade_c" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipD"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Grade D" />
+            android:text="@string/grade_d" />
 
     </com.google.android.material.chip.ChipGroup>
 

@@ -150,4 +150,36 @@
     <string name="product_id">Product ID</string>
     <string name="saturated_fat">Saturated Fat</string>
     <string name="confirmation_password">Confirmation Password</string>
+    <string name="classification_insufficient_weight">Insufficient Weight</string>
+    <string name="classification_normal_weight">Normal Weight</string>
+    <string name="classification_obesity_type_1">Obesity Type I</string>
+    <string name="classification_obesity_type_2">Obesity Type II</string>
+    <string name="classification_obesity_type_3">Obesity Type III</string>
+    <string name="classification_overweight_level_1">Overweight Level I</string>
+    <string name="classification_overweight_level_2">Overweight Level II</string>
+    <string name="delete">Delete</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="store">Store</string>
+    <string name="scan">Scan</string>
+    <string name="history">History</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="payment">Payment</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+    <string name="gallery">Gallery</string>
+    <string name="grade_a" translatable="false">Grade A</string>
+    <string name="grade_b" translatable="false">Grade B</string>
+    <string name="grade_c" translatable="false">Grade C</string>
+    <string name="grade_d" translatable="false">Grade D</string>
+    <string name="dietary_fiber">Dietary Fiber</string>
+    <string name="error_failed_to_open_camera">Failed to open camera</string>
+    <string name="products_not_found">Products not found, search another products!</string>
+    <string name="qr_code_expired">Sorry, QR Code expired</string>
+    <string name="save_product_first">Save product first!</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="are_you_sure_want_to_delete_this_product">Are you sure want to delete this product?</string>
+    <string name="success_delete_the_product">Success delete the product!</string>
 </resources>

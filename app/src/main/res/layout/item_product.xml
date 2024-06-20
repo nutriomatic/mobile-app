@@ -31,10 +31,10 @@
                 android:id="@+id/iv_edit"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/bg_icon"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="8dp"
+                android:background="@drawable/bg_icon"
                 android:src="@drawable/edit" />
 
             <LinearLayout
@@ -54,18 +54,18 @@
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hamburger"
                         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                         android:textColor="@color/white"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Hamburger" />
 
                     <TextView
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp. 23.499"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        tools:text="Rp. 23.499" />
 
                 </LinearLayout>
             </LinearLayout>

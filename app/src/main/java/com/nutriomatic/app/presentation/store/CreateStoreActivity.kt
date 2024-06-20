@@ -51,7 +51,7 @@ class CreateStoreActivity : AppCompatActivity() {
 
     private fun setupStore(store: Store) {
         with(binding) {
-            binding.btnSave.setText("Update Store")
+            binding.btnSave.text = "Update Store"
             binding.txtUsernameInput.isEnabled = false
 
             txtNameInput.setText(store.storeName)

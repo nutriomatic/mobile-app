@@ -64,7 +64,7 @@ class UploadActivity : AppCompatActivity() {
             override fun onFinish() {
                 Toast.makeText(
                     this@UploadActivity,
-                    "Sorry, QR Code expired",
+                    getString(R.string.qr_code_expired),
                     Toast.LENGTH_SHORT
                 )
                     .show()

@@ -3,6 +3,7 @@ package com.nutriomatic.app.data.local
 import android.content.Context
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.model.ActivityLevel
+import com.nutriomatic.app.data.local.model.Classification
 import com.nutriomatic.app.data.local.model.Gender
 import com.nutriomatic.app.data.local.model.Grade
 import com.nutriomatic.app.data.local.model.HealthGoal
@@ -57,6 +58,16 @@ object LocalData {
         TransactionStatus(1, "advertise", R.string.tsc_status_advertise),
         TransactionStatus(2, "process", R.string.tsc_status_process),
         TransactionStatus(3, "decline", R.string.tsc_status_decline),
+    )
+
+    val CLASSIFICATIONS = listOf(
+        Classification(0, R.string.classification_insufficient_weight),
+        Classification(1, R.string.classification_normal_weight),
+        Classification(2, R.string.classification_obesity_type_1),
+        Classification(3, R.string.classification_obesity_type_2),
+        Classification(4, R.string.classification_obesity_type_3),
+        Classification(5, R.string.classification_overweight_level_1),
+        Classification(6, R.string.classification_overweight_level_2),
     )
 
     fun getGenderNames(context: Context): List<String> {
@@ -136,5 +147,10 @@ object LocalData {
     fun getTransactionStatusCodeNameByName(context: Context, name: String): String {
         return TRANSACTION_STATUS.find { context.getString(it.nameRes) == name }?.codeName
             ?: TRANSACTION_STATUS.first().codeName
+    }
+
+    fun getClassificationNameByCode(context: Context, code: Int): String {
+        return CLASSIFICATIONS.find { it.code == code }?.let { context.getString(it.name) }
+            ?: context.getString(CLASSIFICATIONS.first().name)
     }
 }

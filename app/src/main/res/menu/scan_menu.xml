@@ -4,6 +4,6 @@
     <item
         android:id="@+id/menu_gallery"
         android:icon="@drawable/img_box"
-        android:title="Gallery"
+        android:title="@string/gallery"
         app:showAsAction="always" />
 </menu>

@@ -149,6 +149,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupProfilClassificationHome() {
+        homeViewModel.getClassification()
         homeViewModel.detailClassification.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
@@ -158,7 +159,8 @@ class HomeFragment : Fragment() {
 
                     is Result.Success -> {
                         binding.btnCategory.text = result.data.classification
-                        binding.tvCalorie.text = getString(R.string.calorie, result.data.calories.toInt())
+                        binding.tvCalorie.text =
+                            getString(R.string.calorie, result.data.calories.toInt())
                         binding.progressBar.visibility = View.GONE
                     }
 

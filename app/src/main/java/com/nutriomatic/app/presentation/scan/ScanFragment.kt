@@ -203,6 +203,7 @@ class ScanFragment : Fragment() {
 
                 override fun onError(exception: ImageCaptureException) {
                     Snackbar.make(
+                        requireContext(),
                         requireView(),
                         getString(R.string.failed_to_take_photo), Snackbar.LENGTH_SHORT
                     )

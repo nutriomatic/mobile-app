@@ -1,5 +1,6 @@
 package com.nutriomatic.app.data.remote.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
@@ -43,6 +44,10 @@ class NutritionScanRepository(private val apiService: ApiService) {
             val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _createNutritionScanResponse.value = Result.Error(errorMessage ?: "An error occurred")
+        } catch (e: Exception) {
+            Log.e("NutritionScanRepository", "e: ${e.message}")
+            e.printStackTrace()
+            _createNutritionScanResponse.value = Result.Error("e: ${e.message}")
         }
     }
 

@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
 import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
-import com.nutriomatic.app.data.remote.api.response.Product
+import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.ActivityProductDetailsBinding
 import com.nutriomatic.app.databinding.NutritionBottomSheetLayoutBinding
 import com.nutriomatic.app.presentation.factory.ViewModelFactory
@@ -63,7 +63,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupProduct(product: Product) {
+    private fun setupProduct(product: ProductsItem) {
         with(binding) {
             Glide.with(this@ProductDetailsActivity)
                 .load(product.productPicture)

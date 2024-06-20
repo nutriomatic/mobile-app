@@ -145,6 +145,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_serving_size_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_serving_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_serving_size_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    tools:text="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_serving_size_per_cont_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,7 +172,7 @@
                 android:hint="@string/hint_serving_size_per_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_price_layout">
+                app:layout_constraintTop_toBottomOf="@+id/txt_serving_size_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_serving_size_per_cont_input"
@@ -172,21 +192,17 @@
                 android:text="@string/amount_per_serving"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_serving_size_per_cont_layout" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txt_calories_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
                 android:hint="@string/hint_calories"
-                app:layout_constraintEnd_toStartOf="@+id/txt_sugar_layout"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_amount_per_serving">
 
@@ -195,7 +211,106 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:nextFocusDown="@id/txt_sugar_input"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_fat_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_fat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_calories_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_fat_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_saturated_fat_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_saturated_fat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_fat_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_saturated_fat_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_protein_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_protein"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_saturated_fat_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_protein_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_carbohydrate_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_carbohydrate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_protein_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_carbohydrate_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    tools:text="160" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_dietary_fiber_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_fiber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_carbohydrate_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_dietary_fiber_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
                     android:textSize="16sp"
                     tools:text="160" />
 
@@ -205,90 +320,19 @@
                 android:id="@+id/txt_sugar_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/hint_sugar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txt_calories_layout"
-                app:layout_constraintTop_toTopOf="@+id/txt_calories_layout">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_dietary_fiber_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_sugar_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:nextFocusDown="@id/txt_fat_input"
                     android:textSize="16sp"
-                    tools:text="5" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_fat_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                android:hint="@string/hint_fat"
-                app:layout_constraintEnd_toStartOf="@+id/txt_carbo_layout"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_calories_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_fat_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@id/txt_carbo_input"
-                    android:textSize="16sp"
-                    tools:text="1.5" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_carbo_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:hint="@string/hint_carbohydrate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txt_fat_layout"
-                app:layout_constraintTop_toTopOf="@+id/txt_fat_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_carbo_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@id/txt_protein_input"
-                    android:textSize="16sp"
-                    tools:text="28" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_protein_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                android:hint="@string/hint_protein"
-                app:layout_constraintEnd_toStartOf="@+id/txt_sodium_layout"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_fat_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_protein_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:nextFocusDown="@id/txt_sodium_input"
-                    android:textSize="16sp"
-                    tools:text="5" />
+                    tools:text="160" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -296,12 +340,11 @@
                 android:id="@+id/txt_sodium_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/hint_sodium"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txt_protein_layout"
-                app:layout_constraintTop_toTopOf="@+id/txt_protein_layout">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_sugar_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_sodium_input"
@@ -309,9 +352,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="16sp"
-                    tools:text="220" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    tools:text="160" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_adv"
@@ -324,7 +367,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btn_save"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_protein_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_sodium_layout" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
@@ -351,10 +394,8 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/dot_loading" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

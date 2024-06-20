@@ -35,6 +35,8 @@ class AddProductViewModel(
         productDesc: String,
         productIsshow: Int = 0,
         productEnergi: Double,
+        productFiber: Double,
+        productLemakJenuh: Double,
         productGula: Double,
         productLemakTotal: Double,
         productProtein: Double,
@@ -52,6 +54,8 @@ class AddProductViewModel(
             val productIsshowBody = createRequestBodyText(productIsshow.toString())
             val productEnergiBody = createRequestBodyText(productEnergi.toString())
             val productGulaBody = createRequestBodyText(productGula.toString())
+            val productFiberBody = createRequestBodyText(productFiber.toString())
+            val productLemakJenuhBody = createRequestBodyText(productLemakJenuh.toString())
             val productLemakTotalBody = createRequestBodyText(productLemakTotal.toString())
             val productProteinBody = createRequestBodyText(productProtein.toString())
             val productKarbohidratBody = createRequestBodyText(productKarbohidrat.toString())
@@ -67,6 +71,8 @@ class AddProductViewModel(
                 productIsshow = productIsshowBody,
                 productEnergi = productEnergiBody,
                 productGula = productGulaBody,
+                productFiber = productFiberBody,
+                productLemakJenuh = productLemakJenuhBody,
                 productLemakTotal = productLemakTotalBody,
                 productProtein = productProteinBody,
                 productKarbohidrat = productKarbohidratBody,
@@ -88,6 +94,8 @@ class AddProductViewModel(
         productIsShow: Int,
         productEnergi: Double,
         productGula: Double,
+        productFiber: Double,
+        productLemakJenuh: Double,
         productLemakTotal: Double,
         productProtein: Double,
         productKarbohidrat: Double,
@@ -104,6 +112,8 @@ class AddProductViewModel(
             val productIsShowBody = createRequestBodyText(productIsShow.toString())
             val productEnergiBody = createRequestBodyText(productEnergi.toString())
             val productGulaBody = createRequestBodyText(productGula.toString())
+            val productFiberBody = createRequestBodyText(productFiber.toString())
+            val productLemakJenuhBody = createRequestBodyText(productLemakJenuh.toString())
             val productLemakTotalBody = createRequestBodyText(productLemakTotal.toString())
             val productProteinBody = createRequestBodyText(productProtein.toString())
             val productKarbohidratBody = createRequestBodyText(productKarbohidrat.toString())
@@ -120,6 +130,8 @@ class AddProductViewModel(
                 productIsshow = productIsShowBody,
                 productEnergi = productEnergiBody,
                 productGula = productGulaBody,
+                productFiber = productFiberBody,
+                productLemakJenuh = productLemakJenuhBody,
                 productLemakTotal = productLemakTotalBody,
                 productProtein = productProteinBody,
                 productKarbohidrat = productKarbohidratBody,

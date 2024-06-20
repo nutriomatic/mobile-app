@@ -58,19 +58,22 @@
     <string name="activity_level_very_active">Very Active</string>
     <string name="activity_level_super_active">Super Active</string>
 
-    <string name="hint_sodium">Sodium (mg)</string>
+    <string name="hint_product_name">Product Name</string>
+    <string name="hint_product_type">Product Type</string>
+    <string name="hint_product_description">Product Description</string>
+    <string name="hint_grade">Grade</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_serving_size">Serving size</string>
+    <string name="hint_serving_size_per_container">Serving size per container</string>
+    <string name="amount_per_serving">Amount per serving</string>
+    <string name="hint_calories">Total calories (kcal)</string>
+    <string name="hint_fat">Total Fat (g)</string>
+    <string name="hint_saturated_fat">Saturated Fat (g)</string>
     <string name="hint_protein">Protein (g)</string>
     <string name="hint_carbohydrate">Carbohydrate (g)</string>
-    <string name="hint_fat">Fat (g)</string>
-    <string name="hint_calories">Total calories (kcal)</string>
-    <string name="amount_per_serving">Amount per serving</string>
-    <string name="hint_serving_size_per_container">Serving size per container</string>
-    <string name="hint_price">Price</string>
-    <string name="hint_grade">Grade</string>
-    <string name="hint_product_description">Product Description</string>
-    <string name="hint_product_type">Product Type</string>
-    <string name="hint_product_name">Product Name</string>
+    <string name="hint_fiber">Dietary Fiber (g)</string>
     <string name="hint_sugar">Sugar (g)</string>
+    <string name="hint_sodium">Sodium (mg)</string>
 
     <string name="birthdate">Birthdate</string>
     <string name="username">Username</string>

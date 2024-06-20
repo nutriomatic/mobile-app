@@ -18,7 +18,7 @@ class NutritionScanPagingSource(private val apiService: ApiService) :
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData =
-                apiService.getNutritionScanByUserId(params.loadSize, position)
+                apiService.getNutritionScanByUserId(1, "created_at", params.loadSize, position)
 
             LoadResult.Page(
                 data = responseData.nutritionScans,

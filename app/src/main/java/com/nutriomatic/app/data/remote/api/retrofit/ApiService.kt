@@ -243,6 +243,8 @@ interface ApiService {
 
     @GET("scanned-nutrition/")
     suspend fun getNutritionScanByUserId(
+        @Query("desc") desc: Int = 1,
+        @Query("sort") sort: String = "created_at",
         @Query("pageSize") pageSize: Int = 20,
         @Query("page") page: Int = 1,
     ): GetNutritionScanByUserIdResponse

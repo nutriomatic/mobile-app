@@ -4,11 +4,11 @@
     <item
         android:id="@+id/menu_edit"
         android:icon="@drawable/edit"
-        android:title="Edit"
+        android:title="@string/edit"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_logout"
         android:icon="@drawable/sign_out_squre"
-        android:title="Logout"
+        android:title="@string/logout"
         app:showAsAction="always" />
 </menu>

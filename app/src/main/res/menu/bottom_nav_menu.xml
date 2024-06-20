@@ -3,21 +3,21 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/storeFragment"
         android:icon="@drawable/shop"
-        android:title="Store" />
+        android:title="@string/store" />
     <item
         android:id="@+id/scanFragment"
         android:icon="@drawable/scan_alt"
-        android:title="Scan" />
+        android:title="@string/scan" />
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/file_dock"
-        android:title="History" />
+        android:title="@string/history" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/user"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>

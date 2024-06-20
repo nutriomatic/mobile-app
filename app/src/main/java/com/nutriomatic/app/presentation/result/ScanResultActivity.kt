@@ -65,13 +65,17 @@ class ScanResultActivity : AppCompatActivity() {
             val gradeDrawableRes = LocalData.getGradeLabelByName(nutritionScan.snGrade)
             ivLabel.setImageResource(gradeDrawableRes)
 
-            tvTotalCalory.text = getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy)
-            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat)
-            tvProtein.text = getString(R.string.nutrition_value_g, nutritionScan.snProtein)
+            tvTotalCalory.text =
+                getString(R.string.nutrition_value_kcal, nutritionScan.snEnergy.toDouble())
+            tvTotalFat.text = getString(R.string.nutrition_value_g, nutritionScan.snFat.toDouble())
+            tvProtein.text =
+                getString(R.string.nutrition_value_g, nutritionScan.snProtein.toDouble())
             tvTotalCarbohydrate.text =
-                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate)
-            tvTotalSugar.text = getString(R.string.nutrition_value_g, nutritionScan.snSugar)
-            tvSodium.text = getString(R.string.nutrition_value_mg, nutritionScan.snSalt)
+                getString(R.string.nutrition_value_g, nutritionScan.snCarbohydrate.toDouble())
+            tvTotalSugar.text =
+                getString(R.string.nutrition_value_g, nutritionScan.snSugar.toDouble())
+            tvSodium.text =
+                getString(R.string.nutrition_value_mg, nutritionScan.snSalt.toDouble().times(1000))
 
 
             topAppBar.setNavigationOnClickListener { onBackPressed() }

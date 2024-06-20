@@ -176,7 +176,8 @@ class ScanFragment : Fragment() {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
-                Snackbar.make(requireView(), "Failed to open camera", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(requireView(),
+                    getString(R.string.error_failed_to_open_camera), Snackbar.LENGTH_SHORT).show()
                 Log.e(TAG, "startCamera: ${e.message}")
             }
         }, ContextCompat.getMainExecutor(requireContext()))

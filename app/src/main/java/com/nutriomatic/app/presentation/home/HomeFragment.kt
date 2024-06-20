@@ -3,7 +3,6 @@ package com.nutriomatic.app.presentation.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
+import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.FragmentHomeBinding
@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
             Snackbar.make(
                 requireContext(),
                 binding.root,
-                "Products not found, search another products!",
+                getString(R.string.products_not_found),
                 Snackbar.LENGTH_SHORT
             ).show()
         } else {
@@ -158,10 +158,10 @@ class HomeFragment : Fragment() {
                     }
 
                     is Result.Success -> {
-                        binding.btnCategory.text = buildString {
-                            append(result.data.classification.toString())
-                            append(" ")
-                        }
+                        binding.btnCategory.text = LocalData.getClassificationNameByCode(
+                            requireContext(),
+                            result.data.classification
+                        )
                         binding.tvCalorie.text = getString(R.string.calorie, result.data.calories)
                         binding.progressBar.visibility = View.GONE
                     }

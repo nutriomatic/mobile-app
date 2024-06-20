@@ -77,7 +77,7 @@ class AddProductActivity : AppCompatActivity() {
 
             btnSave.setOnClickListener { createProduct() }
             binding.btnAdv.setOnClickListener {
-                showToast("Save product first!")
+                showToast(getString(R.string.save_product_first))
             }
 
             args.productId?.let { id ->
@@ -163,8 +163,8 @@ class AddProductActivity : AppCompatActivity() {
 
     private fun deleteProduct(productId: String) {
         AlertDialog.Builder(this).apply {
-            setTitle("Delete Product")
-            setMessage("Are you sure want to delete this product?")
+            setTitle(getString(R.string.delete_product))
+            setMessage(getString(R.string.are_you_sure_want_to_delete_this_product))
 
             setPositiveButton("Yes") { _, _ ->
                 viewModel.deleteProductById(productId)
@@ -179,7 +179,7 @@ class AddProductActivity : AppCompatActivity() {
                                 binding.progressBar.visibility = View.GONE
                                 Snackbar.make(
                                     binding.root,
-                                    "Success delete the product!",
+                                    getString(R.string.success_delete_the_product),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
                                 finish()

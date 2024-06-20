@@ -84,7 +84,7 @@
                             android:textStyle="italic"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_greet_user"
-                            tools:text="Your Category" />
+                            tools:text="@string/your_category" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_category"
@@ -97,7 +97,7 @@
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_your_category"
-                            tools:text="Berat Badan Normal" />
+                            tools:text="Normal Weight" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tv_your_daily_calorie"
@@ -109,7 +109,7 @@
                             android:textStyle="italic"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/btn_category"
-                            tools:text="Kalori harianmu" />
+                            tools:text="@string/daily_calorie_needs" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/tv_calorie"
@@ -123,7 +123,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_your_daily_calorie"
-                            tools:text="2122 kalori" />
+                            tools:text="2122 calories" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

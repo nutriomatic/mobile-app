@@ -58,7 +58,7 @@ class TransactionDetailActivity : AppCompatActivity() {
         with(binding) {
             Glide.with(this@TransactionDetailActivity)
                 .load(transaction.tscBukti)
-                .placeholder(R.drawable.cendol)
+                .placeholder(R.drawable.loading_bar)
                 .into(ivProof)
 
             tvId.text = transaction.tscId

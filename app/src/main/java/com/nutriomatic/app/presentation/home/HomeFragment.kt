@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nutriomatic.app.R
-import com.nutriomatic.app.data.local.LocalData
 import com.nutriomatic.app.data.remote.Result
 import com.nutriomatic.app.data.remote.api.response.ProductsItem
 import com.nutriomatic.app.databinding.FragmentHomeBinding
@@ -158,11 +157,8 @@ class HomeFragment : Fragment() {
                     }
 
                     is Result.Success -> {
-                        binding.btnCategory.text = LocalData.getClassificationNameByCode(
-                            requireContext(),
-                            result.data.classification
-                        )
-                        binding.tvCalorie.text = getString(R.string.calorie, result.data.calories)
+                        binding.btnCategory.text = result.data.classification
+                        binding.tvCalorie.text = getString(R.string.calorie, result.data.calories.toInt())
                         binding.progressBar.visibility = View.GONE
                     }
 

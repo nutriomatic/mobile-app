@@ -15,7 +15,9 @@ Nutri-O-Matic leverages technology to simplify healthy eating, striving for bett
 Indonesians.
 
 ## Feature and Demo
-https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743<br/>Register, Login, And Classification
+https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743 
+
+[//]: # (<br/Register, Login, And Classification)
 
 [//]: # (|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|)
 

@@ -35,9 +35,7 @@ Indonesians.
 <table>
   <tr>
     <td>
-      <video poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls>
-         <source="https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335">
-      </video >
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
     <td>
       <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>

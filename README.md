@@ -15,22 +15,12 @@ Nutri-O-Matic leverages technology to simplify healthy eating, striving for bett
 Indonesians.
 
 ## Feature and Demo
-
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743 )
-
-[//]: # (<br/Register, Login, And Classification)
-
+| -                                                                                                                                      | -                                                                                                                                     |
 |----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-
-| https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743 <br/>Register, Login, And Classification | https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335 <br/>Catalog Product And Search Product |
-
-| https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c <br/>Scan Nutrition                      | https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71 <br/>Create Store                       |
-
-| https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26 <br/>Admin Menu                          | https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e <br/>Add Product and Request Advertise  |
-
-| https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be <br/>Check Product After Acc Admin       | https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be <br/>Check Product After Acc Admin      |
-
-|----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743<br/>Register, Login, And Classification | https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335<br/>Catalog Product And Search Product |
+| https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c<br/>Scan Nutrition                      | https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71<br/>Create Store                       |
+| https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26<br/>Admin Menu                          | https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e<br/>Add Product and Request Advertise  |
+| https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be<br/>Check Product After Acc Admin       | https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be<br/>Check Product After Acc Admin      |
 
 
 ## Setup App Development Environment

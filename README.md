@@ -35,25 +35,25 @@ Indonesians.
 <table>
   <tr>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
   </tr>
 
 <tr>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be" poster="https://github.com/nutriomatic/mobile-app/assets/95174265/0e2ace9d-9676-453a-8b88-c6ec3e6f6e60" controls></video>
     </td>
   </tr>
 </table>

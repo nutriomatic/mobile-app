@@ -20,21 +20,15 @@ Nutri-O-Matic leverages technology to simplify healthy eating, striving for bett
 happiness for all
 Indonesians.
 
-## Feature and Demo
+## Feature
 
-### Register, Login, And Classification
-
-### Catalog Product And Search Product
-
-### Scan Nutrition
-
-### Create Store
-
-### Admin Menu
-
-### Add Product and Request Advertise
-
-### Check Product After Acc Admin
+1. Register, Login, And Classification
+2. Catalog Product And Search Product
+3. Scan Nutrition
+4. Create Store
+5. Admin Menu
+6. Add Product and Request Advertise
+7. Check Product After Acc Admin
 
 ## Demo
 

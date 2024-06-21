@@ -6,91 +6,60 @@
 
 ## About :
 
-Nutri-O-Matic is a mobile app that simplifies tracking dietary intake by scanning nutrition labels, making it easier for
-users to make healthier food choices. With rising health concerns like obesity, hypertension, and diabetes in Indonesia,
-the app aims to promote healthier lifestyles. It provides detailed nutritional information such as calories, fats, and
-sodium content by scanning food labels. The app is designed to help reduce the number of patients suffering from these
-health issues in Indonesia, which ranks high globally in terms of diabetes, hypertension, and obesity prevalence.
-Nutri-O-Matic leverages technology to simplify healthy eating, striving for better health and happiness for all
+Nutri-O-Matic is a mobile app that simplifies tracking dietary intake by scanning nutrition labels,
+making it easier for
+users to make healthier food choices. With rising health concerns like obesity, hypertension, and
+diabetes in Indonesia,
+the app aims to promote healthier lifestyles. It provides detailed nutritional information such as
+calories, fats, and
+sodium content by scanning food labels. The app is designed to help reduce the number of patients
+suffering from these
+health issues in Indonesia, which ranks high globally in terms of diabetes, hypertension, and
+obesity prevalence.
+Nutri-O-Matic leverages technology to simplify healthy eating, striving for better health and
+happiness for all
 Indonesians.
 
 ## Feature and Demo
 
-[//]: # (### Register, Login, And Classification)
+### Register, Login, And Classification
 
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743)
+### Catalog Product And Search Product
 
-[//]: # ()
-[//]: # (### Catalog Product And Search Product)
+### Scan Nutrition
 
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335)
-[//]: # ()
+### Create Store
 
-[//]: # (### Scan Nutrition)
+### Admin Menu
 
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c)
+### Add Product and Request Advertise
 
-[//]: # (### Create Store  )
+### Check Product After Acc Admin
 
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71)
-
-[//]: # ()
-[//]: # (### Admin Menu)
-
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26)
-
-[//]: # ()
-[//]: # (### Add Product and Request Advertise)
-
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e)
-
-[//]: # ()
-[//]: # (### Check Product After Acc Admin)
-
-[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be)
-
-
-[//]: # ()
-[//]: # (| -                                                                                               | -                                                                                               |)
-
-[//]: # (|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|)
-
-[//]: # (| https://github.com/nutriomatic/mobile-app/assets/95174265/bb0df219-cf62-4ea6-9d27-2b219b045743  | https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335  |)
-
-[//]: # (| https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c  | https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71  |)
-
-[//]: # (| https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26  | https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e  |)
-
-[//]: # (| https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be  | https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be  |)
-
-[//]: # ()
-
+## Demo
 
 <table>
   <tr>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335" controls></video>
     </td>
     <td>
       <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
-    </td>
-    <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/43a46f32-015a-489e-8fbf-680590308e71" controls></video>
     </td>
   </tr>
 
 <tr>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/13a00db2-b0a9-442a-a8f9-688748970b26" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/e66308c8-9375-40ee-a7f8-2f5cde43800e" controls></video>
     </td>
     <td>
-      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/51596352-0452-4fc9-ba03-9e26184178be" controls></video>
     </td>
   </tr>
 </table>
@@ -98,7 +67,8 @@ Indonesians.
 ## Setup App Development Environment
 
 1. Download and install [Android Studio](https://developer.android.com/studio)
-3. Download / clone `git clone https://github.com/nutriomatic/mobile-app.git` this repository to a folder on your computer
+3. Download / clone `git clone https://github.com/nutriomatic/mobile-app.git` this repository to a
+   folder on your computer
 4. Start Android Studio, open your source code folder and check if the Gradle build will be
    successful using Build/Make
    Module "App". You might have to install the right Android SDK via Tools/SDK Manager first.

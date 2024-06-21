@@ -24,9 +24,11 @@ Indonesians.
 [//]: # (### Catalog Product And Search Product)
 
 [//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/e4914324-5991-4df3-8c6c-79f3b081d335)
+[//]: # ()
 
-### Scan Nutrition
-https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c
+[//]: # (### Scan Nutrition)
+
+[//]: # (https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c)
 
 [//]: # (### Create Store  )
 
@@ -66,6 +68,24 @@ https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-963
 
 <table>
   <tr>
+    <td>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+    </td>
+    <td>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+    </td>
+    <td>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+    </td>
+    <td>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+    </td>
+  </tr>
+
+<tr>
+    <td>
+      <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
+    </td>
     <td>
       <video src="https://github.com/nutriomatic/mobile-app/assets/95174265/ce161400-f30e-45c8-9637-d0f7a45ef22c" controls></video>
     </td>
